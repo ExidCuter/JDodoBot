@@ -1,0 +1,1 @@
+INSERT INTO `dodo-bot`.`t_user`(discordId) values ('161795217803051008'), ('174615849943040000');
