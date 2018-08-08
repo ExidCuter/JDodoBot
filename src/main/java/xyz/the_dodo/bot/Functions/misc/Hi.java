@@ -4,9 +4,9 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
-import xyz.the_dodo.bot.Functions.MainFunction;
+import xyz.the_dodo.bot.Functions.IFunction;
 
-public class Hi extends MainFunction
+public class Hi extends IFunction
 {
 	public Hi(String command, String description, String usage)
 	{

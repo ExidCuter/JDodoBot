@@ -7,6 +7,7 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import xyz.the_dodo.bot.listeners.CommandListner;
+import xyz.the_dodo.bot.utils.CommandHandler;
 
 import javax.security.auth.login.LoginException;
 
@@ -18,6 +19,8 @@ public class DodoBot {
                 .setToken("MzM4NjU5MTQ2MzMxMzI0NDE2.Dkw44w.pg-HzCDTC_o_nwPDxYOhloNbel0")
                 .addEventListener(new CommandListner())
                 .build();
+
+        CommandHandler.registerCommands();
 
         SpringApplication.run(DodoBot.class, args);
     }
