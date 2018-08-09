@@ -13,6 +13,11 @@ public class ServerServiceImpl implements IServerService {
     @Autowired
     private IServerRepo m_serverRepo;
 
+    public void setServerRepo(IServerRepo p_serverRepo)
+    {
+        m_serverRepo = p_serverRepo;
+    }
+
     @Override
     public Server findById(long id) {
         return m_serverRepo.getOne(id);

@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 @MappedSuperclass
 public class Identificator {
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

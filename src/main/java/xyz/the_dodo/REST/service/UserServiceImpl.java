@@ -14,6 +14,11 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserRepo userRepo;
 
+    public void setUserRepo(IUserRepo p_userRepo)
+    {
+        userRepo = p_userRepo;
+    }
+
     @Override
     public User findById(long id) {
         return userRepo.getOne(id);

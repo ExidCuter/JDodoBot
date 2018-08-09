@@ -13,6 +13,11 @@ public class QuoteServiceImpl implements IQuoteService {
     @Autowired
     private IQuoteRepo m_quoteRepo;
 
+    public void setQuoteRepo(IQuoteRepo p_quoteRepo)
+    {
+        m_quoteRepo = p_quoteRepo;
+    }
+
     @Override
     public Quote findById(long id) {
         return m_quoteRepo.getOne(id);

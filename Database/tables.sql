@@ -20,6 +20,7 @@ CREATE TABLE `dodo-bot`.`t_server`(
 CREATE TABLE `dodo-bot`.`t_bank_account`(
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   balance DECIMAL(30,2) NOT NULL,
+  last_pay DATETIME NOT NULL,
   user_id BIGINT NOT NULL,
   CONSTRAINT FK_UserBank FOREIGN KEY (user_id)
   REFERENCES `dodo-bot`.`t_user`(id)
@@ -42,14 +43,10 @@ CREATE TABLE `dodo-bot`.`t_default_role`(
   REFERENCES `dodo-bot`.`t_server`(id)
 );
 
-/*
-CREATE TABLE t_prefix();
-CREATE TABLE t_subscription();
-*/
-
 CREATE TABLE `dodo-bot`.`t_quote`(
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   person VARCHAR(50) NOT NULL,
+  wheno DATE NOT NULL DEFAULT '2018-08-08',
   quote VARCHAR (300) NOT NULL
 );
 
