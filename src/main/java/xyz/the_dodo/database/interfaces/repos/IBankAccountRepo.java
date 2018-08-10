@@ -6,4 +6,5 @@ import xyz.the_dodo.database.types.BankAccount;
 
 @Repository
 public interface IBankAccountRepo extends JpaRepository<BankAccount, Long> {
+	BankAccount findByUserDiscordId(String discordId);
 }

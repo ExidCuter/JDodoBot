@@ -17,6 +17,16 @@ public class BankServiceImpl implements IBankService {
     @Autowired
     private IBankAccountRepo bankAccountRepo;
 
+    public void setUserRepo(IUserRepo p_userRepo)
+    {
+        userRepo = p_userRepo;
+    }
+
+    public void setBankAccountRepo(IBankAccountRepo p_bankAccountRepo)
+    {
+        bankAccountRepo = p_bankAccountRepo;
+    }
+
     @Override
     public BankAccount findById(long id) {
         return bankAccountRepo.getOne(id);
@@ -25,6 +35,12 @@ public class BankServiceImpl implements IBankService {
     @Override
     public List<BankAccount> findAll() {
         return bankAccountRepo.findAll();
+    }
+
+    @Override
+    public BankAccount findByUserDiscordId(String discordId)
+    {
+        return bankAccountRepo.findByUserDiscordId(discordId);
     }
 
     @Override
