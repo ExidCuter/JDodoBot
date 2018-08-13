@@ -143,5 +143,4 @@ public class BankAccoutServiceImplTests
 				.extracting("id", "user.id")
 				.containsOnly(tuple(1L, 1L));
 	}
-
 }

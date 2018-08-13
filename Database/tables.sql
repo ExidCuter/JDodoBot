@@ -68,3 +68,11 @@ CREATE TABLE `dodo-bot`.`t_admin`(
   CONSTRAINT FK_ServerAdmin FOREIGN KEY (server_id)
   REFERENCES `dodo-bot`.`t_server`(id)
 );
+
+CREATE TABLE `dodo-bot.`.`t_prefix`(
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  prefix VARCHAR(20),
+  server_id BIGINT NOT NULL,
+  CONSTRAINT FK_ServerPrefix FOREIGN KEY (server_id)
+  REFERENCES `dodo-bot`.`t_server`(id)
+);
