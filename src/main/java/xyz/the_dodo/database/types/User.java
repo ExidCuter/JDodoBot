@@ -17,4 +17,13 @@ public class User extends Identificator {
     public void setDiscordId(String discordId) {
         this.discordId = discordId;
     }
+
+    public User()
+    {
+    }
+
+    public User(Long id)
+    {
+        super(id);
+    }
 }

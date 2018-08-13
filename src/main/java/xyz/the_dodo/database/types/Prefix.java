@@ -6,5 +6,11 @@ import javax.persistence.Entity;
 
 
 public class Prefix extends Identificator {
+	public Prefix() {
 
+	}
+
+	public Prefix(Long id) {
+		super(id);
+	}
 }

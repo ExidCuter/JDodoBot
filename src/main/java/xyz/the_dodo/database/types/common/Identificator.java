@@ -19,4 +19,12 @@ public class Identificator {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Identificator()
+    {
+    }
+
+    public Identificator(Long id)
+    {
+    }
 }

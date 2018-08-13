@@ -57,5 +57,11 @@ public class BugReport extends Identificator {
         this.time = time;
     }
 
+    public BugReport() {
 
+    }
+
+    public BugReport(Long id) {
+        super(id);
+    }
 }

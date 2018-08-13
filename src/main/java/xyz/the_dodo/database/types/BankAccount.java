@@ -40,4 +40,12 @@ public class BankAccount extends Identificator {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public BankAccount()
+    {
+    }
+
+    public BankAccount(Long id) {
+        super(id);
+    }
 }

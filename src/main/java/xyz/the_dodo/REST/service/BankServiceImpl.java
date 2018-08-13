@@ -2,6 +2,7 @@ package xyz.the_dodo.REST.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import xyz.the_dodo.database.interfaces.repos.IUserRepo;
 import xyz.the_dodo.database.interfaces.services.IBankService;
 import xyz.the_dodo.database.types.BankAccount;
@@ -52,6 +53,7 @@ public class BankServiceImpl implements IBankService {
     }
 
     @Override
+    @Transactional
     public BankAccount save(BankAccount oldObject, BankAccount newObject)
     {
         if(oldObject != null && newObject != null && oldObject.getId() == newObject.getId())

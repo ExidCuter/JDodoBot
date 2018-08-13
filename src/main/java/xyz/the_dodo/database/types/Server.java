@@ -17,4 +17,12 @@ public class Server extends Identificator {
     public void setDiscordId(String discordId) {
         this.discordId = discordId;
     }
+
+    public Server() {
+    }
+
+    public Server(Long id)
+    {
+        super(id);
+    }
 }
