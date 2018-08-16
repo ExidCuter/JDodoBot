@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `dodo-bot`.`t_prefix`;
 DROP TABLE IF EXISTS `dodo-bot`.`t_bank_account`;
 DROP TABLE IF EXISTS `dodo-bot`.`t_bug_report`;
 DROP TABLE IF EXISTS `dodo-bot`.`t_default_role`;
@@ -69,7 +70,7 @@ CREATE TABLE `dodo-bot`.`t_admin`(
   REFERENCES `dodo-bot`.`t_server`(id)
 );
 
-CREATE TABLE `dodo-bot.`.`t_prefix`(
+CREATE TABLE `dodo-bot`.`t_prefix`(
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   prefix VARCHAR(20),
   server_id BIGINT NOT NULL,

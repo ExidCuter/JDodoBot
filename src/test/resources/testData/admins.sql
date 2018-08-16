@@ -1,0 +1,1 @@
+INSERT INTO `t_admin` (server_id, user_id) values (1, 1), (2, 1);
