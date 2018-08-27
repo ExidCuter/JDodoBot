@@ -6,4 +6,5 @@ import xyz.the_dodo.database.types.DefaultRole;
 
 @Repository
 public interface IDefaultRoleRepo extends JpaRepository<DefaultRole, Long> {
+	DefaultRole getDefaultRoleByServerId(Long serverId);
 }

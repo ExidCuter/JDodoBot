@@ -51,13 +51,13 @@ public class AdminServiceImpl implements IAdminService
 	}
 
 	@Override
-	public List<Admin> getAdminsByServerId(Long id)
+	public List<Admin> getAdminsByServerId(String discordId)
 	{
 		List<Admin> admins;
 
 		admins = m_adminRepo.findAll();
 
-		admins.stream().filter(p_admin -> p_admin.getServer().getId().equals(id)).collect(Collectors.toList());
+		admins.stream().filter(p_admin -> p_admin.getServer().getDiscordId().equals(discordId)).collect(Collectors.toList());
 
 		return admins;
 	}

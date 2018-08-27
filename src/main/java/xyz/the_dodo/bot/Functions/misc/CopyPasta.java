@@ -1,7 +1,9 @@
 package xyz.the_dodo.bot.Functions.misc;
 
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.requests.restaction.pagination.MessagePaginationAction;
 import xyz.the_dodo.bot.Functions.IFunction;
+import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.RandomGen;
 
 public class CopyPasta extends IFunction
@@ -36,10 +38,10 @@ public class CopyPasta extends IFunction
 	}
 
 	@Override
-	public void trigger(Message message)
+	public void trigger(MessageParams p_messageParams)
 	{
 		try {
-			message.getTextChannel().sendMessage(copypastas[RandomGen.rndNm(copypastas.length)]).complete();
+			p_messageParams.getTextChannel().sendMessage(copypastas[RandomGen.rndNm(copypastas.length)]).complete();
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}

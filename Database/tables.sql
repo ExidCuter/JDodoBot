@@ -38,7 +38,7 @@ CREATE TABLE `dodo-bot`.`t_bug_report`(
 
 CREATE TABLE `dodo-bot`.`t_default_role`(
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
-  discordRoleId VARCHAR(30) NOT NULL,
+  discord_id VARCHAR(30) NOT NULL,
   server_id BIGINT NOT NULL,
   CONSTRAINT FK_ServerRole FOREIGN KEY (server_id)
   REFERENCES `dodo-bot`.`t_server`(id)

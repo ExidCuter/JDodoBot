@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IAdminService extends ICRUD<Admin>
 {
-	List<Admin> getAdminsByServerId(Long id);
+	List<Admin> getAdminsByServerId(String discordId);
 }

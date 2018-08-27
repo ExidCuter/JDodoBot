@@ -2,6 +2,7 @@ package xyz.the_dodo.bot.Functions;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
+import xyz.the_dodo.bot.types.MessageParams;
 
 import java.awt.*;
 
@@ -59,7 +60,7 @@ public abstract class IFunction
 		this.command = command;
 	}
 
-	public abstract void trigger(Message message);
+	public abstract void trigger(MessageParams p_messageParams);
 
 	public String getHelp()
 	{

@@ -5,6 +5,7 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
 import xyz.the_dodo.bot.Functions.IFunction;
+import xyz.the_dodo.bot.types.MessageParams;
 
 public class Hi extends IFunction
 {
@@ -14,16 +15,14 @@ public class Hi extends IFunction
 	}
 
 	@Override
-	public void trigger(Message message)
+	public void trigger(MessageParams p_messageParams)
 	{
-		User author;
 		MessageChannel messageChannel;
 
 		try {
-			author = message.getAuthor();
-			messageChannel = message.getTextChannel();
+			messageChannel = p_messageParams.getTextChannel();
 
-			messageChannel.sendMessage("Hi, " + author.getAsMention()).queue();
+			messageChannel.sendMessage("Hi, " + p_messageParams.getUser().getAsMention()).queue();
 		} catch(Exception e){
 			e.printStackTrace();
 			//TODO: implement BugReport

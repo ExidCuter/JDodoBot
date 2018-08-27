@@ -2,6 +2,7 @@ package xyz.the_dodo.bot.Functions.misc;
 
 import net.dv8tion.jda.core.entities.Message;
 import xyz.the_dodo.bot.Functions.IFunction;
+import xyz.the_dodo.bot.types.MessageParams;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class Cat extends IFunction
 	}
 
 	@Override
-	public void trigger(Message message) {
+	public void trigger(MessageParams p_messageParams) {
 		try {
 			//TODO: Make better
 			String url = "http://thecatapi.com/api/images/get?type=png";
@@ -40,7 +41,7 @@ public class Cat extends IFunction
 				e.printStackTrace();
 			}
 
-			message.getTextChannel().sendFile(baos.toByteArray(), "cat.png").queue();
+			p_messageParams.getTextChannel().sendFile(baos.toByteArray(), "cat.png").queue();
 		} catch (Exception e) {
 			//TODO: bugReporting
 		}

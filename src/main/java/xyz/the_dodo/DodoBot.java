@@ -15,8 +15,11 @@ import javax.security.auth.login.LoginException;
 @SpringBootApplication
 public class DodoBot {
     public static void main(String[] args) throws LoginException {
+        String token = "MzM4NjU5MTQ2MzMxMzI0NDE2.Dkw44w.pg-HzCDTC_o_nwPDxYOhloNbel0";
+        System.setProperty("http.agent", token );
+
         JDA jda = new JDABuilder(AccountType.BOT)
-                .setToken("MzM4NjU5MTQ2MzMxMzI0NDE2.Dkw44w.pg-HzCDTC_o_nwPDxYOhloNbel0")
+                .setToken(token)
                 .addEventListener(new CommandListner())
                 .build();
 

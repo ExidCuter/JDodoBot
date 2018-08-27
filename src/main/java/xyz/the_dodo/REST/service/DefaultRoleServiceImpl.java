@@ -3,6 +3,7 @@ package xyz.the_dodo.REST.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.the_dodo.database.interfaces.repos.IDefaultRoleRepo;
+import xyz.the_dodo.database.interfaces.repos.IServerRepo;
 import xyz.the_dodo.database.interfaces.services.IDefaultRoleService;
 import xyz.the_dodo.database.types.DefaultRole;
 
@@ -11,7 +12,20 @@ import java.util.List;
 @Service
 public class DefaultRoleServiceImpl implements IDefaultRoleService {
     @Autowired
+    private IServerRepo m_serverRepo;
+
+    @Autowired
     private IDefaultRoleRepo m_defaultRoleRepo;
+
+    public void setServerRepo(IServerRepo p_serverRepo)
+    {
+        m_serverRepo = p_serverRepo;
+    }
+
+    public void setDefaultRoleRepo(IDefaultRoleRepo p_defaultRoleRepo)
+    {
+        m_defaultRoleRepo = p_defaultRoleRepo;
+    }
 
     @Override
     public DefaultRole findById(long id) {
@@ -21,6 +35,12 @@ public class DefaultRoleServiceImpl implements IDefaultRoleService {
     @Override
     public List<DefaultRole> findAll() {
         return m_defaultRoleRepo.findAll();
+    }
+
+    @Override
+    public DefaultRole findByServerId(Long serveriId)
+    {
+        return m_defaultRoleRepo.getDefaultRoleByServerId(serveriId);
     }
 
     @Override

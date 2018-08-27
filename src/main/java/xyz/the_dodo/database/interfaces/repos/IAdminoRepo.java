@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface IAdminoRepo extends JpaRepository<Admin, Long>
 {
+
 }

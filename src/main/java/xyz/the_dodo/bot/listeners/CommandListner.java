@@ -3,6 +3,7 @@ package xyz.the_dodo.bot.listeners;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.CommandHandler;
 import xyz.the_dodo.bot.utils.StringUtils;
 
@@ -17,19 +18,15 @@ public class CommandListner extends ListenerAdapter
 			return;
 
 		String prefix;
-		Message message;
-		String content;
-		String[] commandsNParameters;
+		MessageParams messageParams;
 
 		prefix = "!";
-		message = event.getMessage();
-		content = message.getContentRaw();
-		commandsNParameters = StringUtils.getCommandNParameters(content);
 
+		messageParams = new MessageParams(event.getMessage());
 
 		commands.forEach(command -> {
-			if(commandsNParameters[0].equals(prefix + command.getCommand()))
-				command.trigger(message);
+			if(messageParams.getCommand().equals(prefix + command.getCommand()))
+				command.trigger(messageParams);
 		});
 	}
 }

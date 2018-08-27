@@ -3,6 +3,7 @@ package xyz.the_dodo.bot.Functions.misc;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 import xyz.the_dodo.bot.Functions.IFunction;
+import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.RandomGen;
 
 public class CoinFlip extends IFunction
@@ -13,8 +14,8 @@ public class CoinFlip extends IFunction
 	}
 
 	@Override
-	public void trigger(Message message) {
-		TextChannel textChannel = message.getTextChannel();
+	public void trigger(MessageParams p_messageParams) {
+		TextChannel textChannel = p_messageParams.getTextChannel();
 		try {
 			int x = RandomGen.rndNm(2);
 			if (x == 0)
