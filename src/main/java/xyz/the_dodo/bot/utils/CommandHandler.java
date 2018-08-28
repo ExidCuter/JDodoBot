@@ -1,7 +1,13 @@
 package xyz.the_dodo.bot.utils;
 
 import xyz.the_dodo.bot.Functions.IFunction;
+import xyz.the_dodo.bot.Functions.bank.Balance;
+import xyz.the_dodo.bot.Functions.bank.PayDay;
+import xyz.the_dodo.bot.Functions.bank.Register;
+import xyz.the_dodo.bot.Functions.bank.Transfer;
 import xyz.the_dodo.bot.Functions.misc.*;
+import xyz.the_dodo.bot.Functions.utils.DeleteAdmin;
+import xyz.the_dodo.bot.Functions.utils.GetAdmins;
 import xyz.the_dodo.bot.Functions.utils.SetAdmin;
 
 import java.util.ArrayList;
@@ -21,5 +27,13 @@ public class CommandHandler
 		commands.add(new Triggered("triggered", "Show how triggered are you", "triggered"));
 		commands.add(new Roll("roll", "rolls a X sided dice", "roll <MAX>"));
 		commands.add(new SetAdmin("setAdmin", "Sets admin of the guild", "setAdmin <USER MENTION>"));
+		commands.add(new GetAdmins("getAdmins", "Returns the list of admins", "admins"));
+		commands.add(new DeleteAdmin("delAdmin", "Removes user from the admin list", "delAdmin <MENTION USERS>"));
+		commands.add(new Shoot("shoot", "Shoots ya", "shoot/shoot <USER MENTION>"));
+		commands.add(new Speak("say", "Repeats after you", "say <WHAT>"));
+		commands.add(new Register("bank.register", "Creates a bank account", "bank.register"));
+		commands.add(new Balance("bank.balance", "Gets balance of your bank account", "bank.balance"));
+		commands.add(new PayDay("payday", "PAYDAY!!!", "payday"));
+		commands.add(new Transfer("bank.transfer", "Transfers money!!", "bank.transfer <USER MENTION/ACCOUNT NUMBER> <AMOUNT>"));
 	}
 }

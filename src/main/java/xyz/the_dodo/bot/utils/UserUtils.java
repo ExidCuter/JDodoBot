@@ -2,31 +2,29 @@ package xyz.the_dodo.bot.utils;
 
 import net.dv8tion.jda.core.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import xyz.the_dodo.REST.service.UserServiceImpl;
 import xyz.the_dodo.database.interfaces.services.IUserService;
-import xyz.the_dodo.database.types.Admin;
-
-import java.util.List;
 
 public class UserUtils
 {
-	@Autowired
-	private static IUserService m_userService;
+	public static IUserService m_userService = BeanUtils.getBean(UserServiceImpl.class);
 
-	public static boolean userExists(User user) {
-		xyz.the_dodo.database.types.User dodoUser;
+	public static boolean userExists(User p_user) {
+		xyz.the_dodo.database.types.User user;
 
-		dodoUser = m_userService.findByDiscordId(user.getId());
+		user = m_userService.findByDiscordId(p_user.getId());
 
-		return dodoUser != null;
+		return user != null;
 	}
 
 	public static void createDodoUser(User p_user) {
-		xyz.the_dodo.database.types.User dodoUser;
+		xyz.the_dodo.database.types.User user;
 
-		dodoUser = new xyz.the_dodo.database.types.User();
+		user = new xyz.the_dodo.database.types.User();
 
-		dodoUser.setDiscordId(p_user.getId());
+		user.setDiscordId(p_user.getId());
 
-		m_userService.save(dodoUser);
+		m_userService.save(user);
 	}
 }

@@ -8,14 +8,49 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class ImageUtils
 {
+	public static BufferedImage[] gif;
+
+	public static BufferedImage triggered;
+
+	public static ByteArrayOutputStream generateShoot(String p_userImage) {
+		try {
+			ByteArrayOutputStream os;
+			AnimatedGifEncoder e;
+			BufferedImage avatar;
+
+			e = new AnimatedGifEncoder();
+			os = new ByteArrayOutputStream();
+			avatar = getBufferedImageFromUrl(p_userImage);
+
+			e.start(os);
+			e.repeat = 100;
+			e.transparent = new Color(0,0,0,0);
+			e.setDelay(70);
+
+			for (int i = 0; i < gif.length; i++) {
+				if (i>21) drawImg(gif[i],avatar,30-(10*(i-20)),42+(11*(i-20)),110,98);
+				else drawImg(gif[i],avatar,30,42,110,98);
+				e.addFrame(gif[i]);
+			}
+
+			e.finish();
+
+			return os;
+
+		} catch(IOException e) {
+			return null;
+		}
+	}
+
 	public static ByteArrayOutputStream generateTriggered(String p_userImage){
 		try {
 			ByteArrayOutputStream os;
 			AnimatedGifEncoder e;
-			BufferedImage canvas, avatar, triggered;
+			BufferedImage canvas, avatar;
 
 			e = new AnimatedGifEncoder();
 			os = new ByteArrayOutputStream();
@@ -66,7 +101,7 @@ public class ImageUtils
 		}
 	}
 
-	private static BufferedImage getBufferedImageFromFile(String p_fileName) throws IOException {
+	public static BufferedImage getBufferedImageFromFile(String p_fileName) throws IOException {
 		BufferedImage img;
 
 		img = ImageIO.read(new File(p_fileName));

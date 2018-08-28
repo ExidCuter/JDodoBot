@@ -11,8 +11,7 @@ import java.util.List;
 
 public class AdminUtils
 {
-	@Autowired
-	private static AdminServiceImpl m_adminService;
+	public static AdminServiceImpl m_adminService = BeanUtils.getBean(AdminServiceImpl.class);
 
 	public static boolean isAdminOfGuild(User user, Guild guild) {
 		List<Admin> admins;
@@ -26,4 +25,6 @@ public class AdminUtils
 
 		return false;
 	}
+
+
 }

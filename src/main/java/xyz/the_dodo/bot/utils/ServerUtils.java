@@ -1,14 +1,13 @@
 package xyz.the_dodo.bot.utils;
 
 import net.dv8tion.jda.core.entities.Guild;
-import org.springframework.beans.factory.annotation.Autowired;
+import xyz.the_dodo.REST.service.ServerServiceImpl;
 import xyz.the_dodo.database.interfaces.services.IServerService;
 import xyz.the_dodo.database.types.Server;
 
 public class ServerUtils
 {
-	@Autowired
-	private static IServerService m_serverService;
+	public static IServerService m_serverService = BeanUtils.getBean(ServerServiceImpl.class);
 
 	public static boolean serverExist(Guild p_guild) {
 		Server server;
