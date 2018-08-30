@@ -1,6 +1,5 @@
 package xyz.the_dodo.bot.Functions.bank;
 
-import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.User;
 import xyz.the_dodo.bot.Functions.IFunction;
 import xyz.the_dodo.bot.types.MessageParams;
@@ -20,7 +19,7 @@ public class PayDay extends IFunction {
         BankAccount ba;
 
         user = p_messageParams.getUser();
-        if (BankUtils.bankAccoutnExists(p_messageParams.getUser())) {
+        if (BankUtils.bankAccountExists(p_messageParams.getUser())) {
             ba = BankUtils.m_bankService.findByUserDiscordId(user.getId());
             if (ba.getLastPay().plusDays(1L).isBefore(LocalDateTime.now())) {
                 ba.setBalance(ba.getBalance() + 100);

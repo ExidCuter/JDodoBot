@@ -1,6 +1,5 @@
 package xyz.the_dodo.bot.Functions.misc;
 
-import net.dv8tion.jda.core.entities.Message;
 import xyz.the_dodo.bot.Functions.IFunction;
 import xyz.the_dodo.bot.types.MessageParams;
 
@@ -21,7 +20,7 @@ public class Cat extends IFunction
 	public void trigger(MessageParams p_messageParams) {
 		try {
 			//TODO: Make better
-			String url = "http://thecatapi.com/api/images/get?type=png";
+			String url = "https://api.thecatapi.com/api/images/get?type=png";
 			URL obj = new URL(url);
 
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();

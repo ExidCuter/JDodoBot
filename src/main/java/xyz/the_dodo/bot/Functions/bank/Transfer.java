@@ -19,7 +19,7 @@ public class Transfer extends IFunction {
 
         user = p_messageParams.getUser();
 
-        if (BankUtils.bankAccoutnExists(p_messageParams.getUser())) {
+        if (BankUtils.bankAccountExists(p_messageParams.getUser())) {
             if (p_messageParams.getParameters().length == 2) {
                 if (p_messageParams.getMessage().getMentionedUsers().size() > 0)
                     user2 = p_messageParams.getMessage().getMentionedUsers().get(0);
@@ -29,7 +29,7 @@ public class Transfer extends IFunction {
                     } catch (Exception e) {
                         user2 = null;
                     }
-                if (user2 != null && BankUtils.bankAccoutnExists(user2)) {
+                if (user2 != null && BankUtils.bankAccountExists(user2)) {
                     try {
                         amount = Double.parseDouble(p_messageParams.getParameters()[1]);
                     } catch (Exception e) {

@@ -12,7 +12,7 @@ public class Register extends IFunction
 
     @Override
     public void trigger(MessageParams p_messageParams) {
-        if (!BankUtils.bankAccoutnExists(p_messageParams.getUser())) {
+        if (!BankUtils.bankAccountExists(p_messageParams.getUser())) {
             BankUtils.createBankAccount(p_messageParams.getUser());
             p_messageParams.getTextChannel().sendMessage("BankAccount created! Your account number is: " + p_messageParams.getUser().getId() + " with starting balance of 100 ₪.").queue();
         } else

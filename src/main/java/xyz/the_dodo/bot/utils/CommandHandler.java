@@ -1,14 +1,9 @@
 package xyz.the_dodo.bot.utils;
 
 import xyz.the_dodo.bot.Functions.IFunction;
-import xyz.the_dodo.bot.Functions.bank.Balance;
-import xyz.the_dodo.bot.Functions.bank.PayDay;
-import xyz.the_dodo.bot.Functions.bank.Register;
-import xyz.the_dodo.bot.Functions.bank.Transfer;
+import xyz.the_dodo.bot.Functions.bank.*;
 import xyz.the_dodo.bot.Functions.misc.*;
-import xyz.the_dodo.bot.Functions.utils.DeleteAdmin;
-import xyz.the_dodo.bot.Functions.utils.GetAdmins;
-import xyz.the_dodo.bot.Functions.utils.SetAdmin;
+import xyz.the_dodo.bot.Functions.utils.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,5 +30,24 @@ public class CommandHandler
 		commands.add(new Balance("bank.balance", "Gets balance of your bank account", "bank.balance"));
 		commands.add(new PayDay("payday", "PAYDAY!!!", "payday"));
 		commands.add(new Transfer("bank.transfer", "Transfers money!!", "bank.transfer <USER MENTION/ACCOUNT NUMBER> <AMOUNT>"));
+		commands.add(new Help("help", "Shows help", "help || help <command>"));
+		commands.add(new Slot("slot", "Play the slots!!", "slot <AMOUNT>"));
+		commands.add(new SetDefaultRole("setDefaultRole", "When a new user joins your guild they are set to this role!", "setDefaultRole <ROLE MENTION>"));
+		commands.add(new GetDefaultRole("getDefaultRole", "Gets the name of default role", "getDefaultRole"));
+		commands.add(new About("about", "About bot", "about"));
+	}
+
+	public static String generateHelp(){
+		StringBuilder builder;
+
+		builder = new StringBuilder();
+
+		builder.append("DodoBot functions:\n");
+
+		commands.forEach(command -> builder.append(command.getHelp() + "\n"));
+
+		builder.append("`type help <command> to get more help`");
+
+		return builder.toString();
 	}
 }

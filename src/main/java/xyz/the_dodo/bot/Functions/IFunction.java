@@ -7,8 +7,8 @@ import xyz.the_dodo.bot.types.MessageParams;
 
 import java.awt.*;
 
-public abstract class IFunction
-{
+public abstract class IFunction {
+	//TODO: add categories
 	public String command;
 	public String description;
 	public String usage;
@@ -54,8 +54,7 @@ public abstract class IFunction
 		isService = p_service;
 	}
 
-	public IFunction(String command, String description, String usage)
-	{
+	public IFunction(String command, String description, String usage) {
 		this.usage = usage;
 		this.description = description;
 		this.command = command;
@@ -63,15 +62,11 @@ public abstract class IFunction
 
 	public abstract void trigger(MessageParams p_messageParams);
 
-	public String getHelp()
-	{
-		return "```Command: " + command +
-				"\nDescription: " + description +
-				"\nUsage: " + usage + "```";
+	public String getHelp()	{
+		return "`" + command + "` - " + description;
 	}
 
-	public EmbedBuilder getEmbededHelp()
-	{
+	public EmbedBuilder getEmbededHelp() {
 		EmbedBuilder embMsg = new EmbedBuilder();
 		embMsg.setTitle("Command: " + command + "", "http://the-dodo.xyz")
 				.setDescription(description)

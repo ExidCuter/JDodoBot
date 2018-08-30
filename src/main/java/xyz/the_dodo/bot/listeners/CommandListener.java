@@ -9,7 +9,7 @@ import xyz.the_dodo.bot.utils.StringUtils;
 
 import static xyz.the_dodo.bot.utils.CommandHandler.commands;
 
-public class CommandListner extends ListenerAdapter
+public class CommandListener extends ListenerAdapter
 {
 	@Override
 	public void onMessageReceived(MessageReceivedEvent event)

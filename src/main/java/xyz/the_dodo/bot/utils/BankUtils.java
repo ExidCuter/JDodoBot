@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class BankUtils {
     public static IBankService m_bankService = BeanUtils.getBean(BankServiceImpl.class);
 
-    public static boolean bankAccoutnExists(User p_user) {
+    public static boolean bankAccountExists(User p_user) {
         BankAccount ba;
 
         ba = m_bankService.findByUserDiscordId(p_user.getId());

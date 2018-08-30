@@ -20,7 +20,7 @@ public class Balance extends IFunction {
 
         author = p_messageParams.getUser();
 
-        if (BankUtils.bankAccoutnExists(author)) {
+        if (BankUtils.bankAccountExists(author)) {
             ba = BankUtils.m_bankService.findByUserDiscordId(author.getId());
 
             embMsg = new EmbedBuilder();
