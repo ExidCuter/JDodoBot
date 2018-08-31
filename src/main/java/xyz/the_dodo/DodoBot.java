@@ -11,6 +11,7 @@ import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 import xyz.the_dodo.bot.listeners.CommandListener;
 import xyz.the_dodo.bot.listeners.OnAddedToServerListener;
 import xyz.the_dodo.bot.listeners.OnServerJoinListener;
+import xyz.the_dodo.bot.listeners.StatsListener;
 import xyz.the_dodo.bot.utils.CommandHandler;
 import xyz.the_dodo.bot.utils.ImageUtils;
 
@@ -36,9 +37,10 @@ public class DodoBot {
 
         bot = new JDABuilder(AccountType.BOT)
                 .setToken(init.getToken())
+                .addEventListener(new StatsListener())
                 .addEventListener(new CommandListener())
-                .addEventListener(new OnAddedToServerListener())
                 .addEventListener(new OnServerJoinListener())
+                .addEventListener(new OnAddedToServerListener())
                 .build();
 
         SpringApplication.run(DodoBot.class, args);

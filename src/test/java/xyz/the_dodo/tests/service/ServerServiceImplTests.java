@@ -10,10 +10,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import xyz.the_dodo.REST.service.ServerServiceImpl;
-import xyz.the_dodo.REST.service.ServerServiceImpl;
 import xyz.the_dodo.database.interfaces.repos.IServerRepo;
 import xyz.the_dodo.database.interfaces.services.IServerService;
-import xyz.the_dodo.database.types.Server;
 import xyz.the_dodo.database.types.Server;
 
 import javax.annotation.PostConstruct;

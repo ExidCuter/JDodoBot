@@ -54,8 +54,8 @@ CREATE TABLE `dodo-bot`.`t_quote`(
 CREATE TABLE `dodo-bot`.`t_user_stats`(
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   user_id BIGINT NOT NULL,
-  numOfMessages BIGINT NOT NULL DEFAULT 0,
-  numOfFiles BIGINT NOT NULL DEFAULT 0,
+  num_of_messages BIGINT NOT NULL DEFAULT 0,
+  num_of_files BIGINT NOT NULL DEFAULT 0,
   CONSTRAINT FK_UserStats FOREIGN KEY (user_id)
   REFERENCES `dodo-bot`.`t_user`(id)
 );

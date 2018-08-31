@@ -1,3 +1,7 @@
-INSERT INTO t_user (discord_id) values
+INSERT INTO t_user (discord_id) VALUES
   ('00000000000000'),
   ('00000000000001');
+
+INSERT INTO t_user_stats(numOfMessages, numOfFiles, user_id) VALUES
+  (10, 1, 1),
+  (12, 2, 2);

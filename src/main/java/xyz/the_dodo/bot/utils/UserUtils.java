@@ -1,8 +1,6 @@
 package xyz.the_dodo.bot.utils;
 
 import net.dv8tion.jda.core.entities.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import xyz.the_dodo.REST.service.UserServiceImpl;
 import xyz.the_dodo.database.interfaces.services.IUserService;
 
