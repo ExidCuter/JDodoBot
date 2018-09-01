@@ -1,9 +1,6 @@
 package xyz.the_dodo.bot.Functions.misc;
 
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
 import xyz.the_dodo.bot.Functions.IFunction;
 import xyz.the_dodo.bot.types.MessageParams;
 

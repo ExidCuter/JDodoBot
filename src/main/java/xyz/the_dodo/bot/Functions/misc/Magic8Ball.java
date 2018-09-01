@@ -1,6 +1,5 @@
 package xyz.the_dodo.bot.Functions.misc;
 
-import net.dv8tion.jda.core.entities.Message;
 import xyz.the_dodo.bot.Functions.IFunction;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.RandomGen;

@@ -1,11 +1,8 @@
 package xyz.the_dodo.bot.listeners;
 
-import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import xyz.the_dodo.bot.types.MessageParams;
-import xyz.the_dodo.bot.utils.CommandHandler;
-import xyz.the_dodo.bot.utils.StringUtils;
 
 import static xyz.the_dodo.bot.utils.CommandHandler.commands;
 
