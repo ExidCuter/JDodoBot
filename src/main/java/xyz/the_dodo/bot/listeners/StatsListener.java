@@ -18,7 +18,13 @@ public class StatsListener extends ListenerAdapter {
         if (stats != null) {
             stats.setNumOfMessages(stats.getNumOfMessages() + 1);
 
+            if (event.getMessage().getAttachments().size() > 0) {
+                stats.setNumOfFiles(stats.getNumOfFiles() + event.getMessage().getAttachments().size());
+            }
+
             StatsUtils.saveStats(stats);
         }
     }
+
+
 }
