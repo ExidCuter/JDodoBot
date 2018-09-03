@@ -1,7 +1,11 @@
 package xyz.the_dodo.bot.Functions.misc;
 
+import net.dv8tion.jda.core.EmbedBuilder;
 import xyz.the_dodo.bot.Functions.IFunction;
 import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.utils.RedditUtils;
+
+import java.awt.*;
 
 public class Meme extends IFunction {
     public Meme(String command, String description, String usage) {
@@ -10,6 +14,20 @@ public class Meme extends IFunction {
 
     @Override
     public void trigger(MessageParams p_messageParams) {
-        //TODO: implement reddit things
+        String meme;
+        String[] memeParts;
+        EmbedBuilder embMsg;
+
+        embMsg = new EmbedBuilder();
+
+        meme = RedditUtils.getRandomPost(RedditUtils.getPosts("dankmemes", 50));
+        memeParts = meme.split("&");
+
+        embMsg.setTitle(memeParts[0], "https://reddit.com" + memeParts[2]);
+        embMsg.setImage(memeParts[1]);
+        embMsg.setFooter("/r/dankmemes", "https://media.glassdoor.com/sqll/796358/reddit-squarelogo-1490630845152.png");
+        embMsg.setColor(new Color(253, 130, 0));
+
+        p_messageParams.getTextChannel().sendMessage(embMsg.build()).queue();
     }
 }

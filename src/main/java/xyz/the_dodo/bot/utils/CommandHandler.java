@@ -27,6 +27,9 @@ public class CommandHandler
 		commands.add(new Roll("roll", "rolls a X sided dice", "roll <MAX>"));
 		commands.add(new Shoot("shoot", "Shoots ya", "shoot/shoot <USER MENTION>"));
 		commands.add(new Speak("say", "Repeats after you", "say <WHAT>"));
+		commands.add(new Meme("meme", "Gets a random meme from /r/dankmemes", "meme"));
+		commands.add(new RedditRandomPost("reddit.random", "Gets random post from hot section of the specified subreddit!", "reddit.random <SUBREDDIT NAME>"));
+		commands.add(new RedditTopPosts("reddit.getTop", "Gets top 3 posts form hot from specified subreddit!", "reddit.getTop <SUBREDDIT NAME>"));
 
 		//utils
 		commands.add(new SetAdmin("setAdmin", "Sets admin of the guild", "setAdmin <USER MENTION>"));
@@ -50,7 +53,7 @@ public class CommandHandler
 		commands.add(new ResetStats("stopStats", "Stops tracking your stats", "stopStats"));
 	}
 
-	public static String generateHelp(){
+	public static String generateHelp() {
 		StringBuilder builder;
 
 		builder = new StringBuilder();

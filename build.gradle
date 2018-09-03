@@ -42,6 +42,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile 'mysql:mysql-connector-java'
     compile 'net.dean.jraw:JRAW:1.1.0'
+    compile group: 'com.github.jreddit', name: 'jreddit', version: '1.0.3'
+    compile group: 'com.github.jreddit', name: 'jreddit', version: '1.0.3'
     testCompile("com.h2database:h2")
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile group: 'junit', name: 'junit', version: '4.12'
