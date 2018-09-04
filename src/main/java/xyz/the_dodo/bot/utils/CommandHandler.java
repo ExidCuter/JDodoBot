@@ -3,6 +3,7 @@ package xyz.the_dodo.bot.utils;
 import xyz.the_dodo.bot.Functions.IFunction;
 import xyz.the_dodo.bot.Functions.bank.*;
 import xyz.the_dodo.bot.Functions.misc.*;
+import xyz.the_dodo.bot.Functions.stats.Bribe;
 import xyz.the_dodo.bot.Functions.stats.CheckStats;
 import xyz.the_dodo.bot.Functions.stats.CountStats;
 import xyz.the_dodo.bot.Functions.stats.ResetStats;
@@ -51,6 +52,7 @@ public class CommandHandler
 		commands.add(new CountStats("countStats", "Starts tracking your stats", "countStats"));
 		commands.add(new CheckStats("stats", "Shows your stats", "stats"));
 		commands.add(new ResetStats("stopStats", "Stops tracking your stats", "stopStats"));
+		commands.add(new Bribe("bribe", "Bribes the bot. Increases your stats score!", "bribe <AMOUNT OF MONEY>"));
 	}
 
 	public static String generateHelp() {

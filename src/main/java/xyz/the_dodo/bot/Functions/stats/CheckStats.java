@@ -44,7 +44,7 @@ public class CheckStats extends IFunction {
             } else if (stats.getNumOfMessages() + stats.getNumOfFiles() < 25000) {
                 level = "Super Cat";
                 img = "https://i.ytimg.com/vi/rcMJeTv6P9M/maxresdefault.jpg";
-            } else if (stats.getNumOfMessages() + stats.getNumOfFiles() < 40000) {
+            } else {
                 level = "Cat roll";
                 img = "https://boygeniusreport.files.wordpress.com/2015/06/funny-cat.jpg";
             }
