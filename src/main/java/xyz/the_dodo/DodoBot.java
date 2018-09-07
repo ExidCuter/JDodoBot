@@ -14,6 +14,7 @@ import xyz.the_dodo.bot.listeners.OnServerJoinListener;
 import xyz.the_dodo.bot.listeners.StatsListener;
 import xyz.the_dodo.bot.utils.CommandHandler;
 import xyz.the_dodo.bot.utils.ImageUtils;
+import com.kdotj.simplegiphy.SimpleGiphy;
 
 import javax.security.auth.login.LoginException;
 import java.awt.image.BufferedImage;
@@ -57,6 +58,7 @@ public class DodoBot {
 
 class Initiator {
     private String token;
+    private String giphyToken;
 
     public void setToken(String p_token) {
         token = p_token;
@@ -66,9 +68,21 @@ class Initiator {
         return token;
     }
 
+    public String getGiphyToken() {
+        return giphyToken;
+    }
+
     public Initiator() throws IOException {
         List<String> settings = Files.readAllLines(Paths.get("settings.txt"));
-        token = settings.get(0);
+        try {
+            token = settings.get(0);
+            giphyToken = settings.get(1);
+
+            SimpleGiphy.setApiKey(giphyToken);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         System.setProperty("http.agent", token);
 
         CommandHandler.registerCommands();
