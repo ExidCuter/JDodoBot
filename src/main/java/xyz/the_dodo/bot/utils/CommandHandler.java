@@ -35,6 +35,7 @@ public class CommandHandler
 		commands.add(new Meme("meme", "Gets a random meme from /r/dankmemes", "meme"));
 		commands.add(new RedditRandomPost("reddit.random", "Gets random post from hot section of the specified subreddit!", "reddit.random <SUBREDDIT NAME>"));
 		commands.add(new RedditTopPosts("reddit.getTop", "Gets top 3 posts form hot from specified subreddit!", "reddit.getTop <SUBREDDIT NAME>"));
+		commands.add(new ProgrammerMeme("reddit.getMeme();", "Gets a meme from r/programmerHumor", "reddit.getMeme();"));
 		commands.add(new GiphyGif("gif", "Gets a GIF from Giphy", "gif <QUERY>"));
 
 		//utils
