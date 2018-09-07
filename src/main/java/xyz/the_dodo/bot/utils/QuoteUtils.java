@@ -4,6 +4,7 @@ import xyz.the_dodo.REST.service.QuoteServiceImpl;
 import xyz.the_dodo.database.interfaces.services.IQuoteService;
 import xyz.the_dodo.database.types.Quote;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,20 @@ public class QuoteUtils {
         });
 
         return usersQuotes;
+    }
+
+    public static Quote saveQuoteFromUser(String p_quote, String p_user) {
+        Quote quote;
+
+        quote = new Quote();
+
+        quote.setPerson(p_user);
+        quote.setQuote(p_quote);
+        quote.setWheno(LocalDate.now());
+
+        m_serverService.save(quote);
+
+        return quote;
     }
 
 }

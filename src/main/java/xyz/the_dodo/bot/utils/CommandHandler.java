@@ -3,6 +3,10 @@ package xyz.the_dodo.bot.utils;
 import xyz.the_dodo.bot.Functions.IFunction;
 import xyz.the_dodo.bot.Functions.bank.*;
 import xyz.the_dodo.bot.Functions.misc.*;
+import xyz.the_dodo.bot.Functions.quotes.CreateQuote;
+import xyz.the_dodo.bot.Functions.quotes.GetAllQuotes;
+import xyz.the_dodo.bot.Functions.quotes.GetBadQuote;
+import xyz.the_dodo.bot.Functions.quotes.GetQuote;
 import xyz.the_dodo.bot.Functions.stats.Bribe;
 import xyz.the_dodo.bot.Functions.stats.CheckStats;
 import xyz.the_dodo.bot.Functions.stats.CountStats;
@@ -53,6 +57,12 @@ public class CommandHandler
 		commands.add(new CheckStats("stats", "Shows your stats", "stats"));
 		commands.add(new ResetStats("stopStats", "Stops tracking your stats", "stopStats"));
 		commands.add(new Bribe("bribe", "Bribes the bot. Increases your stats score!", "bribe <AMOUNT OF MONEY>"));
+
+		//quotes
+		commands.add(new CreateQuote("createQuote", "Creates a quote", "quote <WHO> <QUOTE>"));
+		commands.add(new GetQuote("quote", "Gets a quote from person", "quote <PERSON>"));
+		commands.add(new GetBadQuote("quote", "Gets a quote from reddit", "quote"));
+		commands.add(new GetAllQuotes("allQuotes", "Gets all of the persons quotes", "allQuotes <PERSON>"));
 	}
 
 	public static String generateHelp() {

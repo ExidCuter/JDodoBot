@@ -29,10 +29,19 @@ public class StringUtils
 	}
 
 	public static List<String> splitIntoMessages(String str, char splitOn) {
-		int j = 0;
-		ArrayList<String> out = new ArrayList<>();
-		int brakePoint = 0;
-		int lastBrakePoint = str.length();
+		ArrayList<String> out;
+		int brakePoint, lastBrakePoint;
+
+		out = new ArrayList<>();
+
+		if (str.length() < 1900) {
+			out.add(str);
+
+			return out;
+		}
+
+		brakePoint = 0;
+		lastBrakePoint = str.length();
 		for (int i = str.length() - 1; i > -1; i--) {
 			if(i%1900 == 0){
 				out.add(str.substring(brakePoint,lastBrakePoint));
@@ -43,5 +52,9 @@ public class StringUtils
 			}
 		}
 		return out;
+	}
+
+	public static String capitaliseFirsLetter(String input) {
+		return input.substring(0, 1).toUpperCase() + input.substring(1);
 	}
 }
