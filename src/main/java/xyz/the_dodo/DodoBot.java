@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
+import xyz.dodo.fortnite.Fortnite;
+import xyz.the_dodo.bot.Functions.misc.FortniteRecords;
 import xyz.the_dodo.bot.listeners.CommandListener;
 import xyz.the_dodo.bot.listeners.OnAddedToServerListener;
 import xyz.the_dodo.bot.listeners.OnServerJoinListener;
@@ -57,33 +59,35 @@ public class DodoBot {
 }
 
 class Initiator {
-    private String token;
-    private String giphyToken;
+    private String m_token;
+    private String m_giphyToken;
 
     public void setToken(String p_token) {
-        token = p_token;
+        m_token = p_token;
     }
 
     public String getToken() {
-        return token;
+        return m_token;
     }
 
     public String getGiphyToken() {
-        return giphyToken;
+        return m_giphyToken;
     }
 
     public Initiator() throws IOException {
         List<String> settings = Files.readAllLines(Paths.get("settings.txt"));
         try {
-            token = settings.get(0);
-            giphyToken = settings.get(1);
+            m_token = settings.get(0);
+            m_giphyToken = settings.get(1);
 
-            SimpleGiphy.setApiKey(giphyToken);
+            FortniteRecords.setFortnite(new Fortnite(settings.get(2)));
+
+            SimpleGiphy.setApiKey(m_giphyToken);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        System.setProperty("http.agent", token);
+        System.setProperty("http.agent", m_token);
 
         CommandHandler.registerCommands();
 
