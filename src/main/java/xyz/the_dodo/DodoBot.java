@@ -3,6 +3,7 @@ package xyz.the_dodo;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Guild;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +15,7 @@ import xyz.the_dodo.bot.listeners.CommandListener;
 import xyz.the_dodo.bot.listeners.OnAddedToServerListener;
 import xyz.the_dodo.bot.listeners.OnServerJoinListener;
 import xyz.the_dodo.bot.listeners.StatsListener;
+import xyz.the_dodo.bot.types.CommandCategory;
 import xyz.the_dodo.bot.utils.CommandHandler;
 import xyz.the_dodo.bot.utils.ImageUtils;
 import com.kdotj.simplegiphy.SimpleGiphy;
@@ -47,6 +49,8 @@ public class DodoBot {
                 .build();
 
         SpringApplication.run(DodoBot.class, args);
+
+        bot.getPresence().setGame(Game.playing("!help for HELP"));
     }
 
     public static int getNumOfServers() {

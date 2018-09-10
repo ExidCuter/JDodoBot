@@ -3,6 +3,7 @@ package xyz.the_dodo.bot.Functions.utils;
 import net.dv8tion.jda.core.EmbedBuilder;
 import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.bot.Functions.IFunction;
+import xyz.the_dodo.bot.types.CommandCategory;
 import xyz.the_dodo.bot.types.MessageParams;
 
 import java.awt.*;
@@ -10,6 +11,7 @@ import java.awt.*;
 public class About extends IFunction {
     public About(String command, String description, String usage) {
         super(command, description, usage);
+        commandCategory = CommandCategory.UTILS;
     }
 
     @Override

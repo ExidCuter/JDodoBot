@@ -12,6 +12,9 @@ public class StatsListener extends ListenerAdapter {
         User user;
         Stats stats;
 
+        if (event.getAuthor().isBot())
+            return;
+
         user = event.getAuthor();
         stats = StatsUtils.statsExists(user);
 

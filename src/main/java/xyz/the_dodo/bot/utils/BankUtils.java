@@ -7,7 +7,6 @@ import xyz.the_dodo.database.types.BankAccount;
 
 import java.time.LocalDateTime;
 
-
 public class BankUtils {
     public static IBankService m_bankService = BeanUtils.getBean(BankServiceImpl.class);
 
@@ -26,7 +25,7 @@ public class BankUtils {
         ba = new BankAccount();
         user = UserUtils.m_userService.findByDiscordId(p_user.getId());
 
-        if(user == null) {
+        if (user == null) {
             user = new xyz.the_dodo.database.types.User();
             user.setDiscordId(p_user.getId());
 

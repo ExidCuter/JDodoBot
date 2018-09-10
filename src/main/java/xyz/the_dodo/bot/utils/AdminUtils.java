@@ -9,22 +9,21 @@ import xyz.the_dodo.database.types.Admin;
 
 import java.util.List;
 
-public class AdminUtils
-{
-	public static AdminServiceImpl m_adminService = BeanUtils.getBean(AdminServiceImpl.class);
+public class AdminUtils {
+    public static AdminServiceImpl m_adminService = BeanUtils.getBean(AdminServiceImpl.class);
 
-	public static boolean isAdminOfGuild(User user, Guild guild) {
-		List<Admin> admins;
+    public static boolean isAdminOfGuild(User user, Guild guild) {
+        List<Admin> admins;
 
-		admins =  m_adminService.getAdminsByServerId(guild.getId());
+        admins = m_adminService.getAdminsByServerId(guild.getId());
 
-		for(Admin admin : admins) {
-			if(admin.getUser().getDiscordId().equals(user.getId()))
-				return true;
-		}
+        for (Admin admin : admins) {
+            if (admin.getUser().getDiscordId().equals(user.getId()))
+                return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
 
 }

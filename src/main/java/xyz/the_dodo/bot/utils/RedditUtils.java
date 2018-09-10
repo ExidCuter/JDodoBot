@@ -29,7 +29,7 @@ public class RedditUtils {
 
         selected = p_submissions.get(rand.nextInt(p_submissions.size()));
 
-        if(selected != null)
+        if (selected != null)
             return selected.getTitle() + "&" + selected.getURL() + "&" + selected.getPermalink();
 
         return "";

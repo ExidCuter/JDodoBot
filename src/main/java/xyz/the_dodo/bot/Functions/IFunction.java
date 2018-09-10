@@ -3,77 +3,72 @@ package xyz.the_dodo.bot.Functions;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import org.springframework.stereotype.Component;
+import xyz.the_dodo.bot.types.CommandCategory;
 import xyz.the_dodo.bot.types.MessageParams;
 
 import java.awt.*;
 
 public abstract class IFunction {
-	//TODO: add categories
-	public String command;
-	public String description;
-	public String usage;
-	public boolean isService;
+    //TODO: add categories
+    public String command;
+    public String description;
+    public String usage;
+    public boolean isService;
 
-	public String getCommand()
-	{
-		return command;
-	}
+    public CommandCategory commandCategory;
 
-	public void setCommand(String p_command)
-	{
-		command = p_command;
-	}
+    public String getCommand() {
+        return command;
+    }
 
-	public String getDescription()
-	{
-		return description;
-	}
+    public void setCommand(String p_command) {
+        command = p_command;
+    }
 
-	public void setDescription(String p_description)
-	{
-		description = p_description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public String getUsage()
-	{
-		return usage;
-	}
+    public void setDescription(String p_description) {
+        description = p_description;
+    }
 
-	public void setUsage(String p_usage)
-	{
-		usage = p_usage;
-	}
+    public String getUsage() {
+        return usage;
+    }
 
-	public boolean isService()
-	{
-		return isService;
-	}
+    public void setUsage(String p_usage) {
+        usage = p_usage;
+    }
 
-	public void setService(boolean p_service)
-	{
-		isService = p_service;
-	}
+    public boolean isService() {
+        return isService;
+    }
 
-	public IFunction(String command, String description, String usage) {
-		this.usage = usage;
-		this.description = description;
-		this.command = command;
-	}
+    public void setService(boolean p_service) {
+        isService = p_service;
+    }
 
-	public abstract void trigger(MessageParams p_messageParams);
+    public IFunction(String command, String description, String usage) {
+        this.usage = usage;
+        this.description = description;
+        this.command = command;
+    }
 
-	public String getHelp()	{
-		return "`" + command + "` - " + description;
-	}
+    public abstract void trigger(MessageParams p_messageParams);
 
-	public EmbedBuilder getEmbededHelp() {
-		EmbedBuilder embMsg = new EmbedBuilder();
-		embMsg.setTitle("Command: " + command + "", "http://the-dodo.xyz")
-				.setDescription(description)
-				.setColor(new Color(0x21FF00))
-				.setThumbnail("https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/The_Dodo_Logo.jpg/250px-The_Dodo_Logo.jpg")
-				.setAuthor("DodoBot help", "http://the-dodo.xyz", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/The_Dodo_Logo.jpg/250px-The_Dodo_Logo.jpg")
-				.addField("Usage:", usage, false);
-		return embMsg;
-	}
+    public String getHelp() {
+        return "`" + command + "` - " + description;
+    }
+
+    public EmbedBuilder getEmbededHelp() {
+        EmbedBuilder embMsg = new EmbedBuilder();
+        embMsg.setTitle("Command: " + command + "", "http://the-dodo.xyz")
+                .setDescription(description)
+                .setColor(new Color(0x21FF00))
+                .setThumbnail("https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/The_Dodo_Logo.jpg/250px-The_Dodo_Logo.jpg")
+                .setAuthor("DodoBot help", "http://the-dodo.xyz", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/The_Dodo_Logo.jpg/250px-The_Dodo_Logo.jpg")
+                .addField("Usage:", "`" + usage + "`", false);
+        return embMsg;
+    }
 }

@@ -3,6 +3,7 @@ package xyz.the_dodo.bot.Functions.bank;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.User;
 import xyz.the_dodo.bot.Functions.IFunction;
+import xyz.the_dodo.bot.types.CommandCategory;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.BankUtils;
 import xyz.the_dodo.database.types.BankAccount;
@@ -10,6 +11,7 @@ import xyz.the_dodo.database.types.BankAccount;
 public class Balance extends IFunction {
     public Balance(String command, String description, String usage) {
         super(command, description, usage);
+        commandCategory = CommandCategory.BANK;
     }
 
     @Override
@@ -32,7 +34,7 @@ public class Balance extends IFunction {
             embMsg.addField("Last Pay", ba.getLastPay().toString(), true);
 
             p_messageParams.getTextChannel().sendMessage(embMsg.build()).queue();
-        }
-        else p_messageParams.getTextChannel().sendMessage("You don't have an account!").queue();
+        } else
+            p_messageParams.getTextChannel().sendMessage("You don't have an account!").queue();
     }
 }

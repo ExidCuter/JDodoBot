@@ -1,6 +1,7 @@
 package xyz.the_dodo.bot.Functions.stats;
 
 import xyz.the_dodo.bot.Functions.IFunction;
+import xyz.the_dodo.bot.types.CommandCategory;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.StatsUtils;
 import xyz.the_dodo.bot.utils.UserUtils;
@@ -10,6 +11,7 @@ import xyz.the_dodo.database.types.User;
 public class CountStats extends IFunction {
     public CountStats(String command, String description, String usage) {
         super(command, description, usage);
+        commandCategory = CommandCategory.STATS;
     }
 
     @Override

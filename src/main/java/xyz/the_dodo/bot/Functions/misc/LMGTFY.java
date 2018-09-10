@@ -2,6 +2,7 @@ package xyz.the_dodo.bot.Functions.misc;
 
 import net.dv8tion.jda.core.entities.MessageChannel;
 import xyz.the_dodo.bot.Functions.IFunction;
+import xyz.the_dodo.bot.types.CommandCategory;
 import xyz.the_dodo.bot.types.MessageParams;
 
 import java.net.URLEncoder;
@@ -10,6 +11,7 @@ public class LMGTFY extends IFunction
 {
 	public LMGTFY(String command, String description, String usage) {
 		super(command, description, usage);
+		commandCategory = CommandCategory.FUN;
 	}
 
 	@Override

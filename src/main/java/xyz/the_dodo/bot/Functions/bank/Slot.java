@@ -1,6 +1,7 @@
 package xyz.the_dodo.bot.Functions.bank;
 
 import xyz.the_dodo.bot.Functions.IFunction;
+import xyz.the_dodo.bot.types.CommandCategory;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.BankUtils;
 import xyz.the_dodo.bot.utils.SlotMashina;
@@ -9,6 +10,7 @@ import xyz.the_dodo.database.types.BankAccount;
 public class Slot extends IFunction {
     public Slot(String command, String description, String usage) {
         super(command, description, usage);
+        commandCategory = CommandCategory.BANK;
     }
 
     @Override

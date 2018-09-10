@@ -3,6 +3,7 @@ package xyz.the_dodo.bot.Functions.stats;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 import xyz.the_dodo.bot.Functions.IFunction;
+import xyz.the_dodo.bot.types.CommandCategory;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.StatsUtils;
 import xyz.the_dodo.database.types.Stats;
@@ -10,6 +11,7 @@ import xyz.the_dodo.database.types.Stats;
 public class CheckStats extends IFunction {
     public CheckStats(String command, String description, String usage) {
         super(command, description, usage);
+        commandCategory = CommandCategory.STATS;
     }
 
     @Override

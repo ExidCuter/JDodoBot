@@ -18,7 +18,7 @@ public class OnAddedToServerListener extends ListenerAdapter {
             ServerUtils.m_serverService.save(server);
 
             try {
-                event.getGuild().getDefaultChannel().sendMessage("Thank you for adding DodoBot! For the list of commands type `!help`").queue();
+                event.getGuild().getDefaultChannel().sendMessage("Thank you for adding DodoBot! For the list of commands type `!help`. The default prefix is `!`").queue();
             } catch (Exception e) {
                 e.printStackTrace();
             }
