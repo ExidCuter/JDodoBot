@@ -33,6 +33,7 @@ public class CommandHandler {
         commands.add(new ProgrammerMeme("reddit.getMeme();", "Gets a meme from r/programmerHumor", "reddit.getMeme();"));
         commands.add(new GiphyGif("gif", "Gets a GIF from Giphy", "gif <QUERY>"));
         commands.add(new FortniteRecords("fortnite", "Fortnite records!", "!fortnite <PLATFORM> <GAMEMODE> <USERNAME>"));
+        commands.add(new FortniteRecordsImage("fortnite.img", "Fortnite records IMAGE!!!", "!fortnite.img <PLATFORM> <GAMEMODE> <USERNAME>"));
 
         //utils
         commands.add(new SetAdmin("setAdmin", "Sets admin of the guild", "setAdmin <USER MENTION>"));

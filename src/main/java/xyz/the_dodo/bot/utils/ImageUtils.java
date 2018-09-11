@@ -1,5 +1,9 @@
 package xyz.the_dodo.bot.utils;
 
+import xyz.dodo.fortnite.entity.League;
+import xyz.dodo.fortnite.entity.Player;
+import xyz.dodo.fortnite.entity.Stat;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -8,12 +12,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 
 public class ImageUtils {
     public static BufferedImage[] gif;
 
-    public static BufferedImage triggered;
+    public static BufferedImage triggered, botAvatar, fortniteBG;
 
     public static ByteArrayOutputStream generateShoot(String p_userImage) {
         try {
@@ -100,6 +104,62 @@ public class ImageUtils {
         }
     }
 
+    public static ByteArrayOutputStream generateFortnitePicture(List<Stat> stats, Player player, League league) throws IOException {
+        Graphics2D g2d;
+        FontMetrics fm;
+        int width, height, x, y, i;
+        ByteArrayOutputStream baos;
+        BufferedImage orgImg, output;
+
+        orgImg = fortniteBG;
+        width = orgImg.getWidth();
+        height = orgImg.getHeight();
+        baos = new ByteArrayOutputStream();
+        output = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        g2d = output.createGraphics();
+        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g2d.drawImage(orgImg, 0, 0, width, height, null);
+        g2d.setPaint(Color.white);
+        g2d.setFont(new Font("Luckiest Guy", Font.BOLD, 60));
+
+        fm = g2d.getFontMetrics();
+
+        x = 10;
+        y = fm.getHeight() + 10;
+
+        g2d.drawString(player.getNickname() + "'s " + league.getMode() + " stats:", x, y);
+        g2d.setFont(new Font("Luckiest Guy", Font.BOLD, 45));
+        y += fm.getHeight() + 5;
+
+        i = 0;
+        for (Stat s : stats) {
+            if (!s.getValue().equals("0")) {
+                if (i == 5) {
+                    x = output.getWidth() / 2 - 20;
+                    y = fm.getHeight() * 2 + 10;
+                }
+
+                g2d.drawString(s.getLabel() + ": " + s.getValue(), x, y);
+                y += fm.getHeight() + 5;
+                i++;
+            }
+        }
+
+        g2d.setFont(new Font("Luckiest Guy", Font.BOLD, 16));
+        fm = g2d.getFontMetrics();
+        g2d.drawString("Picture by DodoBot and Data from FortniteTracker.com", 5, output.getHeight() - fm.getHeight()/2);
+
+        g2d.drawImage(botAvatar, output.getWidth() - botAvatar.getWidth() - 5, output.getHeight() - botAvatar.getHeight() - 5, botAvatar.getWidth(), botAvatar.getHeight(), null);
+
+        g2d.dispose();
+
+        ImageIO.write( output, "png", baos);
+        baos.flush();
+
+        return baos;
+    }
+
     public static BufferedImage getBufferedImageFromFile(String p_fileName) throws IOException {
         BufferedImage img;
 
@@ -108,7 +168,7 @@ public class ImageUtils {
         return img;
     }
 
-    private static BufferedImage getBufferedImageFromUrl(String p_url) throws IOException {
+    public static BufferedImage getBufferedImageFromUrl(String p_url) throws IOException {
         BufferedImage img;
 
         URL url = new URL(p_url);
