@@ -14,8 +14,8 @@ import java.util.Queue;
 
 import static xyz.the_dodo.bot.utils.VoiceUtils.getTimestamp;
 
-public class List extends IFunction {
-    public List(String command, String description, String usage) {
+public class ListQueue extends IFunction {
+    public ListQueue(String command, String description, String usage) {
         super(command, description, usage);
         commandCategory = CommandCategory.VOICE;
     }

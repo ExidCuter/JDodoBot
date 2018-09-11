@@ -63,26 +63,24 @@ public class CommandHandler {
         commands.add(new GetAllQuotes("allQuotes", "Gets all of the persons quotes", "allQuotes <PERSON>"));
 
         //voice
-        commands.add(new Join("join", "Joins a voice channel", ""));
-        commands.add(new Leave("leave", "Leaves voice channel", ""));
-        commands.add(new xyz.the_dodo.bot.Functions.voice.List("listPlaying", "", ""));
-        commands.add(new NowPlaying("nowPlaying", "", ""));
-        commands.add(new Pause("pause", "",""));
-        commands.add(new Play("play", "", ""));
-        commands.add(new Repeat("repeat", "", ""));
-        commands.add(new Reset("reset", "", ""));
-        commands.add(new Restart("restart", "", ""));
-        commands.add(new Shuffle("shuffle", "", ""));
-        commands.add(new Skip("skip", "", ""));
-        commands.add(new Stop("stop", "", ""));
-        commands.add(new Volume("volume", "", ""));
+        commands.add(new Join("join", "Joins a voice channel", "join <CHANNEL NAME/CHANNEL ID>"));
+        commands.add(new Leave("leave", "Leaves voice channel", "leave"));
+        commands.add(new Play("play", "Plays a song or resumes playing", "play || play <SONG LINK>"));
+        commands.add(new Pause("pause", "Pauses the player",""));
+        commands.add(new Stop("stop", "Stops playing and clears the queue", "stop"));
+        commands.add(new Skip("skip", "Skips current item in queue", "skip"));
+        commands.add(new Restart("restart", "Restarts playing current song/video", "restart"));
+        commands.add(new Shuffle("shuffle", "Shuffles the playing queue", "shuffle"));
+        commands.add(new Repeat("repeat", "Repeats current song/video", "repeat"));
+        commands.add(new Volume("volume", "Changes the volume of the player", "volume <10-100>"));
+        commands.add(new NowPlaying("nowPlaying", "Displays what is currently playing", "nowPlaying"));
+        commands.add(new ListQueue("listPlaying", "Lists all the items in queue!", "listPlaying"));
+        commands.add(new Reset("reset", "Resets the player", "reset"));
     }
 
     public static String generateHelp() {
         StringBuilder builder;
-        CommandCategory category;
 
-        category = null;
         builder = new StringBuilder();
 
         builder.append("DodoBot function Categories:\n");
