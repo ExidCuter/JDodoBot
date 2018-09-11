@@ -1,12 +1,12 @@
 package xyz.the_dodo.bot.utils;
 
-import xyz.the_dodo.bot.Functions.IFunction;
-import xyz.the_dodo.bot.Functions.bank.*;
-import xyz.the_dodo.bot.Functions.misc.*;
-import xyz.the_dodo.bot.Functions.quotes.*;
-import xyz.the_dodo.bot.Functions.stats.*;
-import xyz.the_dodo.bot.Functions.utils.*;
-import xyz.the_dodo.bot.Functions.voice.*;
+import xyz.the_dodo.bot.functions.IFunction;
+import xyz.the_dodo.bot.functions.bank.*;
+import xyz.the_dodo.bot.functions.misc.*;
+import xyz.the_dodo.bot.functions.quotes.*;
+import xyz.the_dodo.bot.functions.stats.*;
+import xyz.the_dodo.bot.functions.utils.*;
+import xyz.the_dodo.bot.functions.voice.*;
 import xyz.the_dodo.bot.types.CommandCategory;
 
 import java.util.ArrayList;
