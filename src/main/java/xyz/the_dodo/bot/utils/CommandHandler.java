@@ -3,15 +3,10 @@ package xyz.the_dodo.bot.utils;
 import xyz.the_dodo.bot.Functions.IFunction;
 import xyz.the_dodo.bot.Functions.bank.*;
 import xyz.the_dodo.bot.Functions.misc.*;
-import xyz.the_dodo.bot.Functions.quotes.CreateQuote;
-import xyz.the_dodo.bot.Functions.quotes.GetAllQuotes;
-import xyz.the_dodo.bot.Functions.quotes.GetBadQuote;
-import xyz.the_dodo.bot.Functions.quotes.GetQuote;
-import xyz.the_dodo.bot.Functions.stats.Bribe;
-import xyz.the_dodo.bot.Functions.stats.CheckStats;
-import xyz.the_dodo.bot.Functions.stats.CountStats;
-import xyz.the_dodo.bot.Functions.stats.ResetStats;
+import xyz.the_dodo.bot.Functions.quotes.*;
+import xyz.the_dodo.bot.Functions.stats.*;
 import xyz.the_dodo.bot.Functions.utils.*;
+import xyz.the_dodo.bot.Functions.voice.*;
 import xyz.the_dodo.bot.types.CommandCategory;
 
 import java.util.ArrayList;
@@ -66,6 +61,21 @@ public class CommandHandler {
         commands.add(new GetQuote("quote", "Gets a quote from person", "quote <PERSON>"));
         commands.add(new GetBadQuote("quote", "Gets a quote from reddit", "quote"));
         commands.add(new GetAllQuotes("allQuotes", "Gets all of the persons quotes", "allQuotes <PERSON>"));
+
+        //voice
+        commands.add(new Join("join", "Joins a voice channel", ""));
+        commands.add(new Leave("leave", "Leaves voice channel", ""));
+        commands.add(new xyz.the_dodo.bot.Functions.voice.List("listPlaying", "", ""));
+        commands.add(new NowPlaying("nowPlaying", "", ""));
+        commands.add(new Pause("pause", "",""));
+        commands.add(new Play("play", "", ""));
+        commands.add(new Repeat("repeat", "", ""));
+        commands.add(new Reset("reset", "", ""));
+        commands.add(new Restart("restart", "", ""));
+        commands.add(new Shuffle("shuffle", "", ""));
+        commands.add(new Skip("skip", "", ""));
+        commands.add(new Stop("stop", "", ""));
+        commands.add(new Volume("volume", "", ""));
     }
 
     public static String generateHelp() {

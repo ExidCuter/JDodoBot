@@ -19,6 +19,7 @@ import xyz.the_dodo.bot.types.CommandCategory;
 import xyz.the_dodo.bot.utils.CommandHandler;
 import xyz.the_dodo.bot.utils.ImageUtils;
 import com.kdotj.simplegiphy.SimpleGiphy;
+import xyz.the_dodo.bot.utils.VoiceUtils;
 
 import javax.security.auth.login.LoginException;
 import java.awt.image.BufferedImage;
@@ -60,11 +61,16 @@ public class DodoBot {
     public static List<Guild> getGuilds() {
         return bot.getGuilds();
     }
+
+    public static VoiceUtils getVoiceUtils() {
+        return init.getVoiceUtils();
+    }
 }
 
 class Initiator {
     private String m_token;
     private String m_giphyToken;
+    private VoiceUtils voiceUtils;
 
     public void setToken(String p_token) {
         m_token = p_token;
@@ -76,6 +82,10 @@ class Initiator {
 
     public String getGiphyToken() {
         return m_giphyToken;
+    }
+
+    public VoiceUtils getVoiceUtils() {
+        return voiceUtils;
     }
 
     public Initiator() throws IOException {
@@ -101,5 +111,7 @@ class Initiator {
         for (int i = 0; i < ImageUtils.gif.length; i++) {
             ImageUtils.gif[i] = ImageUtils.getBufferedImageFromFile("gif/"+String.valueOf(i)+".png");
         }
+
+        voiceUtils = new VoiceUtils();
     }
 }

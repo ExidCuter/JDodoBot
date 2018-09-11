@@ -5,5 +5,6 @@ public enum CommandCategory {
     FUN,
     QUOTES,
     STATS,
-    UTILS
+    UTILS,
+    VOICE
 }

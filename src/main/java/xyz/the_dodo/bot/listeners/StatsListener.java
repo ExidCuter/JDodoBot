@@ -1,5 +1,6 @@
 package xyz.the_dodo.bot.listeners;
 
+import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -11,6 +12,9 @@ public class StatsListener extends ListenerAdapter {
     public void onMessageReceived(MessageReceivedEvent event) {
         User user;
         Stats stats;
+
+        if (!event.isFromType(ChannelType.TEXT))
+            return;
 
         if (event.getAuthor().isBot())
             return;
