@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `dodo-bot`.`t_banned_user`;
 DROP TABLE IF EXISTS `dodo-bot`.`t_prefix`;
 DROP TABLE IF EXISTS `dodo-bot`.`t_bank_account`;
 DROP TABLE IF EXISTS `dodo-bot`.`t_bug_report`;
@@ -77,3 +78,13 @@ CREATE TABLE `dodo-bot`.`t_prefix`(
   CONSTRAINT FK_ServerPrefix FOREIGN KEY (server_id)
   REFERENCES `dodo-bot`.`t_server`(id)
 );
+
+CREATE TABLE `dodo-bot`.`t_banned_user` (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  user_id BIGINT NOT NULL,
+  server_id BIGINT NOT NULL,
+  CONSTRAINT FK_BannedUser FOREIGN KEY (user_id)
+  REFERENCES `dodo-bot`.`t_user`(id),
+  CONSTRAINT FK_BannedServer FOREIGN KEY (server_id)
+  REFERENCES `dodo-bot`.`t_server`(id)
+)
