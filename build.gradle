@@ -24,6 +24,8 @@ version '2.0-ALPHA'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+mainClassName = 'xyz.the_dodo.DodoBot'
+
 bootJar {
     baseName = 'gs-spring-boot'
     version =  '0.1.0'

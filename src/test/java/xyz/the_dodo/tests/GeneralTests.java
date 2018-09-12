@@ -13,11 +13,13 @@ import net.dean.jraw.oauth.Credentials;
 import net.dean.jraw.oauth.OAuthHelper;
 import net.dean.jraw.pagination.DefaultPaginator;
 import net.dean.jraw.pagination.Paginator;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class GeneralTests
 {
 	@Test
+	@Ignore
 	public void redditTest() {
 		// You'll want to change this for your specific OAuth2 app
 		Credentials credentials = Credentials.script("ExidCuter", "", "P4rIjsbI4afQyA", "2-Xhx0xZMvotFXPo6exZFxkUff4");
