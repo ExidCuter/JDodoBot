@@ -43,6 +43,9 @@ public class CommandHandler {
         commands.add(new SetDefaultRole("setDefaultRole", "When a new user joins your guild they are set to this role!", "setDefaultRole <ROLE MENTION>"));
         commands.add(new GetDefaultRole("getDefaultRole", "Gets the name of default role", "getDefaultRole"));
         commands.add(new About("about", "About bot", "about"));
+        commands.add(new BanUser("banUser", "Bans an user or multiple users", "banUser <@USERS TO BAN>"));
+        commands.add(new UnbanUser("unbanUser", "Unbans an user or multiple users", "unbanUser <@USERS TO BAN>"));
+        commands.add(new GetBannedUsers("getBannedUsers", "Gets the list of all the banned user", "getBannedUsers"));
 
         //bank
         commands.add(new Register("bank.register", "Creates a bank account", "bank.register"));
