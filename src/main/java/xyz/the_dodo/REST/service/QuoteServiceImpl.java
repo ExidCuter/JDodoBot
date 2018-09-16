@@ -37,15 +37,6 @@ public class QuoteServiceImpl implements IQuoteService {
     }
 
     @Override
-    public Quote save(Quote oldObject, Quote newObject)
-    {
-        if(oldObject != null && newObject != null && oldObject.getId() == newObject.getId())
-            return m_quoteRepo.save(newObject);
-
-        return null;
-    }
-
-    @Override
     public boolean delete(Quote quote) {
         if(quote != null){
             m_quoteRepo.deleteById(quote.getId());

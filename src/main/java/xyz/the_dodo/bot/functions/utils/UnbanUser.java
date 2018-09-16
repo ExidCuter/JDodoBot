@@ -2,6 +2,7 @@ package xyz.the_dodo.bot.functions.utils;
 
 import net.dv8tion.jda.core.entities.Member;
 import xyz.the_dodo.bot.functions.IFunction;
+import xyz.the_dodo.bot.types.CommandCategory;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.BannedUtils;
@@ -11,6 +12,7 @@ import java.util.List;
 public class UnbanUser extends IFunction {
     public UnbanUser(String command, String description, String usage) {
         super(command, description, usage);
+        commandCategory = CommandCategory.UTILS;
     }
 
     @Override

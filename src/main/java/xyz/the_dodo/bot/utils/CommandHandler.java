@@ -11,6 +11,7 @@ import xyz.the_dodo.bot.types.CommandCategory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CommandHandler {
     public static List<IFunction> commands = new ArrayList<>();
@@ -25,7 +26,7 @@ public class CommandHandler {
         commands.add(new Magic8Ball("8ball", "Magic8Ball will answer all of your yes/no questions", "8ball"));
         commands.add(new Triggered("triggered", "Show how triggered are you", "triggered"));
         commands.add(new Roll("roll", "rolls a X sided dice", "roll <MAX>"));
-        commands.add(new Shoot("shoot", "Shoots ya", "shoot/shoot <USER MENTION>"));
+        commands.add(new Shoot("shoot", "Shoots ya", "shoot/shoot <#USER MENTION>"));
         commands.add(new Speak("say", "Repeats after you", "say <WHAT>"));
         commands.add(new Meme("meme", "Gets a random meme from /r/dankmemes", "meme"));
         commands.add(new RedditRandomPost("reddit.random", "Gets random post from hot section of the specified subreddit!", "reddit.random <SUBREDDIT NAME>"));
@@ -39,13 +40,15 @@ public class CommandHandler {
         commands.add(new SetAdmin("setAdmin", "Sets admin of the guild", "setAdmin <USER MENTION>"));
         commands.add(new GetAdmins("getAdmins", "Returns the list of admins", "admins"));
         commands.add(new DeleteAdmin("delAdmin", "Removes user from the admin list", "delAdmin <MENTION USERS>"));
-        commands.add(new Help("help", "Shows help", "help || help <command>"));
+        commands.add(new Help("help", "Shows help", "help <#COMMAND>"));
         commands.add(new SetDefaultRole("setDefaultRole", "When a new user joins your guild they are set to this role!", "setDefaultRole <ROLE MENTION>"));
         commands.add(new GetDefaultRole("getDefaultRole", "Gets the name of default role", "getDefaultRole"));
         commands.add(new About("about", "About bot", "about"));
-        commands.add(new BanUser("banUser", "Bans an user or multiple users", "banUser <@USERS TO BAN>"));
-        commands.add(new UnbanUser("unbanUser", "Unbans an user or multiple users", "unbanUser <@USERS TO BAN>"));
+        commands.add(new BanUser("banUser", "Bans an user or multiple users", "banUser <MENTION USERS TO BAN>"));
+        commands.add(new UnbanUser("unbanUser", "Unbans an user or multiple users", "unbanUser <MENTION USERS TO BAN>"));
         commands.add(new GetBannedUsers("getBannedUsers", "Gets the list of all the banned user", "getBannedUsers"));
+        commands.add(new SetDeletedMessages("trackDeleted", "Tracks deleted messages of this guild!", "trackDeleted <TRUE/FALSE>"));
+        commands.add(new GetDeletedMessages("getDeleted", "Gets deleted messages from this guild or a specific user of this guild!", "getDeleted <#MENTION> <#AMOUNT>"));
 
         //bank
         commands.add(new Register("bank.register", "Creates a bank account", "bank.register"));

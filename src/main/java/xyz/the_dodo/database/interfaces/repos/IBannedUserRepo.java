@@ -10,6 +10,4 @@ import java.util.List;
 
 @Repository
 public interface IBannedUserRepo extends JpaRepository<BannedUser, Long> {
-    //List<BannedUser> findAllByServer(Server p_server);
-    //List<BannedUser> findAllByUser(User p_user);
 }

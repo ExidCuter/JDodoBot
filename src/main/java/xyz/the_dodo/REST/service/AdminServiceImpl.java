@@ -73,16 +73,6 @@ public class AdminServiceImpl implements IAdminService
 	}
 
 	@Override
-	public Admin save(Admin oldObject, Admin newObject)
-	{
-		if(oldObject != null && newObject != null && newObject.getId().equals(oldObject.getId())){
-			return m_adminRepo.save(newObject);
-		}
-
-		return null;
-	}
-
-	@Override
 	public boolean delete(Admin object)
 	{
 		if(object != null) {

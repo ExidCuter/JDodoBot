@@ -44,16 +44,6 @@ public class ServerServiceImpl implements IServerService {
     }
 
     @Override
-    public Server save(Server oldObject, Server newObject)
-    {
-        if(oldObject != null && newObject != null && oldObject.getId() == newObject.getId()){
-            return m_serverRepo.save(newObject);
-        }
-
-        return null;
-    }
-
-    @Override
     public boolean delete(Server server) {
         if(server != null){
             m_serverRepo.deleteById(server.getId());

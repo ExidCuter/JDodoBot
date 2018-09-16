@@ -76,11 +76,6 @@ public class BannedServiceImpl implements IBannedService {
     }
 
     @Override
-    public BannedUser save(BannedUser oldObject, BannedUser newObject) {
-        return null;
-    }
-
-    @Override
     public boolean delete(BannedUser object) {
         if (object != null) {
             m_bannedUserRepo.deleteById(object.getId());

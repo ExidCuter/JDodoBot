@@ -34,15 +34,6 @@ public class BugServiceImpl implements IBugService {
     }
 
     @Override
-    public BugReport save(BugReport oldObject, BugReport newObject)
-    {
-        if(oldObject != null && newObject != null && oldObject.getId() == newObject.getId())
-            return m_bugReportRepo.save(newObject);
-
-        return null;
-    }
-
-    @Override
     public boolean delete(BugReport bugReport) {
         return false;
     }

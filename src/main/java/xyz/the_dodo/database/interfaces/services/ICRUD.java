@@ -8,7 +8,6 @@ public interface ICRUD<T>
 	List<T> findAll();
 
 	T save(T object);
-	T save(T oldObject, T newObject);
 
 	boolean delete(T object);
 }

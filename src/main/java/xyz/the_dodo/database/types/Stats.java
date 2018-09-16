@@ -39,11 +39,4 @@ public class Stats extends Identificator {
     public void setUser(User p_user) {
         m_user = p_user;
     }
-
-    public Stats() {
-    }
-
-    public Stats(Long id) {
-        super(id);
-    }
 }

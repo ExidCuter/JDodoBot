@@ -15,12 +15,4 @@ public class Prefix extends Identificator {
 	@ManyToOne
 	@JoinColumn(name = "server_id")
 	private Server m_server;
-
-	public Prefix() {
-
-	}
-
-	public Prefix(Long id) {
-		super(id);
-	}
 }

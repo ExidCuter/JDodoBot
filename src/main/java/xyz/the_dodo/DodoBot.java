@@ -10,11 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 
-import xyz.the_dodo.bot.listeners.CommandListener;
-import xyz.the_dodo.bot.listeners.OnAddedToServerListener;
-import xyz.the_dodo.bot.listeners.OnServerJoinListener;
-import xyz.the_dodo.bot.listeners.StatsListener;
+import xyz.the_dodo.bot.listeners.*;
 import xyz.the_dodo.bot.types.Initiator;
+import xyz.the_dodo.bot.utils.DeletedMessageUtils;
 import xyz.the_dodo.bot.utils.ImageUtils;
 import xyz.the_dodo.bot.utils.VoiceUtils;
 
@@ -30,6 +28,7 @@ public class DodoBot {
     private static Initiator init;
 
     public static final String verzion = "2.0-ALPHA";
+    public static final int maxMessagesCached = 10000; //you can set custom amount (Higher you go -> more memory usage!)
 
     public static void main(String[] args) throws LoginException, IOException
     {
@@ -38,6 +37,7 @@ public class DodoBot {
         bot = new JDABuilder(AccountType.BOT)
                 .setToken(init.getToken())
                 .addEventListener(new StatsListener())
+                .addEventListener(new DeleteListener()) //High Memory usage if enabled
                 .addEventListener(new CommandListener())
                 .addEventListener(new OnServerJoinListener())
                 .addEventListener(new OnAddedToServerListener())

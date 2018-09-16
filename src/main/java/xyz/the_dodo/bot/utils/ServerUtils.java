@@ -22,6 +22,7 @@ public class ServerUtils {
         server = new Server();
 
         server.setDiscordId(p_guild.getId());
+        server.setSaveDeleted(false);
 
         m_serverService.save(server);
     }

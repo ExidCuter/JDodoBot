@@ -17,7 +17,8 @@ CREATE TABLE `dodo-bot`.`t_user`(
 
 CREATE TABLE `dodo-bot`.`t_server`(
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
-  discord_id VARCHAR(20) NOT NULL
+  discord_id VARCHAR(20) NOT NULL,
+  save_deleted CHAR(1) NOT NULL DEFAULT '0'
 );
 
 CREATE TABLE `dodo-bot`.`t_bank_account`(

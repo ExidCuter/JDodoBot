@@ -2,14 +2,24 @@ package xyz.the_dodo.database.types;
 
 import xyz.the_dodo.database.types.common.Identificator;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "t_deleted_message")
 public class DeletedMessage extends Identificator {
     private String message;
     private String fileLocation;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User m_user;
+
+    @ManyToOne
+    @JoinColumn(name = "server_id")
     private Server m_server;
-
-
 
     public String getMessage() {
         return message;

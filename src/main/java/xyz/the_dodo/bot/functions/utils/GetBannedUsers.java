@@ -1,6 +1,7 @@
 package xyz.the_dodo.bot.functions.utils;
 
 import xyz.the_dodo.bot.functions.IFunction;
+import xyz.the_dodo.bot.types.CommandCategory;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.BannedUtils;
@@ -9,6 +10,7 @@ import xyz.the_dodo.bot.utils.StringUtils;
 public class GetBannedUsers extends IFunction {
     public GetBannedUsers(String command, String description, String usage) {
         super(command, description, usage);
+        commandCategory = CommandCategory.UTILS;
     }
 
     @Override

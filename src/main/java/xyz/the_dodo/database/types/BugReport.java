@@ -56,12 +56,4 @@ public class BugReport extends Identificator {
     public void setTime(LocalDateTime time) {
         this.time = time;
     }
-
-    public BugReport() {
-
-    }
-
-    public BugReport(Long id) {
-        super(id);
-    }
 }
