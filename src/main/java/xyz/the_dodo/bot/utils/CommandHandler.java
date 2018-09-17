@@ -49,6 +49,7 @@ public class CommandHandler {
         commands.add(new GetBannedUsers("getBannedUsers", "Gets the list of all the banned user", "getBannedUsers"));
         commands.add(new SetDeletedMessages("trackDeleted", "Tracks deleted messages of this guild!", "trackDeleted <TRUE/FALSE>"));
         commands.add(new GetDeletedMessages("getDeleted", "Gets deleted messages from this guild or a specific user of this guild!", "getDeleted <#MENTION> <#AMOUNT>"));
+        commands.add(new Notification("notifyAll", "Sends a notification to all servers! Only bot owner can use this commad!", "notifyAll <MESSAGE>"));
 
         //bank
         commands.add(new Register("bank.register", "Creates a bank account", "bank.register"));

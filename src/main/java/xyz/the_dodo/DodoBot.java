@@ -28,6 +28,7 @@ public class DodoBot {
     private static Initiator init;
 
     public static final String verzion = "2.0-ALPHA";
+    public static final String botOwner = "161795217803051008";
     public static final int maxMessagesCached = 10000; //you can set custom amount (Higher you go -> more memory usage!)
 
     public static void main(String[] args) throws LoginException, IOException
