@@ -1,1 +1,3 @@
-INSERT INTO `t_admin` (server_id, user_id) values (1, 1), (2, 1);
+INSERT INTO `t_admin` (id, server_id, user_id) values
+  (1, 1, 1),
+  (2, 2, 1);
