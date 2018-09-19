@@ -7,34 +7,69 @@ New version of JDodoBot. [Add it to your server](https://discordapp.com/oauth2/a
 What things you will need to run the software
 
 ```
-Java
+Java 8, MySql Server, Gradle
 ```
 
 ### Usage
 
 #### In Linux
-Run the `deploy.sh` script.
-```sh
-./deploy.sh -r
+You need to install the following dependencies:
+`Java 8`, `MySql Server`, `zip`, `unzip` and `gradle`  
+
+#####In Ubuntu or other "Debian flavors" you can manually install them with:
 ```
-For just running the bot use the `run.sh` script.
-```sh
-./run.sh
+#install java
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+
+#install mysql
+sudo apt install mysql-server
+
+#install zip and unzip
+sudo apt install unzip zip
+
+#install sdkman
+curl -s "https://get.sdkman.io" | bash
+source "/home/$USER/.sdkman/bin/sdkman-init.sh"
+
+#install gradle
+sdk install gradle
 ```
+
+than run:
+```
+#build the project
+gradle build -x test
+
+#run the bot
+gradle bootRun
+```
+
+#####or download `install.sh` and run it
 
 #### In Windows
 
 Paste your bot token into and api keys in ```settings.txt```.
 
-To run the bot open CMD in the root of the project. Than type ```gradlew run```. 
+To run the bot open CMD in the root of the project. Than type: 
+```
+gradlew build -x test
+
+gradlew bootRun
+``` 
 
 #### Commands
 
+#####Bot usage:
 ```
 prefix + command
 ```
-Prefix can be changed in the ```settings.txt``` file. Default is ```!```.
 
-For the list of all commands type ```prefex + help```
+#####Example:
+```
+!cat
+```
 
-That's it.
+For the list of all commands type ```!help```
+
