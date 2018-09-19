@@ -55,15 +55,6 @@ public class StatsServiceImpl implements IStatsService {
     }
 
     @Override
-    public Stats save(Stats oldObject, Stats newObject) {
-        if(oldObject != null && newObject != null && oldObject.getId() == newObject.getId()){
-            return m_statsRepo.save(newObject);
-        }
-
-        return null;
-    }
-
-    @Override
     public boolean delete(Stats object) {
         if(object != null) {
              m_statsRepo.deleteById(object.getId());

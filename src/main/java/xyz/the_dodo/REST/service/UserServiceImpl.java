@@ -48,14 +48,6 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User save(User oldUser, User newUser) {
-        if (oldUser != null && newUser != null && oldUser.getId().equals(newUser.getId())) {
-            return userRepo.save(newUser);
-        }
-        return null;
-    }
-
-    @Override
     public boolean delete(User user) {
         if (user != null){
             userRepo.deleteById(user.getId());

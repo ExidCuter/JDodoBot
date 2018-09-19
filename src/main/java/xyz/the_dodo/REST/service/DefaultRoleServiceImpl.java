@@ -52,16 +52,6 @@ public class DefaultRoleServiceImpl implements IDefaultRoleService {
     }
 
     @Override
-    public DefaultRole save(DefaultRole oldObject, DefaultRole newObject)
-    {
-        if(oldObject != null && newObject != null && oldObject.getId() == newObject.getId())
-            return m_defaultRoleRepo.save(newObject);
-
-        return null;
-
-    }
-
-    @Override
     public boolean delete(DefaultRole defaultRole) {
         if(defaultRole != null) {
             m_defaultRoleRepo.deleteById(defaultRole.getId());

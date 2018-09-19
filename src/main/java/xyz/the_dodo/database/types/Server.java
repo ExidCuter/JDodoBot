@@ -10,19 +10,21 @@ import javax.persistence.Table;
 public class Server extends Identificator {
     private String discordId;
 
+    private boolean saveDeleted;
+
+    public boolean isSaveDeleted() {
+        return saveDeleted;
+    }
+
+    public void setSaveDeleted(boolean saveDeleted) {
+        this.saveDeleted = saveDeleted;
+    }
+
     public String getDiscordId() {
         return discordId;
     }
 
     public void setDiscordId(String discordId) {
         this.discordId = discordId;
-    }
-
-    public Server() {
-    }
-
-    public Server(Long id)
-    {
-        super(id);
     }
 }

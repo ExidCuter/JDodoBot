@@ -66,7 +66,7 @@ public abstract class IFunction {
                 .setColor(new Color(0x21FF00))
                 .setThumbnail("https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/The_Dodo_Logo.jpg/250px-The_Dodo_Logo.jpg")
                 .setAuthor("DodoBot help", "http://the-dodo.xyz", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/The_Dodo_Logo.jpg/250px-The_Dodo_Logo.jpg")
-                .addField("Usage:", "`" + usage + "`", false);
+                .addField("Usage: (if the command parameter has the `#` in it, the parameter is not required)", "`" + usage + "`", false);
         return embMsg;
     }
 }

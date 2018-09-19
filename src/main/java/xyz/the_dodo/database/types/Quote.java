@@ -38,13 +38,4 @@ public class Quote extends Identificator {
     public void setQuote(String quote) {
         this.quote = quote;
     }
-
-    public Quote()
-    {
-    }
-
-    public Quote(Long id)
-    {
-        super(id);
-    }
 }

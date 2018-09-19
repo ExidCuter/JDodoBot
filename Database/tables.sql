@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `dodo-bot`.`t_deleted_message`;
 DROP TABLE IF EXISTS `dodo-bot`.`t_banned_user`;
 DROP TABLE IF EXISTS `dodo-bot`.`t_prefix`;
 DROP TABLE IF EXISTS `dodo-bot`.`t_bank_account`;
@@ -16,7 +17,8 @@ CREATE TABLE `dodo-bot`.`t_user`(
 
 CREATE TABLE `dodo-bot`.`t_server`(
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
-  discord_id VARCHAR(20) NOT NULL
+  discord_id VARCHAR(20) NOT NULL,
+  save_deleted CHAR(1) NOT NULL DEFAULT '0'
 );
 
 CREATE TABLE `dodo-bot`.`t_bank_account`(
@@ -87,4 +89,16 @@ CREATE TABLE `dodo-bot`.`t_banned_user` (
   REFERENCES `dodo-bot`.`t_user`(id),
   CONSTRAINT FK_BannedServer FOREIGN KEY (server_id)
   REFERENCES `dodo-bot`.`t_server`(id)
-)
+);
+
+CREATE TABLE `dodo-bot`.`t_deleted_message` (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  message VARCHAR(2001) NULL,
+  file_location VARCHAR(2000) NULL,
+  server_id BIGINT NOT NULL,
+  user_id BIGINT NOT NULL,
+  CONSTRAINT FK_UserDeleted FOREIGN KEY (user_id)
+  REFERENCES `dodo-bot`.`t_user`(id),
+  CONSTRAINT FK_ServerDeleted FOREIGN KEY (server_id)
+  REFERENCES `dodo-bot`.`t_server`(id)
+);

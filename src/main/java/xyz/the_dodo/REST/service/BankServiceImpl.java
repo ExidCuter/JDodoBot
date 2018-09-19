@@ -53,16 +53,6 @@ public class BankServiceImpl implements IBankService {
     }
 
     @Override
-    @Transactional
-    public BankAccount save(BankAccount oldObject, BankAccount newObject)
-    {
-        if(oldObject != null && newObject != null && oldObject.getId() == newObject.getId())
-            return bankAccountRepo.save(newObject);
-
-        return null;
-    }
-
-    @Override
     public boolean delete(BankAccount ba){
         if(ba != null) {
             bankAccountRepo.deleteById(ba.getId());

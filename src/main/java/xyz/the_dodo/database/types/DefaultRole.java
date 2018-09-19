@@ -31,10 +31,4 @@ public class DefaultRole extends Identificator {
     public void setServer(Server server) {
         this.server = server;
     }
-
-    public DefaultRole() { }
-
-    public DefaultRole(Long id) {
-        super(id);
-    }
 }

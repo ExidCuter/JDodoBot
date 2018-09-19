@@ -38,13 +38,4 @@ public class Admin extends Identificator
 	{
 		m_server = p_server;
 	}
-
-	public Admin()
-	{
-	}
-
-	public Admin(Long id)
-	{
-		super(id);
-	}
 }
