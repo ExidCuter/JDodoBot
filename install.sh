@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# colors
 BLACK=$(tput setaf 0)
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
@@ -20,28 +22,27 @@ FILELINES=()
 
 echo "${POWDER_BLUE}Installing dependencies... ${GREEN}"
 
-#install java
+# install java
 sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
 sudo apt-get install oracle-java8-installer
 
-#mysql
+# mysql
 sudo apt install mysql-server
 
-#zip and unzip
+# zip and unzip
 sudo apt install unzip zip
 
-#sdkman
+# sdkman
 curl -s "https://get.sdkman.io" | bash
 source "/home/$USER/.sdkman/bin/sdkman-init.sh"
 
-#gradle
+# gradle
 sudo sdk install gradle 4.10.1
-
 
 echo "${BLUE}Deploying JDodoBot ver ${ver} ${NORMAL}"
 
-#JDodoBot-2.0
+# JDodoBot-2.0
 git clone https://github.com/ExidCuter/JDodoBot-2.0
 
 cd JDodoBot-2.0/

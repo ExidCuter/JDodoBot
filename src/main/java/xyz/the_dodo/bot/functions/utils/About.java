@@ -20,7 +20,7 @@ public class About extends IFunction {
         embMsg.setTitle("About DodoBot", "https://github.com/ExidCuter/JDodoBot-2.0");
         embMsg.setThumbnail("https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/The_Dodo_Logo.jpg/250px-The_Dodo_Logo.jpg");
         embMsg.setColor(new Color(0x13FF00));
-        embMsg.addField("Version", DodoBot.verzion, true);
+        embMsg.addField("Version", DodoBot.version, true);
         embMsg.addField("By", "Dodo Dodović", true);
         embMsg.addField("Servers", Integer.toString(DodoBot.getNumOfServers()), true);
         embMsg.addField("GitHub", "https://github.com/ExidCuter/JDodoBot-2.0", false);

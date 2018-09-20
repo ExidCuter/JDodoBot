@@ -16,8 +16,10 @@ Java 8, MySql Server, Gradle
 You need to install the following dependencies:
 `Java 8`, `MySql Server`, `zip`, `unzip` and `gradle`  
 
-#####In Ubuntu or other "Debian flavors" you can manually install them with:
-```
+#####Download `install.sh` and run it with `./install.sh` (make sure you made it executable)
+
+#####Or in Ubuntu or other "Debian flavors" you can manually install them with:
+```bash
 #install java
 sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
@@ -31,14 +33,20 @@ sudo apt install unzip zip
 
 #install sdkman
 curl -s "https://get.sdkman.io" | bash
-source "/home/$USER/.sdkman/bin/sdkman-init.sh"
+source "/home/$USER/.sdkman/bin/sdkman-init.sh" 
 
 #install gradle
 sdk install gradle
 ```
 
-than run:
+than run SQL scripts:
+```bash
+sudo mysql -u root < Database/init.sql
+sudo mysql -u root < Database/tables.sql
 ```
+
+than build the project and run it with:
+```bash
 #build the project
 gradle build -x test
 
@@ -46,14 +54,14 @@ gradle build -x test
 gradle bootRun
 ```
 
-#####or download `install.sh` and run it
-
 #### In Windows
 
-Paste your bot token into and api keys in ```settings.txt```.
+Install MySql Server and run `database/init.sql`, `database/tabels.sql` SQL scripts
 
-To run the bot open CMD in the root of the project. Than type: 
-```
+Than create a file named ```settings.txt``` and paste your tokens into it like in `settings_template.txt`.
+
+After that build and run the bot with:
+```bash
 gradlew build -x test
 
 gradlew bootRun
@@ -66,10 +74,7 @@ gradlew bootRun
 prefix + command
 ```
 
-#####Example:
-```
-!cat
-```
+#####Example: `!cat`
 
-For the list of all commands type ```!help```
+For the list of all commands type `!help`
 

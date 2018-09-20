@@ -27,7 +27,7 @@ CREATE TABLE `dodo-bot`.`t_bank_account`(
   last_pay DATETIME NOT NULL,
   user_id BIGINT NOT NULL,
   CONSTRAINT FK_UserBank FOREIGN KEY (user_id)
-  REFERENCES `dodo-bot`.`t_user`(id)
+  REFERENCES `dodo-bot`.`t_user`(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `dodo-bot`.`t_bug_report`(
@@ -44,7 +44,7 @@ CREATE TABLE `dodo-bot`.`t_default_role`(
   discord_id VARCHAR(30) NOT NULL,
   server_id BIGINT NOT NULL,
   CONSTRAINT FK_ServerRole FOREIGN KEY (server_id)
-  REFERENCES `dodo-bot`.`t_server`(id)
+  REFERENCES `dodo-bot`.`t_server`(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `dodo-bot`.`t_quote`(
@@ -60,7 +60,7 @@ CREATE TABLE `dodo-bot`.`t_user_stats`(
   num_of_messages BIGINT NOT NULL DEFAULT 0,
   num_of_files BIGINT NOT NULL DEFAULT 0,
   CONSTRAINT FK_UserStats FOREIGN KEY (user_id)
-  REFERENCES `dodo-bot`.`t_user`(id)
+  REFERENCES `dodo-bot`.`t_user`(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `dodo-bot`.`t_admin`(
@@ -68,9 +68,9 @@ CREATE TABLE `dodo-bot`.`t_admin`(
   server_id BIGINT NOT NULL,
   user_id BIGINT NOT NULL,
   CONSTRAINT FK_UserAdmin FOREIGN KEY (user_id)
-  REFERENCES `dodo-bot`.`t_user`(id),
+  REFERENCES `dodo-bot`.`t_user`(id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT FK_ServerAdmin FOREIGN KEY (server_id)
-  REFERENCES `dodo-bot`.`t_server`(id)
+  REFERENCES `dodo-bot`.`t_server`(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `dodo-bot`.`t_prefix`(
@@ -78,7 +78,7 @@ CREATE TABLE `dodo-bot`.`t_prefix`(
   prefix VARCHAR(20),
   server_id BIGINT NOT NULL,
   CONSTRAINT FK_ServerPrefix FOREIGN KEY (server_id)
-  REFERENCES `dodo-bot`.`t_server`(id)
+  REFERENCES `dodo-bot`.`t_server`(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `dodo-bot`.`t_banned_user` (
@@ -86,9 +86,9 @@ CREATE TABLE `dodo-bot`.`t_banned_user` (
   user_id BIGINT NOT NULL,
   server_id BIGINT NOT NULL,
   CONSTRAINT FK_BannedUser FOREIGN KEY (user_id)
-  REFERENCES `dodo-bot`.`t_user`(id),
+  REFERENCES `dodo-bot`.`t_user`(id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT FK_BannedServer FOREIGN KEY (server_id)
-  REFERENCES `dodo-bot`.`t_server`(id)
+  REFERENCES `dodo-bot`.`t_server`(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `dodo-bot`.`t_deleted_message` (
@@ -98,7 +98,7 @@ CREATE TABLE `dodo-bot`.`t_deleted_message` (
   server_id BIGINT NOT NULL,
   user_id BIGINT NOT NULL,
   CONSTRAINT FK_UserDeleted FOREIGN KEY (user_id)
-  REFERENCES `dodo-bot`.`t_user`(id),
+  REFERENCES `dodo-bot`.`t_user`(id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT FK_ServerDeleted FOREIGN KEY (server_id)
-  REFERENCES `dodo-bot`.`t_server`(id)
+  REFERENCES `dodo-bot`.`t_server`(id) ON DELETE CASCADE ON UPDATE CASCADE
 );

@@ -23,6 +23,7 @@ public class PayDay extends IFunction {
         user = p_messageParams.getUser();
         if (BankUtils.bankAccountExists(p_messageParams.getUser())) {
             ba = BankUtils.m_bankService.findByUserDiscordId(user.getId());
+
             if (ba.getLastPay().plusDays(1L).isBefore(LocalDateTime.now())) {
                 ba.setBalance(ba.getBalance() + 100);
                 ba.setLastPay(LocalDateTime.now());
