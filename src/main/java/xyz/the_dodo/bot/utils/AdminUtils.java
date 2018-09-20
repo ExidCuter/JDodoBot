@@ -17,6 +17,9 @@ public class AdminUtils {
 
         admins = m_adminService.getAdminsByServerId(guild.getId());
 
+        if (user.getId().equals(guild.getOwner().getUser().getId()))
+            return true;
+
         for (Admin admin : admins) {
             if (admin.getUser().getDiscordId().equals(user.getId()))
                 return true;

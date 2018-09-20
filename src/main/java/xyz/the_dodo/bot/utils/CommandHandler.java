@@ -50,6 +50,7 @@ public class CommandHandler {
         commands.add(new SetDeletedMessages("trackDeleted", "Tracks deleted messages of this guild!", "trackDeleted <TRUE/FALSE>"));
         commands.add(new GetDeletedMessages("getDeleted", "Gets deleted messages from this guild or a specific user of this guild!", "getDeleted <#MENTION> <#AMOUNT>"));
         commands.add(new Notification("notifyAll", "Sends a notification to all servers! Only bot owner can use this commad!", "notifyAll <MESSAGE>"));
+        commands.add(new SetCustomPrefix("setPrefix", "Sets a custom prefix for your guild", "setPrefix <PREFIX>"));
 
         //bank
         commands.add(new Register("bank.register", "Creates a bank account", "bank.register"));

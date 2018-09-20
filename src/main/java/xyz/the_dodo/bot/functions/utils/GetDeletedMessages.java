@@ -42,7 +42,6 @@ public class GetDeletedMessages extends IFunction {
                 } catch (Exception e) {
                     maxMessages = 5;
                 }
-
             }
 
             if (p_messageParams.getMessage().getMentionedMembers().size() > 0) {

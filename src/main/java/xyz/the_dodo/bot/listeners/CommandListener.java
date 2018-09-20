@@ -1,9 +1,12 @@
 package xyz.the_dodo.bot.listeners;
 
 import net.dv8tion.jda.core.entities.ChannelType;
+import net.dv8tion.jda.core.events.guild.GuildUnavailableEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.utils.PrefixUtils;
+import xyz.the_dodo.database.types.Prefix;
 
 import static xyz.the_dodo.bot.utils.CommandHandler.commands;
 
@@ -19,9 +22,12 @@ public class CommandListener extends ListenerAdapter {
         String prefix;
         MessageParams messageParams;
 
-        prefix = "!";
-
         messageParams = new MessageParams(event.getMessage());
+
+        if (PrefixUtils.guildHasCustomPrefix(event.getGuild()))
+            prefix = PrefixUtils.m_prefixService.getByServerDiscordId(event.getGuild().getId()).getPrefix();
+        else
+            prefix = "!";
 
         commands.forEach(command -> {
             if (messageParams.getCommand().equals(prefix + command.getCommand()))

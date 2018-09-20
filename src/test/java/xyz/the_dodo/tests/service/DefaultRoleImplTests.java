@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.tuple;
 @TestPropertySource({ "/h2-test.properties" })
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @Sql({"/testData/servers.sql"})
-public class DefaultRoleImpltests
+public class DefaultRoleImplTests
 {
 	@Autowired
 	private IServerRepo m_serverRepo;

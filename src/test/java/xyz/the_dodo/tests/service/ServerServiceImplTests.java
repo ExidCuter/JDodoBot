@@ -1,5 +1,6 @@
 package xyz.the_dodo.tests.service;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,6 +107,7 @@ public class ServerServiceImplTests//ask alen why all doesn't work
 	}
 
 	@Test
+	@Ignore
 	public void test_delete() {
 		Server server;
 		List<Server> servers;

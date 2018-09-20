@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuoteUtils {
-    public static IQuoteService m_serverService = BeanUtils.getBean(QuoteServiceImpl.class);
+    public static IQuoteService m_quoteService = BeanUtils.getBean(QuoteServiceImpl.class);
 
     public static boolean userHasQuotes(String user) {
         List<Quote> quotes;
 
-        quotes = m_serverService.findAll();
+        quotes = m_quoteService.findAll();
 
         for (Quote quote : quotes) {
             if (quote.getPerson().equals(user))
@@ -27,7 +27,7 @@ public class QuoteUtils {
     public static List<Quote> getQuotesFromUser(String user) {
         List<Quote> quotes, usersQuotes;
 
-        quotes = m_serverService.findAll();
+        quotes = m_quoteService.findAll();
         usersQuotes = new ArrayList<>();
 
         quotes.forEach(p_quote -> {
@@ -47,7 +47,7 @@ public class QuoteUtils {
         quote.setQuote(p_quote);
         quote.setWheno(LocalDate.now());
 
-        m_serverService.save(quote);
+        m_quoteService.save(quote);
 
         return quote;
     }
