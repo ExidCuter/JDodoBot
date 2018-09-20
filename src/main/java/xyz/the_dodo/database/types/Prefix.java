@@ -15,4 +15,20 @@ public class Prefix extends Identificator {
 	@ManyToOne
 	@JoinColumn(name = "server_id")
 	private Server m_server;
+
+	public String getPrefix() {
+		return m_prefix;
+	}
+
+	public void setPrefix(String p_prefix) {
+		m_prefix = p_prefix;
+	}
+
+	public Server getServer() {
+		return m_server;
+	}
+
+	public void setServer(Server p_server) {
+		m_server = p_server;
+	}
 }
