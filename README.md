@@ -16,9 +16,9 @@ Java 8, MySql Server, Gradle
 You need to install the following dependencies:
 `Java 8`, `MySql Server`, `zip`, `unzip` and `gradle`  
 
-####Download `install.sh` and run it with `./install.sh` (make sure you made it executable)
+#### Download `install.sh` and run it with `./install.sh` (make sure you made it executable)
 
-####Or in Ubuntu or other "Debian flavors" you can manually install them with:
+#### Or in Ubuntu or other "Debian flavors" you can manually install them with:
 ```bash
 #install java
 sudo add-apt-repository ppa:webupd8team/java
@@ -69,12 +69,12 @@ gradlew bootRun
 
 ### Commands
 
-####Bot usage:
+#### Bot usage:
 ```
 prefix + command
 ```
 
-####Example: `!cat`
+#### Example: `!cat`
 
 For the list of all commands type `!help`
 

@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS `dodo-bot`.`t_deleted_message`;
+DROP TABLE IF EXISTS `dodo-bot`.`t_subscription`;
 DROP TABLE IF EXISTS `dodo-bot`.`t_banned_user`;
 DROP TABLE IF EXISTS `dodo-bot`.`t_prefix`;
 DROP TABLE IF EXISTS `dodo-bot`.`t_bank_account`;
@@ -100,5 +101,15 @@ CREATE TABLE `dodo-bot`.`t_deleted_message` (
   CONSTRAINT FK_UserDeleted FOREIGN KEY (user_id)
   REFERENCES `dodo-bot`.`t_user`(id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT FK_ServerDeleted FOREIGN KEY (server_id)
+  REFERENCES `dodo-bot`.`t_server`(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE `dodo-bot`.`t_subscription` (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  channel_id VARCHAR(20) NOT NULL,
+  timer INTEGER NOT NULL DEFAULT 1,
+  command VARCHAR(255) NOT NULL,
+  server_id BIGINT NOT NULL,
+  CONSTRAINT FK_ServerSubscription FOREIGN KEY (server_id)
   REFERENCES `dodo-bot`.`t_server`(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
