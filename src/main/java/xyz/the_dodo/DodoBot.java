@@ -33,16 +33,22 @@ public class DodoBot {
 
     public static void main(String[] args) throws LoginException, IOException
     {
+        JDABuilder jdaBuilder;
+
         init = new Initiator();
 
-        bot = new JDABuilder(AccountType.BOT)
+        jdaBuilder = new JDABuilder(AccountType.BOT)
                 .setToken(init.getToken())
                 .addEventListener(new StatsListener())
                 .addEventListener(new DeleteListener()) //High Memory usage if enabled
                 .addEventListener(new CommandListener())
                 .addEventListener(new OnServerJoinListener())
-                .addEventListener(new OnAddedToServerListener())
-                .build();
+                .addEventListener(new OnAddedToServerListener());
+
+        if (init.getCleverBotToken() != null)
+            jdaBuilder.addEventListener(new MentionListener());
+
+        bot = jdaBuilder.build();
 
         SpringApplication.run(DodoBot.class, args);
 
@@ -65,5 +71,9 @@ public class DodoBot {
 
     public static String getBotAvatarUrl() {
         return bot.getSelfUser().getAvatarUrl();
+    }
+
+    public static String getName() {
+        return bot.getSelfUser().getName();
     }
 }

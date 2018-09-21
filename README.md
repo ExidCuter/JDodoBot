@@ -2,7 +2,7 @@
 
 New version of JDodoBot. [Add it to your server](https://discordapp.com/oauth2/authorize?client_id=277458741052571648&scope=bot&permissions=2146958591)
 
-### Prerequisites
+## Prerequisites
 
 What things you will need to run the software
 
@@ -10,15 +10,15 @@ What things you will need to run the software
 Java 8, MySql Server, Gradle
 ```
 
-### Usage
+## Usage
 
-#### In Linux
+### In Linux
 You need to install the following dependencies:
 `Java 8`, `MySql Server`, `zip`, `unzip` and `gradle`  
 
-#####Download `install.sh` and run it with `./install.sh` (make sure you made it executable)
+####Download `install.sh` and run it with `./install.sh` (make sure you made it executable)
 
-#####Or in Ubuntu or other "Debian flavors" you can manually install them with:
+####Or in Ubuntu or other "Debian flavors" you can manually install them with:
 ```bash
 #install java
 sudo add-apt-repository ppa:webupd8team/java
@@ -54,7 +54,7 @@ gradle build -x test
 gradle bootRun
 ```
 
-#### In Windows
+### In Windows
 
 Install MySql Server and run `database/init.sql`, `database/tabels.sql` SQL scripts
 
@@ -67,14 +67,14 @@ gradlew build -x test
 gradlew bootRun
 ``` 
 
-#### Commands
+### Commands
 
-#####Bot usage:
+####Bot usage:
 ```
 prefix + command
 ```
 
-#####Example: `!cat`
+####Example: `!cat`
 
 For the list of all commands type `!help`
 

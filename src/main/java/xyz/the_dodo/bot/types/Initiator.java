@@ -5,6 +5,7 @@ import xyz.dodo.fortnite.Fortnite;
 import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.bot.functions.misc.FortniteRecords;
 import xyz.the_dodo.bot.functions.misc.FortniteRecordsImage;
+import xyz.the_dodo.bot.listeners.MentionListener;
 import xyz.the_dodo.bot.utils.CommandHandler;
 import xyz.the_dodo.bot.utils.ImageUtils;
 import xyz.the_dodo.bot.utils.VoiceUtils;
@@ -20,6 +21,7 @@ import java.util.List;
 public class Initiator {
     private String m_token;
     private String m_giphyToken;
+    private String m_cleverBotToken;
     private VoiceUtils voiceUtils;
 
     public void setToken(String p_token) {
@@ -38,18 +40,26 @@ public class Initiator {
         return voiceUtils;
     }
 
+    public String getCleverBotToken() {
+        return m_cleverBotToken;
+    }
+
     public Initiator() throws IOException {
         List<String> settings = Files.readAllLines(Paths.get("settings.txt"));
         try {
             m_token = settings.get(0);
             m_giphyToken = settings.get(1);
 
+            SimpleGiphy.setApiKey(m_giphyToken);
+
             Fortnite fortnite = new Fortnite(settings.get(2));
 
             FortniteRecords.setFortnite(fortnite);
             FortniteRecordsImage.setFortnite(fortnite);
 
-            SimpleGiphy.setApiKey(m_giphyToken);
+            m_cleverBotToken = settings.get(4);
+
+            MentionListener.CleverBot_API_Key = m_cleverBotToken;
         } catch (Exception e) {
             e.printStackTrace();
         }
