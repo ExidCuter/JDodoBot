@@ -34,7 +34,9 @@ public class SetDeletedMessages extends IFunction {
                 }
 
                 ServerUtils.m_serverService.save(server);
-            }
-        }
+            } else
+                p_messageParams.getTextChannel().sendMessage(getEmbededHelp().build()).queue();
+        } else
+            p_messageParams.getTextChannel().sendMessage("Only admins can use this command!").queue();
     }
 }

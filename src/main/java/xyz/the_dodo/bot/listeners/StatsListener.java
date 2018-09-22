@@ -28,6 +28,7 @@ public class StatsListener extends ListenerAdapter {
 
         user = event.getAuthor();
         guild = event.getGuild();
+
         stats = StatsUtils.statsExists(user);
 
         if (ServerUtils.serverExist(guild)) {

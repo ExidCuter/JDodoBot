@@ -33,12 +33,11 @@ sudo apt install mysql-server
 # zip and unzip
 sudo apt install unzip zip
 
-# sdkman
-curl -s "https://get.sdkman.io" | bash
-source "/home/$USER/.sdkman/bin/sdkman-init.sh"
-
 # gradle
-sudo sdk install gradle 4.10.1
+wget https://services.gradle.org/distributions/gradle-4.10.2-bin.zip
+sudo mkdir /opt/gradle
+sudo unzip -d /opt/gradle gradle-4.10.2-bin.zip
+export PATH=$PATH:/opt/gradle/gradle-4.10.2/bin
 
 echo "${BLUE}Deploying JDodoBot ver ${ver} ${NORMAL}"
 
@@ -46,8 +45,6 @@ echo "${BLUE}Deploying JDodoBot ver ${ver} ${NORMAL}"
 git clone https://github.com/ExidCuter/JDodoBot-2.0
 
 cd JDodoBot-2.0/
-
-sudo touch settings.txt
 
 while true; do
 	read -p "Bot Token: " bottoken;
@@ -70,9 +67,12 @@ FILELINES[0]=$bottoken;
 FILELINES[1]=$giphytoken;
 FILELINES[2]=$fortnitetoken;
 
-sudo printf "%s\n" "${FILELINES[@]}" > settings.txt
+touch settings.txt
+printf "%s\n" "${FILELINES[@]}" > settings.txt
 
 sudo mysql -u root < Database/init.sql
 sudo mysql -u root < Database/tables.sql
 
-gradle build -x test 
+gradle build -x test
+
+gradle bootRun

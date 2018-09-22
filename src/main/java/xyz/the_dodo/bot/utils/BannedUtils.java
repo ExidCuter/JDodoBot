@@ -24,6 +24,12 @@ public class BannedUtils {
         BannedUser bannedUser;
         xyz.the_dodo.database.types.User user;
 
+        if (!UserUtils.userExists(p_user))
+            UserUtils.createDodoUser(p_user);
+
+        if (!ServerUtils.serverExist(p_guild))
+            ServerUtils.createServer(p_guild);
+
         user = UserUtils.m_userService.findByDiscordId(p_user.getId());
         server = ServerUtils.m_serverService.findByDiscordId(p_guild.getId());
 
