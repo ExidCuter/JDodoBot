@@ -5,6 +5,7 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
@@ -14,11 +15,14 @@ import xyz.the_dodo.bot.listeners.*;
 import xyz.the_dodo.bot.types.Initiator;
 import xyz.the_dodo.bot.utils.DeletedMessageUtils;
 import xyz.the_dodo.bot.utils.ImageUtils;
+import xyz.the_dodo.bot.utils.SubsUtils;
 import xyz.the_dodo.bot.utils.VoiceUtils;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @Configuration
 @EnableSpringConfigured
@@ -33,8 +37,10 @@ public class DodoBot {
 
     public static void main(String[] args) throws LoginException, IOException
     {
+        Timer timer;
         JDABuilder jdaBuilder;
 
+        timer = new Timer();
         init = new Initiator();
 
         jdaBuilder = new JDABuilder(AccountType.BOT)
@@ -55,14 +61,32 @@ public class DodoBot {
         ImageUtils.botAvatar = Initiator.generateBotAvatar();
 
         bot.getPresence().setGame(Game.playing("!help for HELP"));
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                SubsUtils.triggerSubs();
+            }
+        }, 0,10 * 60 * 1000);
     }
 
     public static int getNumOfServers() {
         return bot.getGuilds().size();
     }
 
+    public static Member getBotAsMember() {
+        if (bot.getGuilds().size() > 0)
+            return bot.getGuilds().get(0).getMemberById(bot.getSelfUser().getId());
+        else
+            return null;
+    }
+
     public static List<Guild> getGuilds() {
         return bot.getGuilds();
+    }
+
+    public static Guild getGuildById(String id) {
+        return bot.getGuildById(id);
     }
 
     public static VoiceUtils getVoiceUtils() {

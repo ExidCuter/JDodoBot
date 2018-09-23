@@ -51,6 +51,9 @@ public class CommandHandler {
         commands.add(new GetDeletedMessages("getDeleted", "Gets deleted messages from this guild or a specific user of this guild!", "getDeleted <#MENTION> <#AMOUNT>"));
         commands.add(new Notification("notifyAll", "Sends a notification to all servers! Only bot owner can use this commad!", "notifyAll <MESSAGE>"));
         commands.add(new SetCustomPrefix("setPrefix", "Sets a custom prefix for your guild", "setPrefix <PREFIX>"));
+        commands.add(new Subscribe("sub", "Subscribes to a command and triggers it at an interval.", "sub <interval> <command> ([sub 3 shoot @person)] - triggers \"shoot\" once every 30 minutes)"));
+        commands.add(new Unsubscribe("unsub", "Unsubscribes you from a command.", "unsub <ID>"));
+        commands.add(new GetSubscriptions("getSubs", "Displays all subscriptions of your guild.", "getSubs"));
 
         //bank
         commands.add(new Register("bank.register", "Creates a bank account", "bank.register"));

@@ -34,7 +34,7 @@ public class CommandListener extends ListenerAdapter {
             prefix = "!";
 
         commands.forEach(command -> {
-            if (messageParams.getCommand().equals(prefix + command.getCommand()))
+            if (messageParams.getCommand().equalsIgnoreCase(prefix + command.getCommand()))
                 command.trigger(messageParams);
         });
     }

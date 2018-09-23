@@ -43,6 +43,16 @@ public class MessageParams {
         return textChannel;
     }
 
+    public MessageParams(String p_command, User p_author, Guild p_guild, TextChannel p_textChannel) {
+        user = p_author;
+        guild = p_guild;
+        textChannel = p_textChannel;
+        parameters = StringUtils.getParameters(p_command);
+        command = StringUtils.getCommandNParameters(p_command)[0];
+        content = StringUtils.glueStringsBackTogether(parameters, " ", 0);
+        message = new DefaultMessage(parameters, p_guild);
+    }
+
     public MessageParams(Message p_message) {
         String rawContent;
 
