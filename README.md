@@ -16,27 +16,40 @@ Java 8, MySql Server, Gradle
 You need to install the following dependencies:
 `Java 8`, `MySql Server`, `zip`, `unzip` and `gradle`  
 
-#### Download `install.sh` and run it with `./install.sh` (make sure you made it executable)
+#### Download `install.sh` from the GitHub repo
 
-#### Or in Ubuntu or other "Debian flavors" you can manually install them with:
 ```bash
-#install java
-sudo add-apt-repository ppa:webupd8team/java
-sudo apt-get update
-sudo apt-get install oracle-java8-installer
+# Download install.sh
+wget https://raw.githubusercontent.com/ExidCuter/JDodoBot-2.0/master/install.sh
 
-#install mysql
+# Make it executable
+chmod +x install.sh
+
+# Run it
+./install.sh
+```
+
+*This file works with APT package manager. If you are using different package manager just change `apt` to the appropriate command.*
+
+#### Or you can manually install them with:
+
+```bash
+# Install java
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt update
+sudo apt install oracle-java8-installer
+
+# Install mysql
 sudo apt install mysql-server
 
-#install zip and unzip
+# Install zip and unzip
 sudo apt install unzip zip
 
-#install sdkman
-curl -s "https://get.sdkman.io" | bash
-source "/home/$USER/.sdkman/bin/sdkman-init.sh" 
-
-#install gradle
-sdk install gradle
+# Install gradle
+wget https://services.gradle.org/distributions/gradle-4.10.2-bin.zip
+sudo mkdir /opt/gradle
+sudo unzip -d /opt/gradle gradle-4.10.2-bin.zip
+sudo export PATH=$PATH:/opt/gradle/gradle-4.10.2/bin
 ```
 
 than run SQL scripts:
