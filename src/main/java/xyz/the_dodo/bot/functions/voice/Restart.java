@@ -36,8 +36,7 @@ public class Restart extends IFunction {
         if (track != null) {
             p_messageParams.getTextChannel().sendMessage("Restarting track: " + track.getInfo().title).queue();
             player.playTrack(track.makeClone());
-        } else {
+        } else
             p_messageParams.getTextChannel().sendMessage("No track has been previously started, so the player cannot replay a track!").queue();
-        }
     }
 }

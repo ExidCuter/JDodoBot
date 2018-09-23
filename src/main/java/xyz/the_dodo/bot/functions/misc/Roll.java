@@ -20,23 +20,21 @@ public class Roll extends IFunction
 
 		channel = p_messageParams.getTextChannel();
 
-		try {
-			if (p_messageParams.getParameters()== null || p_messageParams.getParameters().length == 0) {
+		if (p_messageParams.getParameters()== null || p_messageParams.getParameters().length == 0) {
+			value = RandomGen.rndNm(7);
+
+			while (value == 0)
 				value = RandomGen.rndNm(7);
-				while (value == 0) {
-					value = RandomGen.rndNm(7);
-				}
-				channel.sendMessage(String.valueOf(value)).complete();
-			} else if (p_messageParams.getParameters().length > 0) {
-				max = Integer.parseInt(p_messageParams.getParameters()[0]) + 1;
+
+			channel.sendMessage(String.valueOf(value)).queue();
+		} else if (p_messageParams.getParameters().length > 0) {
+			max = Integer.parseInt(p_messageParams.getParameters()[0]) + 1;
+			value = RandomGen.rndNm(max);
+
+			while (value == 0)
 				value = RandomGen.rndNm(max);
-				while (value == 0) {
-					value = RandomGen.rndNm(max);
-				}
-				channel.sendMessage(String.valueOf(value)).complete();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+
+			channel.sendMessage(String.valueOf(value)).queue();
 		}
 	}
 }

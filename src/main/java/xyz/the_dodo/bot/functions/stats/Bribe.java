@@ -34,6 +34,7 @@ public class Bribe extends IFunction {
                     p_messageParams.getTextChannel().sendMessage("What am I supposed to do with this? NO GO!").queue();
                     return;
                 }
+
                 if (BankUtils.bankAccountExists(p_messageParams.getUser())) {
                     bankAccount = BankUtils.m_bankService.findByUserDiscordId(p_messageParams.getUser().getId());
 

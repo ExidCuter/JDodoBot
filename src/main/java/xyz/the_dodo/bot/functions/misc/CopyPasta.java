@@ -37,10 +37,6 @@ public class CopyPasta extends IFunction {
 
     @Override
     public void trigger(MessageParams p_messageParams) {
-        try {
-            p_messageParams.getTextChannel().sendMessage(copypastas[RandomGen.rndNm(copypastas.length)]).complete();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        p_messageParams.getTextChannel().sendMessage(copypastas[RandomGen.rndNm(copypastas.length)]).complete();
     }
 }

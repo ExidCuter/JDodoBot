@@ -34,10 +34,9 @@ public class Volume extends IFunction {
 
                 p_messageParams.getTextChannel().sendMessage("Player volume changed from `" + oldVolume + "` to `" + newVolume + "`").queue();
             } catch (NumberFormatException e) {
-                p_messageParams.getTextChannel().sendMessage("`" +p_messageParams.getParameters()[0] + "` is not a valid integer. (10 - 100)").queue();
+                p_messageParams.getTextChannel().sendMessage("`" + p_messageParams.getParameters()[0] + "` is not a valid integer. (10 - 100)").queue();
             }
-        } else {
+        } else
             p_messageParams.getTextChannel().sendMessage("Current player volume: **" + player.getVolume() + "**").queue();
-        }
     }
 }

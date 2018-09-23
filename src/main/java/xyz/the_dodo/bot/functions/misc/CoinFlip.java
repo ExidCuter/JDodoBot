@@ -16,15 +16,10 @@ public class CoinFlip extends IFunction {
     @Override
     public void trigger(MessageParams p_messageParams) {
         TextChannel textChannel = p_messageParams.getTextChannel();
-        try {
-            int x = RandomGen.rndNm(2);
-            if (x == 0)
-                textChannel.sendMessage("Tails").complete();
-            else
-                textChannel.sendMessage("Heads").complete();
-        } catch (Exception e) {
-            e.printStackTrace();
-            //TODO: bug reporting
-        }
+        int x = RandomGen.rndNm(2);
+        if (x == 0)
+            textChannel.sendMessage("Tails").queue();
+        else
+            textChannel.sendMessage("Heads").queue();
     }
 }

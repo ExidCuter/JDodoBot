@@ -13,6 +13,7 @@ public class Speak extends IFunction {
     @Override
     public void trigger(MessageParams p_messageParams) {
         String message;
+
         if (p_messageParams.getParameters().length > 0) {
             message = p_messageParams.getContent().substring(0, 1).toUpperCase() + p_messageParams.getContent().substring(1);
 

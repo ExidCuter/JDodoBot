@@ -33,9 +33,9 @@ public class ListQueue extends IFunction {
 
         Queue<AudioTrack> queue = scheduler.getQueue();
         synchronized (queue) {
-            if (queue.isEmpty()) {
+            if (queue.isEmpty())
                 p_messageParams.getTextChannel().sendMessage("The queue is currently empty!").queue();
-            } else {
+            else {
                 trackCount = 0;
                 queueLength = 0;
 

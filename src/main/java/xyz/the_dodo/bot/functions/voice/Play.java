@@ -27,9 +27,9 @@ public class Play extends IFunction {
         player = musicManager.player;
         scheduler = musicManager.scheduler;
 
-        if (p_messageParams.getParameters().length > 0) { //Commands has 2 parts, .play and url.
+        if (p_messageParams.getParameters().length > 0) //Commands has 2 parts, .play and url.
             DodoBot.getVoiceUtils().loadAndPlay(musicManager, p_messageParams.getMessage().getChannel(), p_messageParams.getParameters()[0], false);
-        } else { //It is only the command to start playback (probably after pause)
+        else { //It is only the command to start playback (probably after pause)
             if (player.isPaused()) {
                 player.setPaused(false);
 

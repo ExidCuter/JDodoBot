@@ -5,6 +5,7 @@ import net.dv8tion.jda.core.events.guild.GuildUnavailableEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.utils.BannedUtils;
 import xyz.the_dodo.bot.utils.PrefixUtils;
 import xyz.the_dodo.database.types.Prefix;
 
@@ -17,6 +18,9 @@ public class CommandListener extends ListenerAdapter {
             return;
 
         if (event.getAuthor().isBot())
+            return;
+
+        if(BannedUtils.isUserBannedOnServer(event.getAuthor(), event.getGuild()))
             return;
 
         String prefix;

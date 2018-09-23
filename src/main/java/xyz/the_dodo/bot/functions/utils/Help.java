@@ -15,13 +15,12 @@ public class Help extends IFunction {
     @Override
     public void trigger(MessageParams p_messageParams) {
         if (p_messageParams.getParameters().length > 0) {
-            if (StringUtils.containsCategoryEnum(p_messageParams.getParameters()[0].toUpperCase())) {
+            if (StringUtils.containsCategoryEnum(p_messageParams.getParameters()[0].toUpperCase()))
                 p_messageParams.getTextChannel().sendMessage(CommandHandler.generateHelp(p_messageParams.getParameters()[0])).queue();
-            } else {
+            else
                 CommandHandler.commands.stream()
                         .filter(command -> command.getCommand().equals(p_messageParams.getParameters()[0]))
                         .forEach(command -> p_messageParams.getTextChannel().sendMessage(command.getEmbededHelp().build()).queue());
-            }
         }
         else
             p_messageParams.getTextChannel().sendMessage(CommandHandler.generateHelp()).queue();

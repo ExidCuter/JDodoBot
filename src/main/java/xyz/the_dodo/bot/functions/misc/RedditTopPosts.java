@@ -31,6 +31,5 @@ public class RedditTopPosts extends IFunction {
             }
         } else
             p_messageParams.getTextChannel().sendMessage("Invalid parameters! Please specify a subreddit!").queue();
-
     }
 }

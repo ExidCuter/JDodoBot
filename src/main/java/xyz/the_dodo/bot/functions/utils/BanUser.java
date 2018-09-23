@@ -18,12 +18,13 @@ public class BanUser extends IFunction {
     @Override
     public void trigger(MessageParams p_messageParams) {
         List<Member> mentionedUsers;
+
         if (p_messageParams.getMessage().getMember().isOwner() || AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
             mentionedUsers = p_messageParams.getMessage().getMentionedMembers();
 
-            if (mentionedUsers.size() > 0) {
+            if (mentionedUsers.size() > 0)
                 mentionedUsers.forEach(p_member -> BannedUtils.banUserOnServer(p_member.getUser(), p_messageParams.getGuild()));
-            } else
+            else
                 p_messageParams.getTextChannel().sendMessage("You need to mention users!").queue();
         } else
             p_messageParams.getTextChannel().sendMessage("Only admins can ban people!").queue();

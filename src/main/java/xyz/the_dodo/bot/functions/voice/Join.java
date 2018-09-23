@@ -18,6 +18,7 @@ public class Join extends IFunction {
 
     @Override
     public void trigger(MessageParams p_messageParams) {
+        //TODO: check if user is in channel
         Guild guild;
         VoiceChannel voiceChannel;
         GuildMusicManager musicManager;
@@ -26,29 +27,27 @@ public class Join extends IFunction {
 
         musicManager = DodoBot.getVoiceUtils().getMusicManager(guild);
 
-        if (p_messageParams.getParameters().length == 0) { //No channel name was provided to search for.
-            //TODO: check if user is in channel
+        if (p_messageParams.getParameters().length == 0)  //No channel name was provided to search for.
             p_messageParams.getTextChannel().sendMessage("No channel name was provided to search with to join.").queue();
-        } else {
+        else {
             voiceChannel = null;
             try {
                 voiceChannel = p_messageParams.getGuild().getVoiceChannelById(p_messageParams.getParameters()[0]);
-            } catch (Exception ignored) {
-            }
+            } catch (Exception ignored) { }
 
             if (voiceChannel == null)
                 voiceChannel = p_messageParams.getGuild().getVoiceChannelsByName(p_messageParams.getParameters()[0], true).stream().findFirst().orElse(null);
-            if (voiceChannel == null) {
+
+            if (voiceChannel == null)
                 p_messageParams.getTextChannel().sendMessage("Could not find VoiceChannel by name: " + p_messageParams.getParameters()[0]).queue();
-            } else {
+            else {
                 guild.getAudioManager().setSendingHandler(musicManager.sendHandler);
 
                 try {
                     guild.getAudioManager().openAudioConnection(voiceChannel);
                 } catch (PermissionException e) {
-                    if (e.getPermission() == Permission.VOICE_CONNECT) {
+                    if (e.getPermission() == Permission.VOICE_CONNECT)
                         p_messageParams.getTextChannel().sendMessage("DodoBot does not have permission to connect to: " + voiceChannel.getName()).queue();
-                    }
                 }
             }
         }

@@ -15,13 +15,8 @@ public class Hi extends IFunction {
     public void trigger(MessageParams p_messageParams) {
         MessageChannel messageChannel;
 
-        try {
-            messageChannel = p_messageParams.getTextChannel();
+        messageChannel = p_messageParams.getTextChannel();
 
-            messageChannel.sendMessage("Hi, " + p_messageParams.getUser().getAsMention()).queue();
-        } catch (Exception e) {
-            e.printStackTrace();
-            //TODO: implement BugReport
-        }
+        messageChannel.sendMessage("Hi, " + p_messageParams.getUser().getAsMention()).queue();
     }
 }

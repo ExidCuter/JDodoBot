@@ -15,7 +15,6 @@ public class ResetStats extends IFunction {
 
     @Override
     public void trigger(MessageParams p_messageParams) {
-        User user;
         Stats stats;
 
         stats = StatsUtils.statsExists(p_messageParams.getUser());

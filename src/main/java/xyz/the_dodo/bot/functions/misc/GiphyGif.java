@@ -29,13 +29,11 @@ public class GiphyGif extends IFunction {
             trendingResponse = SimpleGiphy.getInstance().search(query, "5", "0", "");
             data = trendingResponse.getData();
 
-            if (!data.isEmpty()) {
+            if (!data.isEmpty())
                 p_messageParams.getTextChannel().sendMessage(data.get(RandomGen.rndNm(data.size())).getUrl()).queue();
-            } else {
+            else
                 p_messageParams.getTextChannel().sendMessage("No GIFs found!").queue();
-            }
-        } else {
+        } else
             p_messageParams.getTextChannel().sendMessage(this.getEmbededHelp().build()).queue();
-        }
     }
 }

@@ -29,8 +29,7 @@ public class NowPlaying extends IFunction {
         player = musicManager.player;
         currentTrack = player.getPlayingTrack();
 
-        if (currentTrack != null)
-        {
+        if (currentTrack != null) {
             String title = currentTrack.getInfo().title;
             String position = getTimestamp(currentTrack.getPosition());
             String duration = getTimestamp(currentTrack.getDuration());

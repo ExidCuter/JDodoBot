@@ -36,10 +36,6 @@ public class Magic8Ball extends IFunction {
 
     @Override
     public void trigger(MessageParams p_messageParams) {
-        try {
-            p_messageParams.getTextChannel().sendMessage(answers[RandomGen.rndNm(answers.length)]).complete();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        p_messageParams.getTextChannel().sendMessage(answers[RandomGen.rndNm(answers.length)]).complete();
     }
 }

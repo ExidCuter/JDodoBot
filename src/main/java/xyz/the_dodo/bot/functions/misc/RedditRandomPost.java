@@ -38,6 +38,5 @@ public class RedditRandomPost extends IFunction {
                 p_messageParams.getTextChannel().sendMessage("No posts found!").queue();
         } else
             p_messageParams.getTextChannel().sendMessage("Wrong parameters! Please specify a subreddit!").queue();
-
     }
 }

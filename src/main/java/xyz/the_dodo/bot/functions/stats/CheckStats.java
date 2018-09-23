@@ -20,8 +20,6 @@ public class CheckStats extends IFunction {
         Member user;
         String level, img;
 
-        img = "";
-        level = "";
         user = p_messageParams.getMessage().getMember();
         stats = StatsUtils.statsExists(p_messageParams.getUser());
 
