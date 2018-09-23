@@ -49,7 +49,7 @@ sudo apt install unzip zip
 wget https://services.gradle.org/distributions/gradle-4.10.2-bin.zip
 sudo mkdir /opt/gradle
 sudo unzip -d /opt/gradle gradle-4.10.2-bin.zip
-sudo export PATH=$PATH:/opt/gradle/gradle-4.10.2/bin
+export PATH=$PATH:/opt/gradle/gradle-4.10.2/bin
 ```
 
 than run SQL scripts:
