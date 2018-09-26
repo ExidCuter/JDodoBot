@@ -6,5 +6,6 @@ public enum CommandCategory {
     QUOTES,
     STATS,
     UTILS,
-    VOICE
+    VOICE,
+    ADMIN
 }

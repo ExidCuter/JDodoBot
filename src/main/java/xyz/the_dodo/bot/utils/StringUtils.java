@@ -60,6 +60,9 @@ public class StringUtils {
     }
 
     public static boolean containsCategoryEnum(String value) {
+        if (value.equalsIgnoreCase(CommandCategory.ADMIN.toString()))
+            return false;
+
         for (CommandCategory c : CommandCategory.values()) {
             if (c.name().equals(value)) {
                 return true;

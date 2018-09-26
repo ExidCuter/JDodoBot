@@ -98,7 +98,8 @@ public class CommandHandler {
         builder.append("DodoBot function Categories:\n");
 
         for (CommandCategory c : CommandCategory.values()) {
-
+            if (c.equals(CommandCategory.ADMIN))
+                continue;
             builder.append("\t`" + c.toString() + "`\n");
         }
 

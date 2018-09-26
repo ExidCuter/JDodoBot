@@ -8,6 +8,8 @@ import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.BankUtils;
 import xyz.the_dodo.database.types.BankAccount;
 
+import java.time.format.DateTimeFormatter;
+
 public class Balance extends IFunction {
     public Balance(String command, String description, String usage) {
         super(command, description, usage);
@@ -19,8 +21,11 @@ public class Balance extends IFunction {
         User author;
         BankAccount ba;
         EmbedBuilder embMsg;
+        DateTimeFormatter formatter;
 
         author = p_messageParams.getUser();
+
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         if (BankUtils.bankAccountExists(author)) {
             ba = BankUtils.m_bankService.findByUserDiscordId(author.getId());
@@ -31,7 +36,7 @@ public class Balance extends IFunction {
             embMsg.setColor(p_messageParams.getMessage().getMember().getColor());
             embMsg.addField("Account Number", author.getId(), false);
             embMsg.addField("Balance", String.valueOf(ba.getBalance()) + " ₪", true);
-            embMsg.addField("Last Pay", ba.getLastPay().toString(), true);
+            embMsg.addField("Last Pay", formatter.format(ba.getLastPay()), true);
 
             p_messageParams.getTextChannel().sendMessage(embMsg.build()).queue();
         } else
