@@ -69,12 +69,12 @@ public class Initiator {
         CommandHandler.registerCommands();
 
         ImageUtils.gif = new BufferedImage[35];
-        ImageUtils.triggered = ImageUtils.getBufferedImageFromFile("triggered.jpg");
+        ImageUtils.triggered = ImageUtils.getBufferedImageFromFile("img/triggered.jpg");
 
-        ImageUtils.fortniteBG = ImageUtils.getBufferedImageFromFile("bg.jpg");
+        ImageUtils.fortniteBG = ImageUtils.getBufferedImageFromFile("img/bg.jpg");
 
         for (int i = 0; i < ImageUtils.gif.length; i++) {
-            ImageUtils.gif[i] = ImageUtils.getBufferedImageFromFile("gif/" + String.valueOf(i) + ".png");
+            ImageUtils.gif[i] = ImageUtils.getBufferedImageFromFile("img/gif/" + String.valueOf(i) + ".png");
         }
 
         voiceUtils = new VoiceUtils();
