@@ -35,8 +35,7 @@ public class DodoBot {
     public static final String botOwner = "161795217803051008"; //Owner of the bot
     public static final int maxMessagesCached = 10000; //you can set custom amount (Higher you go -> more memory usage!)
 
-    public static void main(String[] args) throws LoginException, IOException
-    {
+    public static void main(String[] args) throws LoginException, IOException {
         Timer timer;
         JDABuilder jdaBuilder;
 
@@ -87,6 +86,10 @@ public class DodoBot {
 
     public static Guild getGuildById(String id) {
         return bot.getGuildById(id);
+    }
+
+    public static void leaveGuild(String id) {
+        bot.getGuildById(id).leave().queue();
     }
 
     public static VoiceUtils getVoiceUtils() {

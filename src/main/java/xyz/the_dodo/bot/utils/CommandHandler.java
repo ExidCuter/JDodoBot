@@ -1,6 +1,8 @@
 package xyz.the_dodo.bot.utils;
 
 import xyz.the_dodo.bot.functions.IFunction;
+import xyz.the_dodo.bot.functions.admin.GetAllServers;
+import xyz.the_dodo.bot.functions.admin.LeaveGuild;
 import xyz.the_dodo.bot.functions.bank.*;
 import xyz.the_dodo.bot.functions.misc.*;
 import xyz.the_dodo.bot.functions.quotes.*;
@@ -17,6 +19,10 @@ public class CommandHandler {
     public static List<IFunction> commands = new ArrayList<>();
 
     public static void registerCommands() {
+        //admin
+        commands.add(new GetAllServers("getServers", "", ""));
+        commands.add(new LeaveGuild("leaveGuild", "", ""));
+
         //misc
         commands.add(new Hi("hi", "Says helo", "hi"));
         commands.add(new Cat("cat", "Gets a picture of a cat!", "cat"));
