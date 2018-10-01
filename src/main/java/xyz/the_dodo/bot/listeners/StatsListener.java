@@ -8,11 +8,20 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.bot.utils.ServerUtils;
 import xyz.the_dodo.bot.utils.StatsUtils;
-import xyz.the_dodo.database.types.DeletedMessage;
 import xyz.the_dodo.database.types.Server;
 import xyz.the_dodo.database.types.Stats;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class StatsListener extends ListenerAdapter {
+    public static LinkedHashMap<String, Integer> userInteractions = new LinkedHashMap<String, Integer>(){
+        @Override
+        protected boolean removeEldestEntry(final Map.Entry eldest) {
+            return size() > DodoBot.maxMessagesCached;
+        }
+    };
+
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         User user;
@@ -30,6 +39,8 @@ public class StatsListener extends ListenerAdapter {
         guild = event.getGuild();
 
         stats = StatsUtils.statsExists(user);
+
+        userInteractions.put(user.getId(), (userInteractions.containsKey(user.getId())) ? userInteractions.get(user.getId()) + 1 : 1);
 
         if (ServerUtils.serverExist(guild)) {
             server = ServerUtils.m_serverService.findByDiscordId(guild.getId());

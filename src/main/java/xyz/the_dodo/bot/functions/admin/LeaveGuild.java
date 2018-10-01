@@ -4,6 +4,7 @@ import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.bot.functions.IFunction;
 import xyz.the_dodo.bot.types.CommandCategory;
 import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.utils.AdminUtils;
 
 public class LeaveGuild extends IFunction {
     public LeaveGuild(String command, String description, String usage) {
@@ -13,7 +14,7 @@ public class LeaveGuild extends IFunction {
 
     @Override
     public void trigger(MessageParams p_messageParams) {
-        if (p_messageParams.getUser().getId().equals(DodoBot.botOwner)) {
+        if (AdminUtils.isUserBotOwner(p_messageParams.getUser())) {
             for (String s : p_messageParams.getParameters()) {
                 DodoBot.leaveGuild(s);
             }

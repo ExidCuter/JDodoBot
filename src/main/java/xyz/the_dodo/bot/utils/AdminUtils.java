@@ -3,6 +3,7 @@ package xyz.the_dodo.bot.utils;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.REST.service.AdminServiceImpl;
 import xyz.the_dodo.database.interfaces.services.IAdminService;
 import xyz.the_dodo.database.types.Admin;
@@ -28,5 +29,7 @@ public class AdminUtils {
         return false;
     }
 
-
+    public static boolean isUserBotOwner(User p_user) {
+        return p_user.getId().equals(DodoBot.botOwner);
+    }
 }

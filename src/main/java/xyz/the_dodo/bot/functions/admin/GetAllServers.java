@@ -4,6 +4,7 @@ import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.bot.functions.IFunction;
 import xyz.the_dodo.bot.types.CommandCategory;
 import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.StringUtils;
 
 public class GetAllServers extends IFunction {
@@ -18,7 +19,7 @@ public class GetAllServers extends IFunction {
 
          stringBuilder = new StringBuilder();
 
-         if (p_messageParams.getUser().getId().equals(DodoBot.botOwner)) {
+         if (AdminUtils.isUserBotOwner(p_messageParams.getUser())) {
              DodoBot.getGuilds().forEach(p_guild ->
                      stringBuilder.append(p_guild.getName())
                              .append(" | ")

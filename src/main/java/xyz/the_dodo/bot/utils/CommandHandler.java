@@ -2,6 +2,7 @@ package xyz.the_dodo.bot.utils;
 
 import xyz.the_dodo.bot.functions.IFunction;
 import xyz.the_dodo.bot.functions.admin.GetAllServers;
+import xyz.the_dodo.bot.functions.admin.GetStatistics;
 import xyz.the_dodo.bot.functions.admin.LeaveGuild;
 import xyz.the_dodo.bot.functions.bank.*;
 import xyz.the_dodo.bot.functions.misc.*;
@@ -22,6 +23,7 @@ public class CommandHandler {
         //admin
         commands.add(new GetAllServers("getServers", "", ""));
         commands.add(new LeaveGuild("leaveGuild", "", ""));
+        commands.add(new GetStatistics("getBotStats", "", ""));
 
         //misc
         commands.add(new Hi("hi", "Says helo", "hi"));
