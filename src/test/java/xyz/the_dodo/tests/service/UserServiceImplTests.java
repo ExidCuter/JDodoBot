@@ -26,8 +26,7 @@ import static org.assertj.core.api.Assertions.tuple;
 @TestPropertySource({ "/h2-test.properties" })
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @Sql({"/testData/users.sql"})
-public class UserServiceImplTests
-{
+public class UserServiceImplTests {
 	@Autowired
 	private IUserRepo m_userRepo;
 

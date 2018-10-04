@@ -27,8 +27,7 @@ import static org.assertj.core.api.Assertions.tuple;
 @TestPropertySource({ "/h2-test.properties" })
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @Sql({"/testData/quotes.sql"})
-public class QuoteServiceImplTests
-{
+public class QuoteServiceImplTests {
 	@Autowired
 	private IQuoteRepo m_quoteRepo;
 
