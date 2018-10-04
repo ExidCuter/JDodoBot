@@ -40,8 +40,6 @@ public class StatsListener extends ListenerAdapter {
 
         stats = StatsUtils.statsExists(user);
 
-        userInteractions.put(user.getId(), (userInteractions.containsKey(user.getId())) ? userInteractions.get(user.getId()) + 1 : 1);
-
         if (ServerUtils.serverExist(guild)) {
             server = ServerUtils.m_serverService.findByDiscordId(guild.getId());
 

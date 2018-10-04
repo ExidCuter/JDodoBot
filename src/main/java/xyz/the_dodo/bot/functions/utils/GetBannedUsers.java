@@ -17,7 +17,7 @@ public class GetBannedUsers extends IFunction {
     public void trigger(MessageParams p_messageParams) {
         StringBuilder builder;
 
-        if (p_messageParams.getMessage().getMember().isOwner() || AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
+        if (AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
             builder = new StringBuilder();
 
             builder.append("Banned users:");

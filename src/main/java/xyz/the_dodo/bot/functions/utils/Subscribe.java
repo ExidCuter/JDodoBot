@@ -18,7 +18,7 @@ public class Subscribe extends IFunction {
         int timerMulti;
         String command;
 
-        if (p_messageParams.getMessage().getMember().isOwner() || AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
+        if (AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
             try {
                 timerMulti = Integer.parseUnsignedInt(p_messageParams.getParameters()[0]);
 

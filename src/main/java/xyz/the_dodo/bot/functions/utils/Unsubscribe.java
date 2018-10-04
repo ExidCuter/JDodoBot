@@ -16,7 +16,7 @@ public class Unsubscribe extends IFunction {
     public void trigger(MessageParams p_messageParams) {
         int id;
 
-        if (p_messageParams.getMessage().getMember().isOwner() || AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
+        if (AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
             try {
                 id = Integer.parseUnsignedInt(p_messageParams.getParameters()[0]);
 

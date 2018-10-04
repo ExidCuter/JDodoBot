@@ -10,11 +10,21 @@ import javax.persistence.Table;
 public class User extends Identificator {
     private String discordId;
 
+    private boolean banned;
+
     public String getDiscordId() {
         return discordId;
     }
 
     public void setDiscordId(String discordId) {
         this.discordId = discordId;
+    }
+
+    public boolean isBanned() {
+        return banned;
+    }
+
+    public void setBanned(boolean p_banned) {
+        banned = p_banned;
     }
 }

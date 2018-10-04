@@ -24,8 +24,7 @@ public class SetAdmin extends IFunction {
         Server server;
 
         if (p_messageParams.getMessage().getMentionedMembers().size() > 0) {
-            if (p_messageParams.getGuild().getOwner().getUser().getId().equals(p_messageParams.getUser().getId()) ||
-                    AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
+            if (AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
                 for (Member member : p_messageParams.getMessage().getMentionedMembers()) {
                     if (!UserUtils.userExists(member.getUser()))
                         UserUtils.createDodoUser(member.getUser());

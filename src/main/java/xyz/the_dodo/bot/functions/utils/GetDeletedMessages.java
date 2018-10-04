@@ -27,7 +27,7 @@ public class GetDeletedMessages extends IFunction {
         maxMessages = 5;
         stringBuilder = new StringBuilder();
 
-        if (p_messageParams.getMessage().getMember().isOwner() || AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
+        if (AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
             if (p_messageParams.getMessage().getMentionedMembers().size() > 0) {
                 if (p_messageParams.getParameters().length > p_messageParams.getMessage().getMentionedMembers().size()) {
                     try {

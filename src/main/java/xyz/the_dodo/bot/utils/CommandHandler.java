@@ -4,6 +4,7 @@ import xyz.the_dodo.bot.functions.IFunction;
 import xyz.the_dodo.bot.functions.admin.GetAllServers;
 import xyz.the_dodo.bot.functions.admin.GetStatistics;
 import xyz.the_dodo.bot.functions.admin.LeaveGuild;
+import xyz.the_dodo.bot.functions.admin.MasterBan;
 import xyz.the_dodo.bot.functions.bank.*;
 import xyz.the_dodo.bot.functions.misc.*;
 import xyz.the_dodo.bot.functions.quotes.*;
@@ -24,6 +25,7 @@ public class CommandHandler {
         commands.add(new GetAllServers("getServers", "", ""));
         commands.add(new LeaveGuild("leaveGuild", "", ""));
         commands.add(new GetStatistics("getBotStats", "", ""));
+        commands.add(new MasterBan("gameEndUser", "", ""));
 
         //misc
         commands.add(new Hi("hi", "Says helo", "hi"));
@@ -62,6 +64,8 @@ public class CommandHandler {
         commands.add(new Subscribe("sub", "Subscribes to a command and triggers it at an interval.", "sub <interval> <command> ([sub 3 shoot @person)] - triggers \"shoot\" once every 30 minutes)"));
         commands.add(new Unsubscribe("unsub", "Unsubscribes you from a command.", "unsub <ID>"));
         commands.add(new GetSubscriptions("getSubs", "Displays all subscriptions of your guild.", "getSubs"));
+        commands.add(new BanUserFromGuild("guild.ban", "Bans user/users from guild!", "guild.ban <MENTIONED USERS>"));
+        commands.add(new KickUserFromGuild("guild.kick", "Kicks user/users from guild!", "guild.kick <MENTIONED USERS>"));
 
         //bank
         commands.add(new Register("bank.register", "Creates a bank account", "bank.register"));

@@ -13,7 +13,8 @@ DROP TABLE IF EXISTS `dodo-bot`.`t_server`;
 
 CREATE TABLE `dodo-bot`.`t_user`(
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
-  discord_id VARCHAR(20) NOT NULL
+  discord_id VARCHAR(20) NOT NULL,
+  banned CHAR(1) NOT NULL DEFAULT '0'
 );
 
 CREATE TABLE `dodo-bot`.`t_server`(

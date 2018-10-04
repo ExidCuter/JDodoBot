@@ -1,15 +1,14 @@
 package xyz.the_dodo.bot.listeners;
 
 import net.dv8tion.jda.core.entities.ChannelType;
-import net.dv8tion.jda.core.events.guild.GuildUnavailableEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.BannedUtils;
 import xyz.the_dodo.bot.utils.PrefixUtils;
-import xyz.the_dodo.database.types.Prefix;
 
 import static xyz.the_dodo.bot.utils.CommandHandler.commands;
+import static xyz.the_dodo.bot.listeners.StatsListener.userInteractions;
 
 public class CommandListener extends ListenerAdapter {
     @Override
@@ -34,8 +33,12 @@ public class CommandListener extends ListenerAdapter {
             prefix = "!";
 
         commands.forEach(command -> {
-            if (messageParams.getCommand().equalsIgnoreCase(prefix + command.getCommand()))
+            if (messageParams.getCommand().equalsIgnoreCase(prefix + command.getCommand())) {
                 command.trigger(messageParams);
+
+                userInteractions.put(messageParams.getUser().getId(),
+                        (userInteractions.containsKey(messageParams.getUser().getId())) ? userInteractions.get(messageParams.getUser().getId()) + 1 : 1);
+            }
         });
     }
 }

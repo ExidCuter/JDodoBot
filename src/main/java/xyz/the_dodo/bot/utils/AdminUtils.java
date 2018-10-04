@@ -16,6 +16,9 @@ public class AdminUtils {
     public static boolean isAdminOfGuild(User user, Guild guild) {
         List<Admin> admins;
 
+        if (guild.getOwner().getUser().getId().equals(user.getId()))
+            return true;
+
         admins = m_adminService.getAdminsByServerId(guild.getId());
 
         if (user.getId().equals(guild.getOwner().getUser().getId()))

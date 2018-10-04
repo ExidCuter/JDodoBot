@@ -7,16 +7,30 @@ import xyz.the_dodo.database.interfaces.services.IBannedService;
 import xyz.the_dodo.database.types.BannedUser;
 import xyz.the_dodo.database.types.Server;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class BannedUtils {
     public static IBannedService m_bannedService = BeanUtils.getBean(BannedServiceImpl.class);
 
     public static boolean isUserBannedOnServer(User p_user, Guild p_guild) {
-        for (BannedUser p_bannedUser : m_bannedService.findByServerDiscordId(p_guild.getId())) {
-            if (p_bannedUser.getUser().getDiscordId().equals(p_user.getId()))
-                return true;
-        }
+        xyz.the_dodo.database.types.User user;
+        List<BannedUser> bannedUsers;
 
-        return false;
+        user = UserUtils.m_userService.findByDiscordId(p_user.getId());
+        bannedUsers = m_bannedService.findByServerDiscordId(p_guild.getId());
+
+        if (user != null) {
+            if (user.isBanned())
+                return true;
+        } else
+            return false;
+
+        bannedUsers = bannedUsers.stream()
+                .filter(p_bannedUser -> p_bannedUser.getUser().getDiscordId().equals(p_user.getId()))
+                .collect(Collectors.toList());
+
+        return bannedUsers.size() > 0;
     }
 
     public static void banUserOnServer(User p_user, Guild p_guild) {

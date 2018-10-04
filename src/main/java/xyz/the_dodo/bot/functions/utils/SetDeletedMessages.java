@@ -17,7 +17,7 @@ public class SetDeletedMessages extends IFunction {
     public void trigger(MessageParams p_messageParams) {
         Server server;
 
-        if(p_messageParams.getMessage().getMember().isOwner() || AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
+        if(AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
             if (p_messageParams.getParameters().length > 0) {
                 if (!ServerUtils.serverExist(p_messageParams.getGuild())) {
                     ServerUtils.createServer(p_messageParams.getGuild());

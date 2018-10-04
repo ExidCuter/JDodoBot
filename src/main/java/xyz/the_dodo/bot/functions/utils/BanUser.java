@@ -19,7 +19,7 @@ public class BanUser extends IFunction {
     public void trigger(MessageParams p_messageParams) {
         List<Member> mentionedUsers;
 
-        if (p_messageParams.getMessage().getMember().isOwner() || AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
+        if (AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
             mentionedUsers = p_messageParams.getMessage().getMentionedMembers();
 
             if (mentionedUsers.size() > 0)
