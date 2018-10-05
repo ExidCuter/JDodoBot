@@ -3,7 +3,7 @@ package xyz.the_dodo.bot.functions.utils;
 import xyz.the_dodo.bot.functions.IFunction;
 import xyz.the_dodo.bot.types.CommandCategory;
 import xyz.the_dodo.bot.types.MessageParams;
-import xyz.the_dodo.bot.utils.CommandHandler;
+import xyz.the_dodo.bot.types.CommandHandler;
 import xyz.the_dodo.bot.utils.StringUtils;
 
 public class Help extends IFunction {

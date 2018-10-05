@@ -4,7 +4,7 @@ import xyz.the_dodo.bot.functions.IFunction;
 import xyz.the_dodo.bot.types.CommandCategory;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.BankUtils;
-import xyz.the_dodo.bot.utils.SlotMashina;
+import xyz.the_dodo.bot.types.SlotMashina;
 import xyz.the_dodo.database.types.BankAccount;
 
 public class Slot extends IFunction {

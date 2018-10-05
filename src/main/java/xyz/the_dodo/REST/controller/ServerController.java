@@ -17,7 +17,7 @@ public class ServerController
 	private IServerService m_serverService;
 
 	@RequestMapping(value = "/servers", method = RequestMethod.GET)
-	public ResponseEntity getAllUsers() {
+	public ResponseEntity getAll() {
 		List<Server> servers;
 
 		servers = m_serverService.findAll();
@@ -26,7 +26,7 @@ public class ServerController
 	}
 
 	@RequestMapping(value = "/server/{discordId}", method = RequestMethod.GET)
-	public ResponseEntity getUserById(@PathVariable String discordId) {
+	public ResponseEntity getById(@PathVariable String discordId) {
 		Server server;
 
 		server = m_serverService.findByDiscordId(discordId);

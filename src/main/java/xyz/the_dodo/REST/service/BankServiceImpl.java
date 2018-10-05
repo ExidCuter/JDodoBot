@@ -13,15 +13,7 @@ import java.util.List;
 @Service
 public class BankServiceImpl implements IBankService {
     @Autowired
-    private IUserRepo userRepo;
-
-    @Autowired
     private IBankAccountRepo bankAccountRepo;
-
-    public void setUserRepo(IUserRepo p_userRepo)
-    {
-        userRepo = p_userRepo;
-    }
 
     public void setBankAccountRepo(IBankAccountRepo p_bankAccountRepo)
     {

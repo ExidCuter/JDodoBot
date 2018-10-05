@@ -14,9 +14,8 @@ public class BankController
 	@Autowired
 	private IBankService m_BankService;
 
-
 	@RequestMapping(value = "/account/{discordId}", method = RequestMethod.GET)
-	public ResponseEntity getUserById(@PathVariable String discordId) {
+	public ResponseEntity getById(@PathVariable String discordId) {
 		BankAccount bankAccount;
 
 		bankAccount = m_BankService.findByUserDiscordId(discordId);

@@ -12,15 +12,7 @@ import java.util.List;
 @Service
 public class DefaultRoleServiceImpl implements IDefaultRoleService {
     @Autowired
-    private IServerRepo m_serverRepo;
-
-    @Autowired
     private IDefaultRoleRepo m_defaultRoleRepo;
-
-    public void setServerRepo(IServerRepo p_serverRepo)
-    {
-        m_serverRepo = p_serverRepo;
-    }
 
     public void setDefaultRoleRepo(IDefaultRoleRepo p_defaultRoleRepo)
     {

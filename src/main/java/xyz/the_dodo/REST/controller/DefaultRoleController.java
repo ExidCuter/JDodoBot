@@ -17,7 +17,7 @@ public class DefaultRoleController
 	private IDefaultRoleService m_defaultRoleService;
 
 	@RequestMapping(value = "/defaultRoles", method = RequestMethod.GET)
-	public ResponseEntity getAllUsers() {
+	public ResponseEntity getAll() {
 		List<DefaultRole> defaultRoles;
 
 		defaultRoles = m_defaultRoleService.findAll();
@@ -26,7 +26,7 @@ public class DefaultRoleController
 	}
 
 	@RequestMapping(value = "/defaultRole/{discordId}", method = RequestMethod.GET)
-	public ResponseEntity getUserById(@PathVariable String discordId) {
+	public ResponseEntity getById(@PathVariable String discordId) {
 		DefaultRole defaultRole;
 
 		defaultRole = m_defaultRoleService.findByServerId(1L);

@@ -9,6 +9,4 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = {"xyz.the_dodo.database.interfaces.repos"})
 @EnableTransactionManagement
 @EnableJpaAuditing
-public class ServiceConfig {
-
-}
+public class ServiceConfig { }

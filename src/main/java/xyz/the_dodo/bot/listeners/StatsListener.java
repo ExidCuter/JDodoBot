@@ -45,6 +45,7 @@ public class StatsListener extends ListenerAdapter {
 
             if (server.isSaveDeleted()) {
                 DeleteListener.deletedMessages.put(event.getMessage().getId(), event.getMessage());
+                //TODO: GET FILES
             }
         }
 

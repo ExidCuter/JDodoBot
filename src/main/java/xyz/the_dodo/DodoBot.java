@@ -13,7 +13,6 @@ import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 
 import xyz.the_dodo.bot.listeners.*;
 import xyz.the_dodo.bot.types.Initiator;
-import xyz.the_dodo.bot.utils.DeletedMessageUtils;
 import xyz.the_dodo.bot.utils.ImageUtils;
 import xyz.the_dodo.bot.utils.SubsUtils;
 import xyz.the_dodo.bot.utils.VoiceUtils;

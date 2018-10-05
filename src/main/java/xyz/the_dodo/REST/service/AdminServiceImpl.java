@@ -17,22 +17,6 @@ public class AdminServiceImpl implements IAdminService
 	@Autowired
 	private IAdminoRepo m_adminRepo;
 
-	@Autowired
-	private IUserRepo m_userRepo;
-
-	@Autowired
-	private IServerRepo m_serverRepo;
-
-	public void setUserRepo(IUserRepo p_userRepo)
-	{
-		m_userRepo = p_userRepo;
-	}
-
-	public void setServerRepo(IServerRepo p_serverRepo)
-	{
-		m_serverRepo = p_serverRepo;
-	}
-
 	public void setAdminRepo(IAdminoRepo p_adminRepo)
 	{
 		m_adminRepo = p_adminRepo;

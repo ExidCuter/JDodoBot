@@ -1,4 +1,4 @@
-package xyz.the_dodo.bot.utils;
+package xyz.the_dodo.bot.types;
 
 import xyz.the_dodo.bot.functions.IFunction;
 import xyz.the_dodo.bot.functions.admin.GetAllServers;
@@ -11,11 +11,9 @@ import xyz.the_dodo.bot.functions.quotes.*;
 import xyz.the_dodo.bot.functions.stats.*;
 import xyz.the_dodo.bot.functions.utils.*;
 import xyz.the_dodo.bot.functions.voice.*;
-import xyz.the_dodo.bot.types.CommandCategory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CommandHandler {
     public static List<IFunction> commands = new ArrayList<>();

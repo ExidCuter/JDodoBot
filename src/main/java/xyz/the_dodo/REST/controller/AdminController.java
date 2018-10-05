@@ -17,7 +17,7 @@ public class AdminController
 	private IAdminService m_adminService;
 
 	@RequestMapping(value = "/admins", method = RequestMethod.GET)
-	public ResponseEntity getAllUsers() {
+	public ResponseEntity getAllAdmins() {
 		List<Admin> admins;
 
 		admins = m_adminService.findAll();
@@ -26,7 +26,7 @@ public class AdminController
 	}
 
 	@RequestMapping(value = "/admin/{discordId}", method = RequestMethod.GET)
-	public ResponseEntity getUserById(@PathVariable String discordId) {
+	public ResponseEntity getAdminById(@PathVariable String discordId) {
 		List<Admin> admin;
 
 		admin = m_adminService.getAdminsByServerId(discordId);

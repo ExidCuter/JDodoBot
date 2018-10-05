@@ -17,7 +17,7 @@ public class QuoteController
 	private IQuoteService m_quoteService;
 
 	@RequestMapping(value = "/quotes", method = RequestMethod.GET)
-	public ResponseEntity getAllUsers() {
+	public ResponseEntity getAll() {
 		List<Quote> quotes;
 
 		quotes = m_quoteService.findAll();
@@ -26,7 +26,7 @@ public class QuoteController
 	}
 
 	@RequestMapping(value = "/quote/{user}", method = RequestMethod.GET)
-	public ResponseEntity getUserById(@PathVariable String user) {
+	public ResponseEntity getById(@PathVariable String user) {
 		List<Quote> quotes;
 
 		quotes = m_quoteService.findAll();

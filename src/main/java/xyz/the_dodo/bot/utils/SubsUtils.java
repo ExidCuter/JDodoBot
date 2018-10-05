@@ -11,7 +11,7 @@ import xyz.the_dodo.database.types.Subscription;
 
 import java.util.List;
 
-import static xyz.the_dodo.bot.utils.CommandHandler.commands;
+import static xyz.the_dodo.bot.types.CommandHandler.commands;
 
 public class SubsUtils {
     private static int tick = 0;

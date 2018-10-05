@@ -7,7 +7,7 @@ import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.BannedUtils;
 import xyz.the_dodo.bot.utils.PrefixUtils;
 
-import static xyz.the_dodo.bot.utils.CommandHandler.commands;
+import static xyz.the_dodo.bot.types.CommandHandler.commands;
 import static xyz.the_dodo.bot.listeners.StatsListener.userInteractions;
 
 public class CommandListener extends ListenerAdapter {

@@ -17,7 +17,7 @@ public class BugController
 	private IBugService m_bugService;
 
 	@RequestMapping(value = "/bugs", method = RequestMethod.GET)
-	public ResponseEntity getAllUsers() {
+	public ResponseEntity getAll() {
 		List<BugReport> bugReports;
 
 		bugReports = m_bugService.findAll();

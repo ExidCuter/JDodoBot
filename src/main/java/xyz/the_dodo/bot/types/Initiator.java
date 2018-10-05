@@ -6,7 +6,6 @@ import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.bot.functions.misc.FortniteRecords;
 import xyz.the_dodo.bot.functions.misc.FortniteRecordsImage;
 import xyz.the_dodo.bot.listeners.MentionListener;
-import xyz.the_dodo.bot.utils.CommandHandler;
 import xyz.the_dodo.bot.utils.ImageUtils;
 import xyz.the_dodo.bot.utils.VoiceUtils;
 

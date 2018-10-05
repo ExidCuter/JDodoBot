@@ -23,27 +23,27 @@ public class DefaultMessage implements Message {
 
     @Override
     public List<TextChannel> getMentionedChannels() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
     public List<Role> getMentionedRoles() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
     public List<Member> getMentionedMembers(Guild guild) {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
     public List<Member> getMentionedMembers() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
     public List<IMentionable> getMentions(MentionType... types) {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -68,7 +68,7 @@ public class DefaultMessage implements Message {
 
     @Override
     public User getAuthor() {
-        return null;
+        return DodoBot.getBotAsMember().getUser();
     }
 
     @Override
@@ -108,7 +108,7 @@ public class DefaultMessage implements Message {
 
     @Override
     public ChannelType getChannelType() {
-        return null;
+        return ChannelType.TEXT;
     }
 
     @Override
