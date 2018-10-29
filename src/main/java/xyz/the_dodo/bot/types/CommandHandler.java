@@ -77,6 +77,7 @@ public class CommandHandler {
         commands.add(new CheckStats("stats", "Shows your stats", "stats"));
         commands.add(new ResetStats("stopStats", "Stops tracking your stats", "stopStats"));
         commands.add(new Bribe("bribe", "Bribes the bot. Increases your stats score!", "bribe <AMOUNT OF MONEY>"));
+        commands.add(new TopStats("topStats", "Shows the server \"stats\" leaderboard!", "!topStats"));
 
         //quotes
         commands.add(new CreateQuote("createQuote", "Creates a quote", "quote <WHO> <QUOTE>"));
