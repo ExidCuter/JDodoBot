@@ -2,7 +2,6 @@ package xyz.the_dodo.REST.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import xyz.the_dodo.database.interfaces.repos.IUserRepo;
 import xyz.the_dodo.database.interfaces.services.IUserService;
 import xyz.the_dodo.database.types.User;
@@ -12,29 +11,29 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements IUserService {
     @Autowired
-    private IUserRepo userRepo;
+    private IUserRepo m_userRepo;
 
     public void setUserRepo(IUserRepo p_userRepo)
     {
-        userRepo = p_userRepo;
+        m_userRepo = p_userRepo;
     }
 
     @Override
     public User findById(long id) {
-        return userRepo.getOne(id);
+        return m_userRepo.getOne(id);
     }
 
     @Override
     public User findByDiscordId(String discordId)
     {
-        return userRepo.findByDiscordId(discordId);
+        return m_userRepo.findByDiscordId(discordId);
     }
 
     @Override
     public List<User> findAll() {
         List<User> users;
 
-        users = userRepo.findAll();
+        users = m_userRepo.findAll();
 
         return users;
     }
@@ -42,7 +41,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User save(User user) {
         if (user != null) {
-            return userRepo.save(user);
+            return m_userRepo.save(user);
         }
         return null;
     }
@@ -50,7 +49,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public boolean delete(User user) {
         if (user != null){
-            userRepo.deleteById(user.getId());
+            m_userRepo.deleteById(user.getId());
             return true;
         }
         return false;

@@ -10,9 +10,8 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api")
-public class AdminController
-{
+@RequestMapping("/api/v1")
+public class AdminController {
 	@Autowired
 	private IAdminService m_adminService;
 
