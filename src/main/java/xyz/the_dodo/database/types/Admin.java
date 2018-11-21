@@ -9,8 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "t_admin")
-public class Admin extends Identificator
-{
+public class Admin extends Identificator {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User m_user;

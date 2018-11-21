@@ -6,8 +6,10 @@ import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import xyz.the_dodo.bot.utils.DefaultRoleUtils;
+import xyz.the_dodo.bot.utils.RulesUtils;
 import xyz.the_dodo.bot.utils.ServerUtils;
 import xyz.the_dodo.database.types.DefaultRole;
+import xyz.the_dodo.database.types.Rules;
 import xyz.the_dodo.database.types.Server;
 
 public class OnServerJoinListener extends ListenerAdapter {
@@ -15,6 +17,7 @@ public class OnServerJoinListener extends ListenerAdapter {
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
         Role role;
         Guild guild;
+        Rules rules;
         Member member;
         Server server;
         DefaultRole defaultRole;
@@ -30,8 +33,14 @@ public class OnServerJoinListener extends ListenerAdapter {
 
                 role = guild.getRoleById(defaultRole.getDiscordId());
 
-                guild.getController().addRolesToMember(member, role).complete();
+                guild.getController().addRolesToMember(member, role).queue();
             }
+        }
+
+        if (RulesUtils.rulesExist(guild)) {
+            rules = RulesUtils.findByGuild(guild);
+
+            member.getUser().openPrivateChannel().queue(p_privateChannel -> p_privateChannel.sendMessage(rules.getRules()).queue());
         }
     }
 }

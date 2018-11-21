@@ -14,9 +14,6 @@ public class StatsServiceImpl implements IStatsService {
     @Autowired
     private IStatsRepo m_statsRepo;
 
-    @Autowired
-    private IUserRepo m_userRepo;
-
     public void setStatsRepo(IStatsRepo p_statsRepo) {
         m_statsRepo = p_statsRepo;
     }

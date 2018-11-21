@@ -64,6 +64,8 @@ public class CommandHandler {
         commands.add(new GetSubscriptions("getSubs", "Displays all subscriptions of your guild.", "getSubs"));
         commands.add(new BanUserFromGuild("guild.ban", "Bans user/users from guild!", "guild.ban <MENTIONED USERS>"));
         commands.add(new KickUserFromGuild("guild.kick", "Kicks user/users from guild!", "guild.kick <MENTIONED USERS>"));
+        commands.add(new SetRules("setRules", "Sets the guild rules!", "setRules <RULES TEXT>"));
+        commands.add(new DeleteRules("deleteRules", "Removes the guild rules!", "deleteRules"));
 
         //bank
         commands.add(new Register("bank.register", "Creates a bank account", "bank.register"));
