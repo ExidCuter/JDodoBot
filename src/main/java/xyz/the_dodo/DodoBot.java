@@ -30,7 +30,7 @@ public class DodoBot {
     private static JDA bot;
     private static Initiator init;
 
-    public static final String version = "2.0-ALPHA";
+    public static final String version = "2.0";
     public static final String botOwner = "161795217803051008"; //Owner of the bot
     public static final int maxMessagesCached = 10000; //you can set custom amount (Higher you go -> more memory usage!)
 
@@ -40,6 +40,8 @@ public class DodoBot {
 
         timer = new Timer();
         init = new Initiator();
+
+        SpringApplication.run(DodoBot.class, args);
 
         jdaBuilder = new JDABuilder(AccountType.BOT)
                 .setToken(init.getToken())
@@ -53,8 +55,6 @@ public class DodoBot {
             jdaBuilder.addEventListener(new MentionListener());
 
         bot = jdaBuilder.build();
-
-        SpringApplication.run(DodoBot.class, args);
 
         ImageUtils.botAvatar = Initiator.generateBotAvatar();
 
