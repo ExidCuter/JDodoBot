@@ -41,6 +41,8 @@ public class DodoBot {
         timer = new Timer();
         init = new Initiator();
 
+        SpringApplication.run(DodoBot.class, args);
+
         jdaBuilder = new JDABuilder(AccountType.BOT)
                 .setToken(init.getToken())
                 .addEventListener(new StatsListener())
@@ -53,8 +55,6 @@ public class DodoBot {
             jdaBuilder.addEventListener(new MentionListener());
 
         bot = jdaBuilder.build();
-
-        SpringApplication.run(DodoBot.class, args);
 
         ImageUtils.botAvatar = Initiator.generateBotAvatar();
 
