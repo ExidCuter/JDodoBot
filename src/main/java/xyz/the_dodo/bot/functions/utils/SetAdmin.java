@@ -44,7 +44,7 @@ public class SetAdmin extends IFunction {
                     admin = AdminUtils.m_adminService.save(admin);
 
                     if (admin != null)
-                        p_messageParams.getTextChannel().sendMessage("User " + p_messageParams.getUser().getAsMention() + " is now ADMIN").queue();
+                        p_messageParams.getTextChannel().sendMessage("User " + member.getAsMention() + " is now ADMIN").queue();
                     else
                         p_messageParams.getTextChannel().sendMessage("An error occurred!").queue();
                 }
