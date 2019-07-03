@@ -8,6 +8,7 @@ import net.dv8tion.jda.core.requests.restaction.AuditableRestAction;
 import net.dv8tion.jda.core.requests.restaction.MessageAction;
 import xyz.the_dodo.DodoBot;
 
+import javax.annotation.Nullable;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -239,6 +240,17 @@ public class DefaultMessage implements Message {
     @Override
     public void formatTo(Formatter formatter, int flags, int width, int precision) {
 
+    }
+
+    @Nullable
+    @Override
+    public MessageActivity getActivity() {
+        return null;
+    }
+
+    @Override
+    public String getJumpUrl() {
+        return null;
     }
 
     @Override

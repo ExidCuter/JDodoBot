@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="dodobot@localhost">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.9">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.15">
     <root id="1">
       <ServerVersion>8.0.12</ServerVersion>
       <DefaultEngine>InnoDB</DefaultEngine>

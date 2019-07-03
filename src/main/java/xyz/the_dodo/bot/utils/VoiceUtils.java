@@ -27,8 +27,7 @@ public class VoiceUtils {
     private final AudioPlayerManager playerManager;
     public final Map<String, GuildMusicManager> musicManagers;
 
-    public VoiceUtils()
-    {
+    public VoiceUtils() {
         this.playerManager = new DefaultAudioPlayerManager();
         playerManager.registerSourceManager(new YoutubeAudioSourceManager());
         playerManager.registerSourceManager(new SoundCloudAudioSourceManager());
@@ -38,11 +37,10 @@ public class VoiceUtils {
         playerManager.registerSourceManager(new HttpAudioSourceManager());
         playerManager.registerSourceManager(new LocalAudioSourceManager());
 
-        musicManagers = new HashMap<String, GuildMusicManager>();
+        musicManagers = new HashMap<>();
     }
 
-    public void loadAndPlay(GuildMusicManager mng, final MessageChannel channel, String url, final boolean addPlaylist)
-    {
+    public void loadAndPlay(GuildMusicManager mng, final MessageChannel channel, String url, final boolean addPlaylist) {
         final String trackUrl;
 
         //Strip <>'s that prevent discord from embedding link resources
@@ -51,11 +49,9 @@ public class VoiceUtils {
         else
             trackUrl = url;
 
-        playerManager.loadItemOrdered(mng, trackUrl, new AudioLoadResultHandler()
-        {
+        playerManager.loadItemOrdered(mng, trackUrl, new AudioLoadResultHandler() {
             @Override
-            public void trackLoaded(AudioTrack track)
-            {
+            public void trackLoaded(AudioTrack track) {
                 String msg = "Adding to queue: " + track.getInfo().title;
                 if (mng.player.getPlayingTrack() == null)
                     msg += "\nand the Player has started playing;";
@@ -65,8 +61,7 @@ public class VoiceUtils {
             }
 
             @Override
-            public void playlistLoaded(AudioPlaylist playlist)
-            {
+            public void playlistLoaded(AudioPlaylist playlist) {
                 AudioTrack firstTrack = playlist.getSelectedTrack();
                 List<AudioTrack> tracks = playlist.getTracks();
 
@@ -75,43 +70,34 @@ public class VoiceUtils {
                     firstTrack = playlist.getTracks().get(0);
                 }
 
-                if (addPlaylist)
-                {
-                    channel.sendMessage("Adding **" + playlist.getTracks().size() +"** tracks to queue from playlist: " + playlist.getName()).queue();
+                if (addPlaylist) {
+                    channel.sendMessage("Adding **" + playlist.getTracks().size() + "** tracks to queue from playlist: " + playlist.getName()).queue();
                     tracks.forEach(mng.scheduler::queue);
-                }
-                else
-                {
+                } else {
                     channel.sendMessage("Adding to queue " + firstTrack.getInfo().title + " (first track of playlist " + playlist.getName() + ")").queue();
                     mng.scheduler.queue(firstTrack);
                 }
             }
 
             @Override
-            public void noMatches()
-            {
+            public void noMatches() {
                 channel.sendMessage("Nothing found by " + trackUrl).queue();
             }
 
             @Override
-            public void loadFailed(FriendlyException exception)
-            {
+            public void loadFailed(FriendlyException exception) {
                 channel.sendMessage("Could not play: " + exception.getMessage()).queue();
             }
         });
     }
 
-    public GuildMusicManager getMusicManager(Guild guild)
-    {
+    public GuildMusicManager getMusicManager(Guild guild) {
         String guildId = guild.getId();
         GuildMusicManager mng = musicManagers.get(guildId);
-        if (mng == null)
-        {
-            synchronized (musicManagers)
-            {
+        if (mng == null) {
+            synchronized (musicManagers) {
                 mng = musicManagers.get(guildId);
-                if (mng == null)
-                {
+                if (mng == null) {
                     mng = new GuildMusicManager(playerManager);
                     mng.player.setVolume(DEFAULT_VOLUME);
                     musicManagers.put(guildId, mng);
@@ -121,11 +107,10 @@ public class VoiceUtils {
         return mng;
     }
 
-    public static String getTimestamp(long milliseconds)
-    {
-        int seconds = (int) (milliseconds / 1000) % 60 ;
+    public static String getTimestamp(long milliseconds) {
+        int seconds = (int) (milliseconds / 1000) % 60;
         int minutes = (int) ((milliseconds / (1000 * 60)) % 60);
-        int hours   = (int) ((milliseconds / (1000 * 60 * 60)) % 24);
+        int hours = (int) ((milliseconds / (1000 * 60 * 60)) % 24);
 
         if (hours > 0)
             return String.format("%02d:%02d:%02d", hours, minutes, seconds);
