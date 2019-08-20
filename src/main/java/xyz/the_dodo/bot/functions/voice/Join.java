@@ -36,10 +36,10 @@ public class Join extends IFunction {
             } catch (Exception ignored) { }
 
             if (voiceChannel == null)
-                voiceChannel = p_messageParams.getGuild().getVoiceChannelsByName(p_messageParams.getParameters()[0], true).stream().findFirst().orElse(null);
+                voiceChannel = p_messageParams.getGuild().getVoiceChannelsByName(p_messageParams.getContent(), true).stream().findFirst().orElse(null);
 
             if (voiceChannel == null)
-                p_messageParams.getTextChannel().sendMessage("Could not find VoiceChannel by name: " + p_messageParams.getParameters()[0]).queue();
+                p_messageParams.getTextChannel().sendMessage("Could not find VoiceChannel by name: " + p_messageParams.getContent()).queue();
             else {
                 guild.getAudioManager().setSendingHandler(musicManager.sendHandler);
 

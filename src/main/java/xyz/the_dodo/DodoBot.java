@@ -34,7 +34,7 @@ public class DodoBot {
     public static final String botOwner = "161795217803051008"; //Owner of the bot
     public static final int maxMessagesCached = 10000; //you can set custom amount (Higher you go -> more memory usage!)
 
-    public static void main(String[] args) throws LoginException, IOException {
+    public static void main(String[] args) throws LoginException, IOException, InterruptedException {
         Timer timer;
         JDABuilder jdaBuilder;
 
@@ -56,7 +56,7 @@ public class DodoBot {
 
         bot = jdaBuilder.build();
 
-        ImageUtils.botAvatar = Initiator.generateBotAvatar();
+        bot.awaitReady();
 
         bot.getPresence().setGame(Game.playing("!help for HELP"));
 
@@ -65,7 +65,13 @@ public class DodoBot {
             public void run() {
                 SubsUtils.triggerSubs();
             }
-        }, 0,10 * 60 * 1000);
+        }, 0, 10 * 60 * 1000);
+
+        try {
+            ImageUtils.botAvatar = Initiator.generateBotAvatar();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static int getNumOfServers() {
