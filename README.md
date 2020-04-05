@@ -12,26 +12,9 @@ Java 8, MySql Server, Gradle
 
 ## Usage
 
-### In Linux
+### Linux
 You need to install the following dependencies:
-`Java 8`, `MySql Server`, `zip`, `unzip` and `gradle`  
-
-#### Download `install.sh` from the GitHub repo
-
-```bash
-# Download install.sh
-wget https://raw.githubusercontent.com/ExidCuter/JDodoBot-2.0/master/install.sh
-
-# Make it executable
-chmod +x install.sh
-
-# Run it
-./install.sh
-```
-
-*This file works with APT package manager. If you are using different package manager just change `apt` to the appropriate command.*
-
-#### Or you can manually install them with:
+`Java 11`, `MySql Server`, `zip`, `unzip` and `gradle`  
 
 ```bash
 # Install java
@@ -46,19 +29,37 @@ sudo apt install mysql-server
 sudo apt install unzip zip
 
 # Install gradle
-wget https://services.gradle.org/distributions/gradle-4.10.2-bin.zip
+wget https://services.gradle.org/distributions/gradle-6.3-bin.zip
 sudo mkdir /opt/gradle
-sudo unzip -d /opt/gradle gradle-4.10.2-bin.zip
-export PATH=$PATH:/opt/gradle/gradle-4.10.2/bin
+sudo unzip -d /opt/gradle gradle-6.3-bin.zip
+export PATH=$PATH:/opt/gradle/gradle-6.3/bin
 ```
 
-than run SQL scripts:
+Add environment variables:
+
+```
+MYSQL_USER=your_user
+MYSQL_PASS=your_pass
+BOT_TOKEN=TOKEN
+GIPHY_TOKEN=TOKEN
+TRN_TOKEN=TOKEN
+CLEVER_TOKEN=TOKEN
+```
+Or change the `application.yml` file
+```yaml
+dodo-bot:
+  token: ${BOT_TOKEN:TOKEN}
+  giphy-token: ${GIPHY_TOKEN:TOKEN}
+  trn-token: ${TRN_TOKEN:TOKEN}
+  clever-token: ${CLEVER_TOKEN:TOKEN}
+```
+
+Than run SQL scripts:
 ```bash
 sudo mysql -u root < Database/init.sql
-sudo mysql -u root < Database/tables.sql
 ```
 
-than build the project and run it with:
+and build the project and run it with:
 ```bash
 #build the project
 gradle build -x test
@@ -66,19 +67,6 @@ gradle build -x test
 #run the bot
 gradle bootRun
 ```
-
-### In Windows
-
-Install MySql Server and run `database/init.sql`, `database/tabels.sql` SQL scripts
-
-Than create a file named ```settings.txt``` and paste your tokens into it like in `settings_template.txt`.
-
-After that build and run the bot with:
-```bash
-gradlew build -x test
-
-gradlew bootRun
-``` 
 
 ### Commands
 
