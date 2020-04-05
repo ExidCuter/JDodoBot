@@ -2,32 +2,33 @@ package xyz.the_dodo.bot.functions.voice;
 
 import net.dv8tion.jda.core.entities.Guild;
 import xyz.the_dodo.DodoBot;
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.GuildMusicManager;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.types.TrackScheduler;
 
+@BotService(command = "shuffle", description = "Shuffles the playing queue", usage = "shuffle", category = CommandCategoryEnum.VOICE)
 public class Shuffle extends IFunction {
-    public Shuffle(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.VOICE;
+    public Shuffle(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         Guild guild;
         TrackScheduler scheduler;
         GuildMusicManager musicManager;
 
-        guild = p_messageParams.getGuild();
+        guild = messageParams.getGuild();
         musicManager = DodoBot.getVoiceUtils().getMusicManager(guild);
         scheduler = musicManager.scheduler;
 
         if (!scheduler.isEmpty()) {
             scheduler.shuffle();
-            p_messageParams.getTextChannel().sendMessage("The queue has been shuffled!").queue();
+            messageParams.getTextChannel().sendMessage("The queue has been shuffled!").queue();
         } else
-            p_messageParams.getTextChannel().sendMessage("The queue is currently empty!").queue();
+            messageParams.getTextChannel().sendMessage("The queue is currently empty!").queue();
     }
 }

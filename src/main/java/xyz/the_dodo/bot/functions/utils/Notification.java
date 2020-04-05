@@ -1,32 +1,34 @@
 package xyz.the_dodo.bot.functions.utils;
 
 import xyz.the_dodo.DodoBot;
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.StringUtils;
 
+@BotService(command = "notifyAll", description = "Sends a notification to all servers! Only bot owner can use this commad!", usage = "notifyAll <MESSAGE>", category = CommandCategoryEnum.UTILS)
 public class Notification extends IFunction {
-    public Notification(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.UTILS;
+    public Notification(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         String message;
 
-        if (p_messageParams.getUser().getId().equals(DodoBot.botOwner)) {
-            if (p_messageParams.getParameters().length > 0) {
-                message = StringUtils.glueStringsBackTogether(p_messageParams.getParameters(), " ", 0);
+        if (messageParams.getUser().getId().equals(DodoBot.botOwner)) {
+            if (messageParams.getParameters().length > 0) {
+                message = StringUtils.glueStringsBackTogether(messageParams.getParameters(), " ", 0);
 
                 DodoBot.getGuilds().forEach(p_guild -> {
                     try {
                         p_guild.getDefaultChannel().sendMessage("@everyone " + message).queue();
-                    } catch (NullPointerException ignored) { }
+                    } catch (NullPointerException ignored) {
+                    }
                 });
             }
         } else
-            p_messageParams.getTextChannel().sendMessage("Only the bot owner can use this commad").queue();
+            messageParams.getTextChannel().sendMessage("Only the bot owner can use this commad").queue();
     }
 }

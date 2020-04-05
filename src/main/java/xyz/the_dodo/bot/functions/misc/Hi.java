@@ -1,22 +1,23 @@
 package xyz.the_dodo.bot.functions.misc;
 
 import net.dv8tion.jda.core.entities.MessageChannel;
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 
+@BotService(command = "hi", description = "Says helo", usage = "hi")
 public class Hi extends IFunction {
-    public Hi(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.FUN;
+    public Hi(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         MessageChannel messageChannel;
 
-        messageChannel = p_messageParams.getTextChannel();
+        messageChannel = messageParams.getTextChannel();
 
-        messageChannel.sendMessage("Hi, " + p_messageParams.getUser().getAsMention()).queue();
+        messageChannel.sendMessage("Hi, " + messageParams.getUser().getAsMention()).queue();
     }
 }

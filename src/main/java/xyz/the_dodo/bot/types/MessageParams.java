@@ -1,11 +1,13 @@
 package xyz.the_dodo.bot.types;
 
+import lombok.Getter;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import xyz.the_dodo.bot.utils.StringUtils;
 
+@Getter
 public class MessageParams {
     private User user;
     private Guild guild;
@@ -15,55 +17,28 @@ public class MessageParams {
     private String[] parameters;
     private TextChannel textChannel;
 
-    public User getUser() {
-        return user;
-    }
 
-    public Guild getGuild() {
-        return guild;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public String getCommand() {
-        return command;
-    }
-
-    public Message getMessage() {
-        return message;
-    }
-
-    public String[] getParameters() {
-        return parameters;
-    }
-
-    public TextChannel getTextChannel() {
-        return textChannel;
-    }
-
-    public MessageParams(String p_command, User p_author, Guild p_guild, TextChannel p_textChannel) {
-        user = p_author;
-        guild = p_guild;
-        textChannel = p_textChannel;
-        parameters = StringUtils.getParameters(p_command);
-        command = StringUtils.getCommandNParameters(p_command)[0];
+    public MessageParams(String command, User user, Guild guild, TextChannel textChannel) {
+        this.user = user;
+        this.guild = guild;
+        this.textChannel = textChannel;
+        parameters = StringUtils.getParameters(command);
+        this.command = StringUtils.getCommandNParameters(command)[0];
         content = StringUtils.glueStringsBackTogether(parameters, " ", 0);
-        message = new DefaultMessage(parameters, p_guild);
+        message = new DefaultMessage(parameters, guild);
     }
 
-    public MessageParams(Message p_message) {
+    public MessageParams(Message message) {
         String rawContent;
 
-        rawContent = p_message.getContentRaw();
+        rawContent = message.getContentRaw();
 
-        message = p_message;
-        user = p_message.getAuthor();
-        guild = p_message.getGuild();
-        textChannel = p_message.getTextChannel();
-        parameters = StringUtils.getParameters(rawContent);
-        command = StringUtils.getCommandNParameters(rawContent)[0];
-        content = StringUtils.glueStringsBackTogether(parameters, " ", 0);
+        this.message = message;
+        this.user = message.getAuthor();
+        this.guild = message.getGuild();
+        this.textChannel = message.getTextChannel();
+        this.parameters = StringUtils.getParameters(rawContent);
+        this.command = StringUtils.getCommandNParameters(rawContent)[0];
+        this.content = StringUtils.glueStringsBackTogether(parameters, " ", 0);
     }
 }

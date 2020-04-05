@@ -1,27 +1,28 @@
 package xyz.the_dodo.bot.functions.bank;
 
 import net.dv8tion.jda.core.entities.User;
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.BankUtils;
 import xyz.the_dodo.database.types.BankAccount;
 
 import java.time.LocalDateTime;
 
+@BotService(command = "payday", description = "PAYDAY!!!!", usage = "payday", category = CommandCategoryEnum.BANK)
 public class PayDay extends IFunction {
-    public PayDay(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.BANK;
+    public PayDay(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         User user;
         BankAccount ba;
 
-        user = p_messageParams.getUser();
-        if (BankUtils.bankAccountExists(p_messageParams.getUser())) {
+        user = messageParams.getUser();
+        if (BankUtils.bankAccountExists(messageParams.getUser())) {
             ba = BankUtils.m_bankService.findByUserDiscordId(user.getId());
 
             if (ba.getLastPay().plusDays(1L).isBefore(LocalDateTime.now())) {
@@ -30,10 +31,10 @@ public class PayDay extends IFunction {
 
                 BankUtils.m_bankService.save(ba);
 
-                p_messageParams.getTextChannel().sendMessage("You received 100 ₪.").queue();
+                messageParams.getTextChannel().sendMessage("You received 100 ₪.").queue();
             } else
-                p_messageParams.getTextChannel().sendMessage("You already got your pay!").queue();
+                messageParams.getTextChannel().sendMessage("You already got your pay!").queue();
         } else
-            p_messageParams.getTextChannel().sendMessage("You need to register an account!").queue();
+            messageParams.getTextChannel().sendMessage("You need to register an account!").queue();
     }
 }

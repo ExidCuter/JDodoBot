@@ -2,34 +2,35 @@ package xyz.the_dodo.bot.functions.misc;
 
 import com.github.jreddit.entity.Submission;
 import net.dv8tion.jda.core.EmbedBuilder;
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.RedditUtils;
 
 import java.awt.*;
 
+@BotService(command = "reddit.getTop", description = "Gets top 3 posts form hot from specified subreddit!", usage = "reddit.getTop <SUBREDDIT NAME>")
 public class RedditTopPosts extends IFunction {
-    public RedditTopPosts(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.FUN;
+    public RedditTopPosts(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         EmbedBuilder embMsg;
 
-        if (p_messageParams.getParameters().length > 0) {
-            for (Submission s : RedditUtils.getPosts(p_messageParams.getParameters()[0], 1)) {
+        if (messageParams.getParameters().length > 0) {
+            for (Submission s : RedditUtils.getPosts(messageParams.getParameters()[0], 1)) {
                 embMsg = new EmbedBuilder();
 
                 embMsg.setTitle(s.getTitle(), "https://reddit.com" + s.getPermalink());
                 embMsg.setImage(s.getURL());
-                embMsg.setFooter("/r/" + p_messageParams.getParameters()[0], "https://media.glassdoor.com/sqll/796358/reddit-squarelogo-1490630845152.png");
+                embMsg.setFooter("/r/" + messageParams.getParameters()[0], "https://media.glassdoor.com/sqll/796358/reddit-squarelogo-1490630845152.png");
                 embMsg.setColor(new Color(253, 0, 5));
-                p_messageParams.getTextChannel().sendMessage(embMsg.build()).queue();
+                messageParams.getTextChannel().sendMessage(embMsg.build()).queue();
             }
         } else
-            p_messageParams.getTextChannel().sendMessage("Invalid parameters! Please specify a subreddit!").queue();
+            messageParams.getTextChannel().sendMessage("Invalid parameters! Please specify a subreddit!").queue();
     }
 }

@@ -1,6 +1,6 @@
 package xyz.the_dodo.bot.utils;
 
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,10 +60,10 @@ public class StringUtils {
     }
 
     public static boolean containsCategoryEnum(String value) {
-        if (value.equalsIgnoreCase(CommandCategory.ADMIN.toString()))
+        if (value.equalsIgnoreCase(CommandCategoryEnum.ADMIN.toString()))
             return false;
 
-        for (CommandCategory c : CommandCategory.values()) {
+        for (CommandCategoryEnum c : CommandCategoryEnum.values()) {
             if (c.name().equals(value)) {
                 return true;
             }

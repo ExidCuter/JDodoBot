@@ -1,21 +1,22 @@
 package xyz.the_dodo.bot.functions.misc;
 
 import net.dv8tion.jda.core.EmbedBuilder;
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.RedditUtils;
 
 import java.awt.*;
 
+@BotService(command = "reddit.getMeme();", description = "Gets a meme from r/programmerHumor", usage = "reddit.getMeme();")
 public class ProgrammerMeme extends IFunction {
-    public ProgrammerMeme(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.FUN;
+    public ProgrammerMeme(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         String meme;
         String[] memeParts;
         EmbedBuilder embMsg;
@@ -30,6 +31,6 @@ public class ProgrammerMeme extends IFunction {
         embMsg.setFooter("/r/programmerhumor", "https://media.glassdoor.com/sqll/796358/reddit-squarelogo-1490630845152.png");
         embMsg.setColor(new Color(247, 253, 0));
 
-        p_messageParams.getTextChannel().sendMessage(embMsg.build()).queue();
+        messageParams.getTextChannel().sendMessage(embMsg.build()).queue();
     }
 }

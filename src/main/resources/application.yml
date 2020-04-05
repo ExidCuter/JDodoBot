@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: ${MYSQL_USER:dodo-bot}
+    password: ${MYSQL_PASS:thisisdodobot}
+    url: jdbc:mysql://localhost:3306/dodo-bot
+  jpa:
+    hibernate:
+      use-new-id-generator-mappings: true
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_schema: '`dodo-bot`'
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+    show-sql: true
+  session:
+    store-type: none
+
+dodo-bot:
+  token: ${BOT_TOKEN:TOKEN}
+  giphy-token: ${GIPHY_TOKEN:TOKEN}
+  trn-token: ${TRN_TOKEN:TOKEN}
+  clever-token: ${CLEVER_TOKEN:TOKEN}

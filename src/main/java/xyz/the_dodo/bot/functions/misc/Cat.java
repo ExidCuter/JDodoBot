@@ -1,7 +1,8 @@
 package xyz.the_dodo.bot.functions.misc;
 
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 
 import java.io.ByteArrayOutputStream;
@@ -10,15 +11,14 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+@BotService(command = "cat", description = "Gets a picture of a cat!", usage = "cat", isService = true)
 public class Cat extends IFunction {
-    public Cat(String command, String description, String usage) {
-        super(command, description, usage);
-        this.isService = true;
-        commandCategory = CommandCategory.FUN;
+    public Cat(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         try {
             //TODO: Make better
             String url = "https://api.thecatapi.com/api/images/get?type=png";
@@ -41,7 +41,7 @@ public class Cat extends IFunction {
                 e.printStackTrace();
             }
 
-            p_messageParams.getTextChannel().sendFile(baos.toByteArray(), "cat.png").queue();
+            messageParams.getTextChannel().sendFile(baos.toByteArray(), "cat.png").queue();
         } catch (Exception e) {
             //TODO: bugReporting
         }

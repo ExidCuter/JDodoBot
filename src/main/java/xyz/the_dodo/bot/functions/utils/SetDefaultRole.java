@@ -1,8 +1,9 @@
 package xyz.the_dodo.bot.functions.utils;
 
 import net.dv8tion.jda.core.entities.Role;
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.DefaultRoleUtils;
@@ -12,33 +13,33 @@ import xyz.the_dodo.database.types.Server;
 
 import java.util.List;
 
+@BotService(command = "setDefaultRole", description = "When a new user joins your guild they are set to this role!", usage = "setDefaultRole <ROLE MENTION>", category = CommandCategoryEnum.UTILS)
 public class SetDefaultRole extends IFunction {
-    public SetDefaultRole(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.UTILS;
+    public SetDefaultRole(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         Server server;
         List<Role> roles;
         DefaultRole defaultRole;
 
-        roles = p_messageParams.getMessage().getMentionedRoles();
-        if (AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
+        roles = messageParams.getMessage().getMentionedRoles();
+        if (AdminUtils.isAdminOfGuild(messageParams.getUser(), messageParams.getGuild())) {
             if (roles.size() == 1) {
                 defaultRole = new DefaultRole();
-                server = ServerUtils.m_serverService.findByDiscordId(p_messageParams.getGuild().getId());
+                server = ServerUtils.m_serverService.findByDiscordId(messageParams.getGuild().getId());
 
                 defaultRole.setDiscordId(roles.get(0).getId());
                 defaultRole.setServer(server);
 
                 DefaultRoleUtils.saveDefaultRole(defaultRole);
 
-                p_messageParams.getTextChannel().sendMessage("New default role was set: " + roles.get(0).getAsMention()).queue();
+                messageParams.getTextChannel().sendMessage("New default role was set: " + roles.get(0).getAsMention()).queue();
             } else
-                p_messageParams.getTextChannel().sendMessage("You need to mention just one role!").queue();
+                messageParams.getTextChannel().sendMessage("You need to mention just one role!").queue();
         } else
-            p_messageParams.getTextChannel().sendMessage("Only admins can set or change the default role of the guild!").queue();
+            messageParams.getTextChannel().sendMessage("Only admins can set or change the default role of the guild!").queue();
     }
 }

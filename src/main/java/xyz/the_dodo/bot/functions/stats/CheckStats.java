@@ -2,26 +2,27 @@ package xyz.the_dodo.bot.functions.stats;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.StatsUtils;
 import xyz.the_dodo.database.types.Stats;
 
+@BotService(command = "stats", description = "Shows your stats", usage = "stats", category = CommandCategoryEnum.STATS)
 public class CheckStats extends IFunction {
-    public CheckStats(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.STATS;
+    public CheckStats(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         Stats stats;
         Member user;
         String level, img;
 
-        user = p_messageParams.getMessage().getMember();
-        stats = StatsUtils.statsExists(p_messageParams.getUser());
+        user = messageParams.getMessage().getMember();
+        stats = StatsUtils.statsExists(messageParams.getUser());
 
         if (stats != null) {
             EmbedBuilder embMsg = new EmbedBuilder();
@@ -54,8 +55,8 @@ public class CheckStats extends IFunction {
             embMsg.addField("Number of files uploaded", String.valueOf(stats.getNumOfFiles()), true);
             embMsg.setImage(img);
 
-            p_messageParams.getTextChannel().sendMessage(embMsg.build()).queue();
+            messageParams.getTextChannel().sendMessage(embMsg.build()).queue();
         } else
-            p_messageParams.getTextChannel().sendMessage("No stats to report!").queue();
+            messageParams.getTextChannel().sendMessage("No stats to report!").queue();
     }
 }

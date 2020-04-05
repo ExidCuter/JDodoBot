@@ -67,7 +67,7 @@ public class SubsUtils {
 
                 messageParams = new MessageParams(subscription.getCommand(), user, guild, guild.getTextChannelById(subscription.getChannelId()));
 
-                commands.forEach(command -> {
+                commands.values().forEach(command -> {
                     if (subscription.getCommand().startsWith(command.getCommand())) {
                         command.trigger(messageParams);
                     }

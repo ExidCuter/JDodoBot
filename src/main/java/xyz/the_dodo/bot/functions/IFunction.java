@@ -1,72 +1,45 @@
 package xyz.the_dodo.bot.functions;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.dv8tion.jda.core.EmbedBuilder;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 
 import java.awt.*;
 
+@Getter
+@Setter
 public abstract class IFunction {
-    //TODO: add categories
-    public String command;
-    public String description;
-    public String usage;
-    public boolean isService;
+    private String command;
+    private String description;
+    private String usage;
+    private boolean isService;
+    private CommandCategoryEnum commandCategoryEnum;
 
-    public CommandCategory commandCategory;
-
-    public String getCommand() {
-        return command;
+    public IFunction() {
     }
 
-    public void setCommand(String p_command) {
-        command = p_command;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String p_description) {
-        description = p_description;
-    }
-
-    public String getUsage() {
-        return usage;
-    }
-
-    public void setUsage(String p_usage) {
-        usage = p_usage;
-    }
-
-    public boolean isService() {
-        return isService;
-    }
-
-    public void setService(boolean p_service) {
-        isService = p_service;
-    }
-
-    public IFunction(String command, String description, String usage) {
-        this.usage = usage;
-        this.description = description;
+    public IFunction(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
         this.command = command;
+        this.description = description;
+        this.usage = usage;
+        this.isService = isService;
+        this.commandCategoryEnum = commandCategoryEnum;
     }
 
-    public abstract void trigger(MessageParams p_messageParams);
+    public abstract void trigger(MessageParams messageParams);
 
     public String getHelp() {
-        return "`" + command + "` - " + description;
+        return "`" + this.command + "` - " + this.description;
     }
 
     public EmbedBuilder getEmbededHelp() {
-        EmbedBuilder embMsg = new EmbedBuilder();
-        embMsg.setTitle("Command: " + command + "", "http://the-dodo.xyz")
-                .setDescription(description)
+        return new EmbedBuilder().setTitle("Command: " + this.command + "", "http://the-dodo.xyz")
+                .setDescription(this.description)
                 .setColor(new Color(0x21FF00))
                 .setThumbnail("https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/The_Dodo_Logo.jpg/250px-The_Dodo_Logo.jpg")
                 .setAuthor("DodoBot help", "http://the-dodo.xyz", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/The_Dodo_Logo.jpg/250px-The_Dodo_Logo.jpg")
-                .addField("Usage: (if the command parameter has the `#` in it, the parameter is not required)", "`" + usage + "`", false);
-        return embMsg;
+                .addField("Usage: (if the command parameter has the `#` in it, the parameter is not required)", "`" + this.usage + "`", false);
     }
 }

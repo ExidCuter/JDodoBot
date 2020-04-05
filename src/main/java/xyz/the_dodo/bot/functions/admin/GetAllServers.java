@@ -1,37 +1,38 @@
 package xyz.the_dodo.bot.functions.admin;
 
 import xyz.the_dodo.DodoBot;
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.StringUtils;
 
+@BotService(command = "getServers", category = CommandCategoryEnum.ADMIN)
 public class GetAllServers extends IFunction {
-    public GetAllServers(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.ADMIN;
+    public GetAllServers(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
-         StringBuilder stringBuilder;
+    public void trigger(MessageParams messageParams) {
+        StringBuilder stringBuilder;
 
-         stringBuilder = new StringBuilder();
+        stringBuilder = new StringBuilder();
 
-         if (AdminUtils.isUserBotOwner(p_messageParams.getUser())) {
-             DodoBot.getGuilds().forEach(p_guild ->
-                     stringBuilder.append(p_guild.getName())
-                             .append(" | ")
-                             .append(p_guild.getOwner().getUser())
-                             .append(" | ")
-                             .append(p_guild.getRegion())
-                             .append(" | `")
-                             .append(p_guild.getId())
-                             .append("`\n"));
+        if (AdminUtils.isUserBotOwner(messageParams.getUser())) {
+            DodoBot.getGuilds().forEach(p_guild ->
+                    stringBuilder.append(p_guild.getName())
+                            .append(" | ")
+                            .append(p_guild.getOwner().getUser())
+                            .append(" | ")
+                            .append(p_guild.getRegion())
+                            .append(" | `")
+                            .append(p_guild.getId())
+                            .append("`\n"));
 
-             StringUtils.splitIntoMessages(stringBuilder.toString(), '\n').forEach(p_message -> p_messageParams.getTextChannel().sendMessage(p_message).queue());
-         } else
-             p_messageParams.getTextChannel().sendMessage("Only the bot owner can use this command!").queue();
+            StringUtils.splitIntoMessages(stringBuilder.toString(), '\n').forEach(p_message -> messageParams.getTextChannel().sendMessage(p_message).queue());
+        } else
+            messageParams.getTextChannel().sendMessage("Only the bot owner can use this command!").queue();
     }
 }

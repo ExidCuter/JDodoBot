@@ -5,41 +5,43 @@ import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 import xyz.the_dodo.DodoBot;
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.GuildMusicManager;
 import xyz.the_dodo.bot.types.MessageParams;
 
+@BotService(command = "join", description = "Joins a voice channel", usage = "join <CHANNEL NAME/CHANNEL ID>", category = CommandCategoryEnum.VOICE)
 public class Join extends IFunction {
-    public Join(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.VOICE;
+    public Join(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         //TODO: check if user is in channel
         Guild guild;
         VoiceChannel voiceChannel;
         GuildMusicManager musicManager;
 
-        guild = p_messageParams.getGuild();
+        guild = messageParams.getGuild();
 
         musicManager = DodoBot.getVoiceUtils().getMusicManager(guild);
 
-        if (p_messageParams.getParameters().length == 0)  //No channel name was provided to search for.
-            p_messageParams.getTextChannel().sendMessage("No channel name was provided to search with to join.").queue();
+        if (messageParams.getParameters().length == 0)  //No channel name was provided to search for.
+            messageParams.getTextChannel().sendMessage("No channel name was provided to search with to join.").queue();
         else {
             voiceChannel = null;
             try {
-                voiceChannel = p_messageParams.getGuild().getVoiceChannelById(p_messageParams.getParameters()[0]);
-            } catch (Exception ignored) { }
+                voiceChannel = messageParams.getGuild().getVoiceChannelById(messageParams.getParameters()[0]);
+            } catch (Exception ignored) {
+            }
 
             if (voiceChannel == null)
-                voiceChannel = p_messageParams.getGuild().getVoiceChannelsByName(p_messageParams.getContent(), true).stream().findFirst().orElse(null);
+                voiceChannel = messageParams.getGuild().getVoiceChannelsByName(messageParams.getContent(), true).stream().findFirst().orElse(null);
 
             if (voiceChannel == null)
-                p_messageParams.getTextChannel().sendMessage("Could not find VoiceChannel by name: " + p_messageParams.getContent()).queue();
+                messageParams.getTextChannel().sendMessage("Could not find VoiceChannel by name: " + messageParams.getContent()).queue();
             else {
                 guild.getAudioManager().setSendingHandler(musicManager.sendHandler);
 
@@ -47,7 +49,7 @@ public class Join extends IFunction {
                     guild.getAudioManager().openAudioConnection(voiceChannel);
                 } catch (PermissionException e) {
                     if (e.getPermission() == Permission.VOICE_CONNECT)
-                        p_messageParams.getTextChannel().sendMessage("DodoBot does not have permission to connect to: " + voiceChannel.getName()).queue();
+                        messageParams.getTextChannel().sendMessage("DodoBot does not have permission to connect to: " + voiceChannel.getName()).queue();
                 }
             }
         }

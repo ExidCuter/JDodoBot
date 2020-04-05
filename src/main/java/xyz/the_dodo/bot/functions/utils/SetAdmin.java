@@ -1,8 +1,9 @@
 package xyz.the_dodo.bot.functions.utils;
 
 import net.dv8tion.jda.core.entities.Member;
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.ServerUtils;
@@ -11,30 +12,30 @@ import xyz.the_dodo.database.types.Admin;
 import xyz.the_dodo.database.types.Server;
 import xyz.the_dodo.database.types.User;
 
+@BotService(command = "setAdmin", description = "Sets admin of the guild", usage = "setAdmin <USER MENTION>", category = CommandCategoryEnum.UTILS)
 public class SetAdmin extends IFunction {
-    public SetAdmin(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.UTILS;
+    public SetAdmin(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         User user;
         Admin admin;
         Server server;
 
-        if (p_messageParams.getMessage().getMentionedMembers().size() > 0) {
-            if (AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
-                for (Member member : p_messageParams.getMessage().getMentionedMembers()) {
+        if (messageParams.getMessage().getMentionedMembers().size() > 0) {
+            if (AdminUtils.isAdminOfGuild(messageParams.getUser(), messageParams.getGuild())) {
+                for (Member member : messageParams.getMessage().getMentionedMembers()) {
                     if (!UserUtils.userExists(member.getUser()))
                         UserUtils.createDodoUser(member.getUser());
 
                     user = UserUtils.m_userService.findByDiscordId(member.getUser().getId());
 
-                    if (!ServerUtils.serverExist(p_messageParams.getGuild()))
-                        ServerUtils.createServer(p_messageParams.getGuild());
+                    if (!ServerUtils.serverExist(messageParams.getGuild()))
+                        ServerUtils.createServer(messageParams.getGuild());
 
-                    server = ServerUtils.m_serverService.findByDiscordId(p_messageParams.getGuild().getId());
+                    server = ServerUtils.m_serverService.findByDiscordId(messageParams.getGuild().getId());
 
                     admin = new Admin();
 
@@ -44,13 +45,13 @@ public class SetAdmin extends IFunction {
                     admin = AdminUtils.m_adminService.save(admin);
 
                     if (admin != null)
-                        p_messageParams.getTextChannel().sendMessage("User " + member.getAsMention() + " is now ADMIN").queue();
+                        messageParams.getTextChannel().sendMessage("User " + member.getAsMention() + " is now ADMIN").queue();
                     else
-                        p_messageParams.getTextChannel().sendMessage("An error occurred!").queue();
+                        messageParams.getTextChannel().sendMessage("An error occurred!").queue();
                 }
             } else
-                p_messageParams.getTextChannel().sendMessage("Only admins or the owner of the Guild can add admins!").queue();
+                messageParams.getTextChannel().sendMessage("Only admins or the owner of the Guild can add admins!").queue();
         } else
-            p_messageParams.getTextChannel().sendMessage("You need to mention users that you want to add as admins!").queue();
+            messageParams.getTextChannel().sendMessage("You need to mention users that you want to add as admins!").queue();
     }
 }

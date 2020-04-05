@@ -1,11 +1,20 @@
 package xyz.the_dodo.database.types;
 
+import lombok.*;
 import xyz.the_dodo.database.types.common.Identificator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "t_bank_account")
 public class BankAccount extends Identificator {
     private double balance;
@@ -14,30 +23,4 @@ public class BankAccount extends Identificator {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    public LocalDateTime getLastPay()
-    {
-        return lastPay;
-    }
-
-    public void setLastPay(LocalDateTime p_time)
-    {
-        lastPay = p_time;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

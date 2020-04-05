@@ -1,31 +1,32 @@
 package xyz.the_dodo.bot.functions.utils;
 
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.BannedUtils;
 import xyz.the_dodo.bot.utils.StringUtils;
 
+@BotService(command = "getBannedUsers", description = "Gets the list of all the banned user", usage = "getBannedUsers", category = CommandCategoryEnum.UTILS)
 public class GetBannedUsers extends IFunction {
-    public GetBannedUsers(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.UTILS;
+    public GetBannedUsers(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         StringBuilder builder;
 
-        if (AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
+        if (AdminUtils.isAdminOfGuild(messageParams.getUser(), messageParams.getGuild())) {
             builder = new StringBuilder();
 
             builder.append("Banned users:");
 
-            BannedUtils.m_bannedService.findByServerDiscordId(p_messageParams.getGuild().getId()).forEach(p_bannedUser ->
-                    builder.append(p_messageParams.getGuild().getMemberById(p_bannedUser.getUser().getDiscordId()) + "\n"));
+            BannedUtils.m_bannedService.findByServerDiscordId(messageParams.getGuild().getId()).forEach(p_bannedUser ->
+                    builder.append(messageParams.getGuild().getMemberById(p_bannedUser.getUser().getDiscordId()) + "\n"));
 
-            StringUtils.splitIntoMessages(builder.toString(), '\n').forEach(p_s -> p_messageParams.getTextChannel().sendMessage(p_s).queue());
+            StringUtils.splitIntoMessages(builder.toString(), '\n').forEach(p_s -> messageParams.getTextChannel().sendMessage(p_s).queue());
         }
     }
 }

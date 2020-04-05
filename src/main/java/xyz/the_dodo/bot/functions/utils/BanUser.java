@@ -1,32 +1,33 @@
 package xyz.the_dodo.bot.functions.utils;
 
 import net.dv8tion.jda.core.entities.Member;
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.BannedUtils;
 
 import java.util.List;
 
+@BotService(command = "banUser", description = "Bans an user or multiple users", usage = "banUser <MENTION USERS TO BAN>", category = CommandCategoryEnum.UTILS)
 public class BanUser extends IFunction {
-    public BanUser(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.UTILS;
+    public BanUser(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         List<Member> mentionedUsers;
 
-        if (AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
-            mentionedUsers = p_messageParams.getMessage().getMentionedMembers();
+        if (AdminUtils.isAdminOfGuild(messageParams.getUser(), messageParams.getGuild())) {
+            mentionedUsers = messageParams.getMessage().getMentionedMembers();
 
             if (mentionedUsers.size() > 0)
-                mentionedUsers.forEach(p_member -> BannedUtils.banUserOnServer(p_member.getUser(), p_messageParams.getGuild()));
+                mentionedUsers.forEach(p_member -> BannedUtils.banUserOnServer(p_member.getUser(), messageParams.getGuild()));
             else
-                p_messageParams.getTextChannel().sendMessage("You need to mention users!").queue();
+                messageParams.getTextChannel().sendMessage("You need to mention users!").queue();
         } else
-            p_messageParams.getTextChannel().sendMessage("Only admins can ban people!").queue();
+            messageParams.getTextChannel().sendMessage("Only admins can ban people!").queue();
     }
 }

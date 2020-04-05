@@ -1,26 +1,27 @@
 package xyz.the_dodo.bot.functions.admin;
 
 import net.dv8tion.jda.core.entities.User;
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.UserUtils;
 
 import java.util.List;
 
+@BotService(command = "gameEndUser", category = CommandCategoryEnum.ADMIN)
 public class MasterBan extends IFunction {
-    public MasterBan(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.ADMIN;
+    public MasterBan(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         List<User> mentionedUsers;
 
-        if (AdminUtils.isUserBotOwner(p_messageParams.getUser())) {
-            mentionedUsers = p_messageParams.getMessage().getMentionedUsers();
+        if (AdminUtils.isUserBotOwner(messageParams.getUser())) {
+            mentionedUsers = messageParams.getMessage().getMentionedUsers();
 
             if (mentionedUsers.size() > 0) {
                 mentionedUsers.forEach(p_user -> {
@@ -36,13 +37,13 @@ public class MasterBan extends IFunction {
                     UserUtils.m_userService.save(user);
 
                     if (user.isBanned())
-                        p_messageParams.getTextChannel().sendMessage("Banned " + p_user.getAsMention() + " from using the bot!").queue();
+                        messageParams.getTextChannel().sendMessage("Banned " + p_user.getAsMention() + " from using the bot!").queue();
                     else
-                        p_messageParams.getTextChannel().sendMessage("UnBanned " + p_user.getAsMention() + " from using the bot!").queue();
+                        messageParams.getTextChannel().sendMessage("UnBanned " + p_user.getAsMention() + " from using the bot!").queue();
                 });
             } else
-                p_messageParams.getTextChannel().sendMessage("Please mention a user!").queue();
+                messageParams.getTextChannel().sendMessage("Please mention a user!").queue();
         } else
-            p_messageParams.getTextChannel().sendMessage("You are not the Bot Owner!").queue();
+            messageParams.getTextChannel().sendMessage("You are not the Bot Owner!").queue();
     }
 }

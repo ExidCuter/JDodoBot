@@ -1,27 +1,28 @@
 package xyz.the_dodo.bot.functions.utils;
 
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.RulesUtils;
 
+@BotService(command = "deleteRules", description = "Removes the guild rules!", usage = "deleteRules", category = CommandCategoryEnum.UTILS)
 public class DeleteRules extends IFunction {
-    public DeleteRules(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.UTILS;
+    public DeleteRules(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
-        if (AdminUtils.isAdminOfGuild(p_messageParams.getUser(), p_messageParams.getGuild())) {
-            if (RulesUtils.rulesExist(p_messageParams.getGuild())) {
-                RulesUtils.deleteRules(p_messageParams.getGuild());
+    public void trigger(MessageParams messageParams) {
+        if (AdminUtils.isAdminOfGuild(messageParams.getUser(), messageParams.getGuild())) {
+            if (RulesUtils.rulesExist(messageParams.getGuild())) {
+                RulesUtils.deleteRules(messageParams.getGuild());
 
-                p_messageParams.getTextChannel().sendMessage("Rules deleted!").queue();
+                messageParams.getTextChannel().sendMessage("Rules deleted!").queue();
             } else
-                p_messageParams.getTextChannel().sendMessage("Your guild has no rules total anarchy!").queue();
+                messageParams.getTextChannel().sendMessage("Your guild has no rules total anarchy!").queue();
         } else
-            p_messageParams.getTextChannel().sendMessage("Only admins can change the Guild Rules!").queue();
+            messageParams.getTextChannel().sendMessage("Only admins can change the Guild Rules!").queue();
     }
 }

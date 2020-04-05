@@ -1,5 +1,6 @@
 package xyz.the_dodo;
 
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -9,8 +10,6 @@ import net.dv8tion.jda.core.entities.Member;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
-
 import xyz.the_dodo.bot.listeners.*;
 import xyz.the_dodo.bot.types.Initiator;
 import xyz.the_dodo.bot.utils.ImageUtils;
@@ -24,13 +23,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 @Configuration
-@EnableSpringConfigured
 @SpringBootApplication
+@RequiredArgsConstructor
 public class DodoBot {
     private static JDA bot;
-    private static Initiator init;
 
-    public static final String version = "2.0";
+    public static Initiator init;
+
+    public static final String version = "3.0-BETA";
     public static final String botOwner = "161795217803051008"; //Owner of the bot
     public static final int maxMessagesCached = 10000; //you can set custom amount (Higher you go -> more memory usage!)
 
@@ -39,7 +39,6 @@ public class DodoBot {
         JDABuilder jdaBuilder;
 
         timer = new Timer();
-        init = new Initiator();
 
         SpringApplication.run(DodoBot.class, args);
 
@@ -51,7 +50,7 @@ public class DodoBot {
                 .addEventListener(new OnServerJoinListener())
                 .addEventListener(new OnAddedToServerListener());
 
-        if (init.getCleverBotToken() != null)
+        if (MentionListener.CLEVERBOT_API_KEY != null)
             jdaBuilder.addEventListener(new MentionListener());
 
         bot = jdaBuilder.build();
@@ -79,10 +78,7 @@ public class DodoBot {
     }
 
     public static Member getBotAsMember() {
-        if (bot.getGuilds().size() > 0)
-            return bot.getGuilds().get(0).getMemberById(bot.getSelfUser().getId());
-        else
-            return null;
+        return bot.getGuilds().size() > 0 ? bot.getGuilds().get(0).getMemberById(bot.getSelfUser().getId()) : null;
     }
 
     public static List<Guild> getGuilds() {

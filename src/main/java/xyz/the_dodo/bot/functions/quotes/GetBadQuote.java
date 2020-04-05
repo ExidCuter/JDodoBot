@@ -1,24 +1,25 @@
 package xyz.the_dodo.bot.functions.quotes;
 
 import net.dv8tion.jda.core.EmbedBuilder;
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.RedditUtils;
 
 import java.awt.*;
 
+@BotService(command = "quote", description = "Gets a quote from reddit", usage = "quote", category = CommandCategoryEnum.QUOTES)
 public class GetBadQuote extends IFunction {
-    public GetBadQuote(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.QUOTES;
+    public GetBadQuote(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         EmbedBuilder embMsg;
 
-        if (p_messageParams.getParameters().length == 0) {
+        if (messageParams.getParameters().length == 0) {
             embMsg = new EmbedBuilder();
 
             String quote = RedditUtils.getRandomPost(RedditUtils.getPosts("ShittyQuotesPorn", 50));
@@ -29,7 +30,7 @@ public class GetBadQuote extends IFunction {
             embMsg.setFooter("/r/ShittyQuotesPorn", "https://media.glassdoor.com/sqll/796358/reddit-squarelogo-1490630845152.png");
             embMsg.setColor(new Color(0, 176, 253));
 
-            p_messageParams.getTextChannel().sendMessage(embMsg.build()).queue();
+            messageParams.getTextChannel().sendMessage(embMsg.build()).queue();
         }
     }
 }

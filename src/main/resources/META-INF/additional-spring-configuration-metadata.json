@@ -1,0 +1,24 @@
+{
+  "properties": [
+    {
+      "name": "dodo-bot.token",
+      "type": "java.lang.String",
+      "description": "Discord bot token."
+    },
+    {
+      "name": "dodo-bot.giphy-token",
+      "type": "java.lang.String",
+      "description": "Giphy token."
+    },
+    {
+      "name": "dodo-bot.trn-token",
+      "type": "java.lang.String",
+      "description": "Trn token."
+    },
+    {
+      "name": "dodo-bot.clever-token",
+      "type": "java.lang.String",
+      "description": "Clever bot token."
+    }
+  ]
+}

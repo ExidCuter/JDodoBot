@@ -1,6 +1,6 @@
 package xyz.the_dodo.bot.types;
 
-public enum CommandCategory {
+public enum CommandCategoryEnum {
     BANK,
     FUN,
     QUOTES,

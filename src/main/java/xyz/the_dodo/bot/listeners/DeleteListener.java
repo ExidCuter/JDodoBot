@@ -11,7 +11,6 @@ import xyz.the_dodo.database.types.DeletedMessage;
 import xyz.the_dodo.database.types.Server;
 import xyz.the_dodo.database.types.User;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

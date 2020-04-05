@@ -15,7 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class StatsListener extends ListenerAdapter {
-    public static LinkedHashMap<String, Integer> userInteractions = new LinkedHashMap<String, Integer>(){
+    public static LinkedHashMap<String, Integer> userInteractions = new LinkedHashMap<String, Integer>() {
         @Override
         protected boolean removeEldestEntry(final Map.Entry eldest) {
             return size() > DodoBot.maxMessagesCached;

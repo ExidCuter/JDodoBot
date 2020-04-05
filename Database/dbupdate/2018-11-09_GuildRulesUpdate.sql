@@ -1,7 +1,0 @@
-CREATE TABLE `dodo-bot`.`t_rules` (
-  id BIGINT PRIMARY KEY AUTO_INCREMENT,
-  rules VARCHAR(2000) NOT NULL,
-  server_id BIGINT NOT NULL,
-  CONSTRAINT FK_ServerRules FOREIGN KEY (server_id)
-  REFERENCES `dodo-bot`.`t_server`(id) ON DELETE CASCADE ON UPDATE CASCADE
-);

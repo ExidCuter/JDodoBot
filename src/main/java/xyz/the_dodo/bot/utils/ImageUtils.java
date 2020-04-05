@@ -58,7 +58,7 @@ public class ImageUtils {
             e = new AnimatedGifEncoder();
             os = new ByteArrayOutputStream();
             avatar = getBufferedImageFromUrl(p_userImage);
-            triggered = getBufferedImageFromFile("triggered.jpg");
+            triggered = getBufferedImageFromFile("img/triggered.jpg");
             canvas = new BufferedImage(avatar.getHeight() + 5, avatar.getHeight() + 5, BufferedImage.TYPE_INT_ARGB);
 
             prepareTriggeredCanvas(canvas);

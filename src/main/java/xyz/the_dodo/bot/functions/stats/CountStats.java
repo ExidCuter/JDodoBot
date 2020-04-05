@@ -1,33 +1,34 @@
 package xyz.the_dodo.bot.functions.stats;
 
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.utils.StatsUtils;
 import xyz.the_dodo.bot.utils.UserUtils;
 import xyz.the_dodo.database.types.Stats;
 import xyz.the_dodo.database.types.User;
 
+@BotService(command = "countStats", description = "Starts tracking your stats", usage = "countStats", category = CommandCategoryEnum.STATS)
 public class CountStats extends IFunction {
-    public CountStats(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.STATS;
+    public CountStats(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         User user;
         Stats stats;
 
-        stats = StatsUtils.statsExists(p_messageParams.getUser());
+        stats = StatsUtils.statsExists(messageParams.getUser());
 
         if (stats == null) {
             stats = new Stats();
 
-            if (!UserUtils.userExists(p_messageParams.getUser()))
-                UserUtils.createDodoUser(p_messageParams.getUser());
+            if (!UserUtils.userExists(messageParams.getUser()))
+                UserUtils.createDodoUser(messageParams.getUser());
 
-            user = UserUtils.m_userService.findByDiscordId(p_messageParams.getUser().getId());
+            user = UserUtils.m_userService.findByDiscordId(messageParams.getUser().getId());
 
             stats.setUser(user);
             stats.setNumOfFiles(0L);
@@ -35,10 +36,9 @@ public class CountStats extends IFunction {
 
             StatsUtils.saveStats(stats);
 
-            p_messageParams.getMessage().addReaction("\u2705").queue();
-            p_messageParams.getTextChannel().sendMessage("Use `!stats` to check your stats").queue();
-        }
-        else
-            p_messageParams.getTextChannel().sendMessage("Your stats are already being tracked!").queue();
+            messageParams.getMessage().addReaction("\u2705").queue();
+            messageParams.getTextChannel().sendMessage("Use `!stats` to check your stats").queue();
+        } else
+            messageParams.getTextChannel().sendMessage("Your stats are already being tracked!").queue();
     }
 }

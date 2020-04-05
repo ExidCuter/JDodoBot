@@ -1,6 +1,9 @@
 package xyz.the_dodo.bot.types;
 
-import com.kdotj.simplegiphy.SimpleGiphy;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import xyz.dodo.fortnite.Fortnite;
 import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.bot.functions.misc.FortniteRecords;
@@ -9,63 +12,43 @@ import xyz.the_dodo.bot.listeners.MentionListener;
 import xyz.the_dodo.bot.utils.ImageUtils;
 import xyz.the_dodo.bot.utils.VoiceUtils;
 
+import javax.annotation.PostConstruct;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
 
+@Component
+@Getter
+@NoArgsConstructor
 public class Initiator {
-    private String m_token;
-    private String m_giphyToken;
-    private String m_cleverBotToken;
+
+    @Value("${dodo-bot.token}")
+    private String token;
+
+    @Value("${dodo-bot.giphy-token}")
+    private String giphyToken;
+
+    @Value("${dodo-bot.clever-token}")
+    private String cleverBotToken;
+
+    @Value("${dodo-bot.trn-token}")
+    private String trnToken;
+
     private VoiceUtils voiceUtils;
 
-    public void setToken(String p_token) {
-        m_token = p_token;
-    }
+    @PostConstruct
+    private void init() throws Exception {
+        System.setProperty("http.agent", token);
 
-    public String getToken() {
-        return m_token;
-    }
+        Fortnite fortnite = new Fortnite(trnToken);
 
-    public String getGiphyToken() {
-        return m_giphyToken;
-    }
-
-    public VoiceUtils getVoiceUtils() {
-        return voiceUtils;
-    }
-
-    public String getCleverBotToken() {
-        return m_cleverBotToken;
-    }
-
-    public Initiator() throws IOException {
-        List<String> settings = Files.readAllLines(Paths.get("settings.txt"));
-        try {
-            m_token = settings.get(0);
-            m_giphyToken = settings.get(1);
-
-            SimpleGiphy.setApiKey(m_giphyToken);
-
-            Fortnite fortnite = new Fortnite(settings.get(2));
-
-            FortniteRecords.setFortnite(fortnite);
-            FortniteRecordsImage.setFortnite(fortnite);
-
-            m_cleverBotToken = settings.get(4);
-
-            MentionListener.CleverBot_API_Key = m_cleverBotToken;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        System.setProperty("http.agent", m_token);
+        FortniteRecords.setFortnite(fortnite);
+        FortniteRecordsImage.setFortnite(fortnite);
 
         CommandHandler.registerCommands();
+
+        MentionListener.CLEVERBOT_API_KEY = cleverBotToken.equals("TOKEN") ? null : cleverBotToken;
 
         ImageUtils.gif = new BufferedImage[35];
         ImageUtils.triggered = ImageUtils.getBufferedImageFromFile("img/triggered.jpg");
@@ -77,6 +60,8 @@ public class Initiator {
         }
 
         voiceUtils = new VoiceUtils();
+
+        DodoBot.init = this;
     }
 
     public static BufferedImage generateBotAvatar() throws IOException {

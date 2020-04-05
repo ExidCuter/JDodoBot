@@ -2,32 +2,33 @@ package xyz.the_dodo.bot.functions.voice;
 
 import net.dv8tion.jda.core.entities.Guild;
 import xyz.the_dodo.DodoBot;
+import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategory;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.GuildMusicManager;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.types.TrackScheduler;
 
+@BotService(command = "skip", description = "Skips current item in queue", usage = "skip", category = CommandCategoryEnum.VOICE)
 public class Skip extends IFunction {
-    public Skip(String command, String description, String usage) {
-        super(command, description, usage);
-        commandCategory = CommandCategory.VOICE;
+    public Skip(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams p_messageParams) {
+    public void trigger(MessageParams messageParams) {
         Guild guild;
         TrackScheduler scheduler;
         GuildMusicManager musicManager;
 
-        guild = p_messageParams.getGuild();
+        guild = messageParams.getGuild();
         musicManager = DodoBot.getVoiceUtils().getMusicManager(guild);
         scheduler = musicManager.scheduler;
 
         if (scheduler.isEmpty()) {
             scheduler.nextTrack();
-            p_messageParams.getTextChannel().sendMessage("The current track was skipped.").queue();
+            messageParams.getTextChannel().sendMessage("The current track was skipped.").queue();
         } else
-            p_messageParams.getTextChannel().sendMessage("Queue is empty.").queue();
+            messageParams.getTextChannel().sendMessage("Queue is empty.").queue();
     }
 }
