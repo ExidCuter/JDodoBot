@@ -18,9 +18,7 @@ You need to install the following dependencies:
 
 ```bash
 # Install java
-sudo add-apt-repository ppa:webupd8team/java
-sudo apt update
-sudo apt install oracle-java8-installer
+sudo apt-get install openjdk-11-jdk
 
 # Install mysql
 sudo apt install mysql-server
