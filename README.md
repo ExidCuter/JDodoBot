@@ -7,7 +7,7 @@ New version of JDodoBot. [Add it to your server](https://discordapp.com/oauth2/a
 What things you will need to run the software
 
 ```
-Java 8, MySql Server, Gradle
+Java 11, MySql Server, Gradle
 ```
 
 ## Usage
