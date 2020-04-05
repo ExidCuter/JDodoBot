@@ -18,7 +18,7 @@ You need to install the following dependencies:
 
 ```bash
 # Install java
-sudo apt-get install openjdk-11-jdk
+sudo apt install openjdk-11-jdk
 
 # Install mysql
 sudo apt install mysql-server
