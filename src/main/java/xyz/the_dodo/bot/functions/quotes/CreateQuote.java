@@ -32,7 +32,7 @@ public class CreateQuote extends IFunction {
 
             quote = QuoteUtils.saveQuoteFromUser(what, who);
 
-            messageParams.getTextChannel().sendMessage("\"" + quote.getQuote() + "\" ~ © " + quote.getPerson() + ", " + quote.getWheno().getYear()).queue();
+            messageParams.getTextChannel().sendMessage("\"" + quote.getQuote() + "\" ~ © " + quote.getPerson() + ", " + quote.getWhen().getYear()).queue();
         }
     }
 }

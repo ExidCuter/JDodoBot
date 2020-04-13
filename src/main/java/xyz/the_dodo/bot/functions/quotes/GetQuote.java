@@ -27,7 +27,7 @@ public class GetQuote extends IFunction {
             if (quotes.size() > 0) {
                 randomQuote = quotes.get(RandomGen.rndNm(quotes.size()));
 
-                messageParams.getTextChannel().sendMessage("\"" + randomQuote.getQuote() + "\" ~ © " + randomQuote.getPerson() + ", " + randomQuote.getWheno().getYear()).queue();
+                messageParams.getTextChannel().sendMessage("\"" + randomQuote.getQuote() + "\" ~ © " + randomQuote.getPerson() + ", " + randomQuote.getWhen().getYear()).queue();
             } else
                 messageParams.getTextChannel().sendMessage("No quotes from " + messageParams.getParameters()[0]).queue();
         }
