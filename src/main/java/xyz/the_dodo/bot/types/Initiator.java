@@ -51,12 +51,12 @@ public class Initiator {
         MentionListener.CLEVERBOT_API_KEY = cleverBotToken.equals("TOKEN") ? null : cleverBotToken;
 
         ImageUtils.gif = new BufferedImage[35];
-        ImageUtils.triggered = ImageUtils.getBufferedImageFromFile("img/triggered.jpg");
+        ImageUtils.triggered = ImageUtils.getBufferedImageFromFile("src/main/resources/img/triggered.jpg");
 
-        ImageUtils.fortniteBG = ImageUtils.getBufferedImageFromFile("img/bg.jpg");
+        ImageUtils.fortniteBG = ImageUtils.getBufferedImageFromFile("src/main/resources/img/bg.jpg");
 
         for (int i = 0; i < ImageUtils.gif.length; i++) {
-            ImageUtils.gif[i] = ImageUtils.getBufferedImageFromFile("img/gif/" + String.valueOf(i) + ".png");
+            ImageUtils.gif[i] = ImageUtils.getBufferedImageFromFile("src/main/resources/img/gif/" + String.valueOf(i) + ".png");
         }
 
         voiceUtils = new VoiceUtils();

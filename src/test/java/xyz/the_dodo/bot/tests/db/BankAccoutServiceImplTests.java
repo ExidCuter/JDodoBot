@@ -71,7 +71,6 @@ public class BankAccoutServiceImplTests {
 		assertThat(ba).isNotNull()
 				.extracting("id", "user.id")
 				.contains(1L, 1L);
-
 	}
 
 	@Test
@@ -119,7 +118,6 @@ public class BankAccoutServiceImplTests {
 		assertThat(ba).isNotNull()
 				.extracting("id", "user.id", "balance")
 				.containsExactly(1L, 1L, 666.0);
-
 	}
 
 	@Test
