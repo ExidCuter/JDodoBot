@@ -16,7 +16,7 @@ public class Prefix extends Identificator {
     @Column(name = "prefix")
     private String prefix;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "server_id")
     private Server server;
 }

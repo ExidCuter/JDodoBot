@@ -3,10 +3,7 @@ package xyz.the_dodo.database.types;
 import lombok.*;
 import xyz.the_dodo.database.types.common.Identificator;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,7 +17,7 @@ public class BankAccount extends Identificator {
     private double balance;
     private LocalDateTime lastPay;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 }

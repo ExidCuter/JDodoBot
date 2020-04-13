@@ -3,10 +3,7 @@ package xyz.the_dodo.database.types;
 import lombok.*;
 import xyz.the_dodo.database.types.common.Identificator;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -16,11 +13,11 @@ import javax.persistence.Table;
 @Builder
 @Table(name = "t_banned_user")
 public class BannedUser extends Identificator {
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "server_id")
     private Server server;
 }
