@@ -13,21 +13,30 @@ import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.MessageChannel;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 import xyz.the_dodo.bot.types.GuildMusicManager;
 
+import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Getter
+@Component
+@NoArgsConstructor
 public class VoiceUtils {
     public static final int DEFAULT_VOLUME = 35;
 
-    private final AudioPlayerManager playerManager;
-    public final Map<String, GuildMusicManager> musicManagers;
+    private AudioPlayerManager playerManager;
+    private Map<String, GuildMusicManager> musicManagers;
 
-    public VoiceUtils() {
+    @PostConstruct
+    public void init() {
         this.playerManager = new DefaultAudioPlayerManager();
         playerManager.registerSourceManager(new YoutubeAudioSourceManager());
         playerManager.registerSourceManager(SoundCloudAudioSourceManager.createDefault());
@@ -40,7 +49,7 @@ public class VoiceUtils {
         musicManagers = new HashMap<>();
     }
 
-    public void loadAndPlay(GuildMusicManager mng, final MessageChannel channel, String url, final boolean addPlaylist) {
+    public void loadAndPlay(GuildMusicManager mng, final MessageChannel channel, @NotNull String url, final boolean addPlaylist) {
         final String trackUrl;
 
         //Strip <>'s that prevent discord from embedding link resources
@@ -53,8 +62,10 @@ public class VoiceUtils {
             @Override
             public void trackLoaded(AudioTrack track) {
                 String msg = "Adding to queue: " + track.getInfo().title;
-                if (mng.player.getPlayingTrack() == null)
+
+                if (mng.player.getPlayingTrack() == null) {
                     msg += "\nand the Player has started playing;";
+                }
 
                 mng.scheduler.queue(track);
                 channel.sendMessage(msg).queue();

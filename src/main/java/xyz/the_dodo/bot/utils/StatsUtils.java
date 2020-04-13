@@ -1,8 +1,8 @@
 package xyz.the_dodo.bot.utils;
 
 import net.dv8tion.jda.core.entities.User;
-import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.REST.service.StatsServiceImpl;
+import xyz.the_dodo.config.BotConfig;
 import xyz.the_dodo.database.interfaces.services.IStatsService;
 import xyz.the_dodo.database.types.Stats;
 
@@ -13,6 +13,7 @@ public class StatsUtils {
     private static int numOfMessages = 0;
     private static List<Stats> statsQueue = new ArrayList<>();
     public static IStatsService statsService = BeanUtils.getBean(StatsServiceImpl.class);
+    public static BotConfig config = BeanUtils.getBean(BotConfig.class);
 
     public static Stats statsExists(User user) {
         //TODO: optimise more! (to many reads)
@@ -51,7 +52,7 @@ public class StatsUtils {
 
         numOfMessages++;
 
-        if (numOfMessages > DodoBot.getNumOfServers() * 2) {
+        if (numOfMessages > config.getNumOfServers() * 2) {
             flushStatsQueue();
 
             numOfMessages = 0;

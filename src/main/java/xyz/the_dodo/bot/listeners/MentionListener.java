@@ -7,10 +7,13 @@ import com.google.code.chatterbotapi.ChatterBotType;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import xyz.the_dodo.DodoBot;
+import xyz.the_dodo.bot.utils.BeanUtils;
 import xyz.the_dodo.bot.utils.StringUtils;
+import xyz.the_dodo.config.BotConfig;
 
 public class MentionListener extends ListenerAdapter {
+    private static BotConfig config = BeanUtils.getBean(BotConfig.class);
+
     public static String CLEVERBOT_API_KEY;
     private static ChatterBotFactory factory = new ChatterBotFactory();
 
@@ -26,7 +29,7 @@ public class MentionListener extends ListenerAdapter {
         message = event.getMessage();
         parameters = StringUtils.getCommandNParameters(message.getContentRaw());
 
-        if (!message.getMentionedUsers().isEmpty() && message.getMentionedUsers().get(0).getName().equals(DodoBot.getName()) && parameters.length > 1) {
+        if (!message.getMentionedUsers().isEmpty() && message.getMentionedUsers().get(0).getName().equals(config.getName()) && parameters.length > 1) {
             String statement = StringUtils.glueStringsBackTogether(parameters, " ", 1);
 
             try {

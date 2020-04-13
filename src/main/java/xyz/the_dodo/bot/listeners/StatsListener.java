@@ -5,9 +5,10 @@ import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import xyz.the_dodo.DodoBot;
+import xyz.the_dodo.bot.utils.BeanUtils;
 import xyz.the_dodo.bot.utils.ServerUtils;
 import xyz.the_dodo.bot.utils.StatsUtils;
+import xyz.the_dodo.config.BotConfig;
 import xyz.the_dodo.database.types.Server;
 import xyz.the_dodo.database.types.Stats;
 
@@ -15,10 +16,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class StatsListener extends ListenerAdapter {
+    private static BotConfig config = BeanUtils.getBean(BotConfig.class);
+
     public static LinkedHashMap<String, Integer> userInteractions = new LinkedHashMap<String, Integer>() {
         @Override
         protected boolean removeEldestEntry(final Map.Entry eldest) {
-            return size() > DodoBot.maxMessagesCached;
+            return size() > config.getMaxMessagesCached();
         }
     };
 

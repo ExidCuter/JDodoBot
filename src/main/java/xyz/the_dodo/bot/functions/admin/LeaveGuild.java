@@ -1,6 +1,5 @@
 package xyz.the_dodo.bot.functions.admin;
 
-import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
 import xyz.the_dodo.bot.types.CommandCategoryEnum;
@@ -17,7 +16,7 @@ public class LeaveGuild extends IFunction {
     public void trigger(MessageParams messageParams) {
         if (AdminUtils.isUserBotOwner(messageParams.getUser())) {
             for (String s : messageParams.getParameters()) {
-                DodoBot.leaveGuild(s);
+                config.leaveGuild(s);
             }
         }
     }

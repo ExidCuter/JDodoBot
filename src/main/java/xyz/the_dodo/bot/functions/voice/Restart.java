@@ -3,16 +3,19 @@ package xyz.the_dodo.bot.functions.voice;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.core.entities.Guild;
-import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
 import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.GuildMusicManager;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.types.TrackScheduler;
+import xyz.the_dodo.bot.utils.BeanUtils;
+import xyz.the_dodo.bot.utils.VoiceUtils;
 
 @BotService(command = "restart", description = "Restarts playing current song/video", usage = "restart", category = CommandCategoryEnum.VOICE)
 public class Restart extends IFunction {
+    private static VoiceUtils voiceUtils = BeanUtils.getBean(VoiceUtils.class);
+
     public Restart(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
         super(command, description, usage, isService, commandCategoryEnum);
     }
@@ -26,7 +29,7 @@ public class Restart extends IFunction {
         GuildMusicManager musicManager;
 
         guild = messageParams.getGuild();
-        musicManager = DodoBot.getVoiceUtils().getMusicManager(guild);
+        musicManager = voiceUtils.getMusicManager(guild);
         player = musicManager.player;
         scheduler = musicManager.scheduler;
 

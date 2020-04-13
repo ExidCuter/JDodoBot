@@ -7,7 +7,8 @@ import net.dv8tion.jda.core.requests.RestAction;
 import net.dv8tion.jda.core.requests.restaction.AuditableRestAction;
 import net.dv8tion.jda.core.requests.restaction.MessageAction;
 import org.jetbrains.annotations.NotNull;
-import xyz.the_dodo.DodoBot;
+import xyz.the_dodo.bot.utils.BeanUtils;
+import xyz.the_dodo.config.BotConfig;
 
 import javax.annotation.Nullable;
 import java.time.OffsetDateTime;
@@ -16,6 +17,8 @@ import java.util.Formatter;
 import java.util.List;
 
 public class DefaultMessage implements Message {
+    public static BotConfig config = BeanUtils.getBean(BotConfig.class);
+
     List<User> mentionedUsers;
 
     @Override
@@ -70,12 +73,12 @@ public class DefaultMessage implements Message {
 
     @Override
     public User getAuthor() {
-        return DodoBot.getBotAsMember().getUser();
+        return config.getBotAsMember().getUser();
     }
 
     @Override
     public Member getMember() {
-        return DodoBot.getBotAsMember();
+        return config.getBotAsMember();
     }
 
     @Override

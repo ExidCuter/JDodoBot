@@ -2,20 +2,23 @@ package xyz.the_dodo.bot.functions.voice;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.core.entities.Guild;
-import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
 import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.GuildMusicManager;
 import xyz.the_dodo.bot.types.MessageParams;
 import xyz.the_dodo.bot.types.TrackScheduler;
+import xyz.the_dodo.bot.utils.BeanUtils;
+import xyz.the_dodo.bot.utils.VoiceUtils;
 
 import java.util.Queue;
 
 import static xyz.the_dodo.bot.utils.VoiceUtils.getTimestamp;
 
-@BotService(command = "play", description = "Plays a song or resumes playing", usage = "play || play <SONG LINK>", category = CommandCategoryEnum.VOICE)
+@BotService(command = "listPlaying", description = "Lists all the items in the play queue!", usage = "listPlaying", category = CommandCategoryEnum.VOICE)
 public class ListQueue extends IFunction {
+    private static VoiceUtils voiceUtils = BeanUtils.getBean(VoiceUtils.class);
+
     public ListQueue(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
         super(command, description, usage, isService, commandCategoryEnum);
     }
@@ -29,7 +32,7 @@ public class ListQueue extends IFunction {
         long queueLength;
 
         guild = messageParams.getGuild();
-        musicManager = DodoBot.getVoiceUtils().getMusicManager(guild);
+        musicManager = voiceUtils.getMusicManager(guild);
         scheduler = musicManager.scheduler;
 
         Queue<AudioTrack> queue = scheduler.getQueue();

@@ -1,6 +1,5 @@
 package xyz.the_dodo.bot.functions.admin;
 
-import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
 import xyz.the_dodo.bot.types.CommandCategoryEnum;
@@ -21,7 +20,7 @@ public class GetAllServers extends IFunction {
         stringBuilder = new StringBuilder();
 
         if (AdminUtils.isUserBotOwner(messageParams.getUser())) {
-            DodoBot.getGuilds().forEach(guild ->
+            config.getGuilds().forEach(guild ->
                     stringBuilder.append(guild.getName())
                             .append(" | ")
                             .append(guild.getOwner().getUser())

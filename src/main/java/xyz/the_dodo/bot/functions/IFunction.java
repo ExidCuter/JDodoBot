@@ -5,12 +5,16 @@ import lombok.Setter;
 import net.dv8tion.jda.core.EmbedBuilder;
 import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.utils.BeanUtils;
+import xyz.the_dodo.config.BotConfig;
 
 import java.awt.*;
 
 @Getter
 @Setter
 public abstract class IFunction {
+    protected static BotConfig config = BeanUtils.getBean(BotConfig.class);
+
     private String command;
     private String description;
     private String usage;

@@ -3,9 +3,9 @@ package xyz.the_dodo.bot.utils;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
-import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.REST.service.SubServiceImpl;
 import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.config.BotConfig;
 import xyz.the_dodo.database.types.Server;
 import xyz.the_dodo.database.types.Subscription;
 
@@ -16,6 +16,7 @@ import static xyz.the_dodo.config.CommandConfig.commands;
 public class SubsUtils {
     private static int tick = 0;
     public static SubServiceImpl subService = BeanUtils.getBean(SubServiceImpl.class);
+    public static BotConfig config = BeanUtils.getBean(BotConfig.class);
 
     public static List<Subscription> getSubscriptionsForGuild(Guild guild) {
         return subService.getAllSubscriptionOfServerDiscordId(guild.getId());
@@ -60,8 +61,8 @@ public class SubsUtils {
             User user;
             MessageParams messageParams;
 
-            user = DodoBot.getBotAsMember().getUser();
-            guild = DodoBot.getGuildById(subscription.getServer().getDiscordId());
+            user = config.getBotAsMember().getUser();
+            guild = config.getGuildById(subscription.getServer().getDiscordId());
 
             if (tick % subscription.getTimer() == 0) {
 

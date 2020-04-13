@@ -3,10 +3,11 @@ package xyz.the_dodo.bot.listeners;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageDeleteEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import xyz.the_dodo.DodoBot;
+import xyz.the_dodo.bot.utils.BeanUtils;
 import xyz.the_dodo.bot.utils.DeletedMessageUtils;
 import xyz.the_dodo.bot.utils.ServerUtils;
 import xyz.the_dodo.bot.utils.UserUtils;
+import xyz.the_dodo.config.BotConfig;
 import xyz.the_dodo.database.types.DeletedMessage;
 import xyz.the_dodo.database.types.Server;
 import xyz.the_dodo.database.types.User;
@@ -15,10 +16,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class DeleteListener extends ListenerAdapter {
+    private static BotConfig config = BeanUtils.getBean(BotConfig.class);
+
     static LinkedHashMap<String, Message> deletedMessages = new LinkedHashMap<String, Message>() {
         @Override
         protected boolean removeEldestEntry(final Map.Entry eldest) {
-            return size() > DodoBot.maxMessagesCached;
+            return size() > config.getMaxMessagesCached();
         }
     };
 

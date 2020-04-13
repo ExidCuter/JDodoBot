@@ -4,15 +4,18 @@ import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.exceptions.PermissionException;
-import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
 import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.GuildMusicManager;
 import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.utils.BeanUtils;
+import xyz.the_dodo.bot.utils.VoiceUtils;
 
 @BotService(command = "join", description = "Joins a voice channel", usage = "join <CHANNEL NAME/CHANNEL ID>", category = CommandCategoryEnum.VOICE)
 public class Join extends IFunction {
+    private static VoiceUtils voiceUtils = BeanUtils.getBean(VoiceUtils.class);
+
     public Join(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
         super(command, description, usage, isService, commandCategoryEnum);
     }
@@ -26,7 +29,7 @@ public class Join extends IFunction {
 
         guild = messageParams.getGuild();
 
-        musicManager = DodoBot.getVoiceUtils().getMusicManager(guild);
+        musicManager = voiceUtils.getMusicManager(guild);
 
         if (messageParams.getParameters().length == 0)  //No channel name was provided to search for.
             messageParams.getTextChannel().sendMessage("No channel name was provided to search with to join.").queue();

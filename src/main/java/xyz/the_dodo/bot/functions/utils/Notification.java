@@ -1,6 +1,5 @@
 package xyz.the_dodo.bot.functions.utils;
 
-import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
 import xyz.the_dodo.bot.types.CommandCategoryEnum;
@@ -17,11 +16,11 @@ public class Notification extends IFunction {
     public void trigger(MessageParams messageParams) {
         String message;
 
-        if (messageParams.getUser().getId().equals(DodoBot.botOwner)) {
+        if (messageParams.getUser().getId().equals(config.getBotOwner())) {
             if (messageParams.getParameters().length > 0) {
                 message = StringUtils.glueStringsBackTogether(messageParams.getParameters(), " ", 0);
 
-                DodoBot.getGuilds().forEach(guild -> {
+                config.getGuilds().forEach(guild -> {
                     try {
                         guild.getDefaultChannel().sendMessage("@everyone " + message).queue();
                     } catch (NullPointerException ignored) {

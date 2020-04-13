@@ -3,17 +3,20 @@ package xyz.the_dodo.bot.functions.voice;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.core.entities.Guild;
-import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
 import xyz.the_dodo.bot.types.CommandCategoryEnum;
 import xyz.the_dodo.bot.types.GuildMusicManager;
 import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.utils.BeanUtils;
+import xyz.the_dodo.bot.utils.VoiceUtils;
 
 import static xyz.the_dodo.bot.utils.VoiceUtils.getTimestamp;
 
 @BotService(command = "nowPlaying", description = "Displays what is currently playing", usage = "nowPlaying", category = CommandCategoryEnum.VOICE)
 public class NowPlaying extends IFunction {
+    private static VoiceUtils voiceUtils = BeanUtils.getBean(VoiceUtils.class);
+
     public NowPlaying(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
         super(command, description, usage, isService, commandCategoryEnum);
     }
@@ -26,7 +29,7 @@ public class NowPlaying extends IFunction {
         GuildMusicManager musicManager;
 
         guild = messageParams.getGuild();
-        musicManager = DodoBot.getVoiceUtils().getMusicManager(guild);
+        musicManager = voiceUtils.getMusicManager(guild);
         player = musicManager.player;
         currentTrack = player.getPlayingTrack();
 

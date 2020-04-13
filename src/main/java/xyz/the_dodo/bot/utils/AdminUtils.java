@@ -2,14 +2,15 @@ package xyz.the_dodo.bot.utils;
 
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.User;
-import xyz.the_dodo.DodoBot;
 import xyz.the_dodo.REST.service.AdminServiceImpl;
+import xyz.the_dodo.config.BotConfig;
 import xyz.the_dodo.database.types.Admin;
 
 import java.util.List;
 
 public class AdminUtils {
     public static AdminServiceImpl adminService = BeanUtils.getBean(AdminServiceImpl.class);
+    public static BotConfig config = BeanUtils.getBean(BotConfig.class);
 
     public static boolean isAdminOfGuild(User user, Guild guild) {
         List<Admin> admins;
@@ -34,6 +35,6 @@ public class AdminUtils {
     }
 
     public static boolean isUserBotOwner(User user) {
-        return user.getId().equals(DodoBot.botOwner);
+        return user.getId().equals(config.getBotOwner());
     }
 }
