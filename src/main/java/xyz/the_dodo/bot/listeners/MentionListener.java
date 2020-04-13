@@ -19,14 +19,16 @@ public class MentionListener extends ListenerAdapter {
         Message message;
         String parameters[];
 
-        if (event.getAuthor().isBot())
+        if (event.getAuthor().isBot()) {
             return;
+        }
 
         message = event.getMessage();
         parameters = StringUtils.getCommandNParameters(message.getContentRaw());
 
         if (!message.getMentionedUsers().isEmpty() && message.getMentionedUsers().get(0).getName().equals(DodoBot.getName()) && parameters.length > 1) {
             String statement = StringUtils.glueStringsBackTogether(parameters, " ", 1);
+
             try {
                 ChatterBot bot = factory.create(ChatterBotType.CLEVERBOT, CLEVERBOT_API_KEY);
                 ChatterBotSession botSession = bot.createSession();

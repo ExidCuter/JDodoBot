@@ -23,6 +23,6 @@ public class Shoot extends IFunction {
         if (users.isEmpty())
             messageParams.getTextChannel().sendFile(ImageUtils.generateShoot(messageParams.getUser().getAvatarUrl()).toByteArray(), "shoot.gif").queue();
         else
-            users.forEach(p_user -> messageParams.getTextChannel().sendFile(ImageUtils.generateShoot(p_user.getAvatarUrl()).toByteArray(), "shoot.gif").queue());
+            users.forEach(user -> messageParams.getTextChannel().sendFile(ImageUtils.generateShoot(user.getAvatarUrl()).toByteArray(), "shoot.gif").queue());
     }
 }

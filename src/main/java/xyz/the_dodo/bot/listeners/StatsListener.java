@@ -41,7 +41,7 @@ public class StatsListener extends ListenerAdapter {
         stats = StatsUtils.statsExists(user);
 
         if (ServerUtils.serverExist(guild)) {
-            server = ServerUtils.m_serverService.findByDiscordId(guild.getId());
+            server = ServerUtils.serverService.findByDiscordId(guild.getId());
 
             if (server.isSaveDeleted()) {
                 DeleteListener.deletedMessages.put(event.getMessage().getId(), event.getMessage());

@@ -1,33 +1,32 @@
 package xyz.the_dodo.bot.utils;
 
-import net.dv8tion.jda.core.entities.Guild;
 import xyz.the_dodo.REST.service.DefaultRoleServiceImpl;
 import xyz.the_dodo.database.types.DefaultRole;
 import xyz.the_dodo.database.types.Server;
 
 public class DefaultRoleUtils {
-    private static DefaultRoleServiceImpl m_defaultRoleService = BeanUtils.getBean(DefaultRoleServiceImpl.class);
+    private static DefaultRoleServiceImpl defaultRoleService = BeanUtils.getBean(DefaultRoleServiceImpl.class);
 
-    public static boolean defaultRoleExists(Server p_server) {
-        return getDefaultRoleOfServer(p_server) != null;
+    public static boolean defaultRoleExists(Server server) {
+        return getDefaultRoleOfServer(server) != null;
     }
 
-    public static void saveDefaultRole(DefaultRole p_defaultRole) {
+    public static void saveDefaultRole(DefaultRole newDefaultRole) {
         DefaultRole defaultRole;
 
-        defaultRole = m_defaultRoleService.findByServerId(p_defaultRole.getServer().getId());
+        defaultRole = defaultRoleService.findByServerId(newDefaultRole.getServer().getId());
 
         if (defaultRole != null) {
-            m_defaultRoleService.delete(defaultRole);
+            defaultRoleService.delete(defaultRole);
         }
 
-        m_defaultRoleService.save(p_defaultRole);
+        defaultRoleService.save(newDefaultRole);
     }
 
-    public static DefaultRole getDefaultRoleOfServer(Server p_server) {
+    public static DefaultRole getDefaultRoleOfServer(Server server) {
         DefaultRole defaultRole;
 
-        defaultRole = m_defaultRoleService.findByServerId(p_server.getId());
+        defaultRole = defaultRoleService.findByServerId(server.getId());
 
         return defaultRole;
     }

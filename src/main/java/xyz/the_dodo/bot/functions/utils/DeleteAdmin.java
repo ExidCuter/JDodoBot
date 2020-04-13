@@ -29,13 +29,13 @@ public class DeleteAdmin extends IFunction {
                 for (Member member : messageParams.getMessage().getMentionedMembers()) {
                     if (UserUtils.userExists(member.getUser())) {
                         if (ServerUtils.serverExist(messageParams.getGuild())) {
-                            server = ServerUtils.m_serverService.findByDiscordId(messageParams.getGuild().getId());
+                            server = ServerUtils.serverService.findByDiscordId(messageParams.getGuild().getId());
 
-                            admins = AdminUtils.m_adminService.getAdminsByServerId(server.getDiscordId());
+                            admins = AdminUtils.adminService.getAdminsByServerId(server.getDiscordId());
 
-                            admins.forEach(p_admin -> {
-                                if (p_admin.getUser().getDiscordId().equals(member.getUser().getId())) {
-                                    AdminUtils.m_adminService.delete(p_admin);
+                            admins.forEach(admin -> {
+                                if (admin.getUser().getDiscordId().equals(member.getUser().getId())) {
+                                    AdminUtils.adminService.delete(admin);
                                     messageParams.getTextChannel().sendMessage("User " + messageParams.getUser().getAsMention() + " is ADMIN no more").queue();
                                 } else
                                     messageParams.getTextChannel().sendMessage("An error occurred!").queue();

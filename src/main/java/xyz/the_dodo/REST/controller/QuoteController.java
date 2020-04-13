@@ -11,16 +11,15 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/api")
-public class QuoteController
-{
+public class QuoteController {
 	@Autowired
-	private IQuoteService m_quoteService;
+	private IQuoteService quoteService;
 
 	@RequestMapping(value = "/quotes", method = RequestMethod.GET)
 	public ResponseEntity getAll() {
 		List<Quote> quotes;
 
-		quotes = m_quoteService.findAll();
+		quotes = quoteService.findAll();
 
 		return ResponseEntity.ok(quotes);
 	}
@@ -29,7 +28,7 @@ public class QuoteController
 	public ResponseEntity getById(@PathVariable String user) {
 		List<Quote> quotes;
 
-		quotes = m_quoteService.findAll();
+		quotes = quoteService.findAll();
 
 		return ResponseEntity.ok(quotes);
 	}

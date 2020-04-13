@@ -11,29 +11,27 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements IUserService {
     @Autowired
-    private IUserRepo m_userRepo;
+    private IUserRepo userRepo;
 
-    public void setUserRepo(IUserRepo p_userRepo)
-    {
-        m_userRepo = p_userRepo;
+    public void setUserRepo(IUserRepo userRepo) {
+        this.userRepo = userRepo;
     }
 
     @Override
     public User findById(long id) {
-        return m_userRepo.getOne(id);
+        return userRepo.getOne(id);
     }
 
     @Override
-    public User findByDiscordId(String discordId)
-    {
-        return m_userRepo.findByDiscordId(discordId);
+    public User findByDiscordId(String discordId) {
+        return userRepo.findByDiscordId(discordId);
     }
 
     @Override
     public List<User> findAll() {
         List<User> users;
 
-        users = m_userRepo.findAll();
+        users = userRepo.findAll();
 
         return users;
     }
@@ -41,17 +39,19 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User save(User user) {
         if (user != null) {
-            return m_userRepo.save(user);
+            return userRepo.save(user);
         }
+
         return null;
     }
 
     @Override
     public boolean delete(User user) {
-        if (user != null){
-            m_userRepo.deleteById(user.getId());
+        if (user != null) {
+            userRepo.deleteById(user.getId());
             return true;
         }
+
         return false;
     }
 }

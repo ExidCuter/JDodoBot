@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface ISubService extends ICRUD<Subscription> {
     List<Subscription> getAllSubscriptionOfServerDiscordId(String discordId);
+
     List<Subscription> getSubscriptionsToTrigger(int tick);
 }

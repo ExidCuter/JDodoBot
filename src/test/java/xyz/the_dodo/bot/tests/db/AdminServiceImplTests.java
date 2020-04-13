@@ -11,8 +11,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import xyz.the_dodo.REST.service.AdminServiceImpl;
 import xyz.the_dodo.database.interfaces.repos.IAdminoRepo;
-import xyz.the_dodo.database.interfaces.repos.IServerRepo;
-import xyz.the_dodo.database.interfaces.repos.IUserRepo;
 import xyz.the_dodo.database.interfaces.services.IAdminService;
 import xyz.the_dodo.database.types.Admin;
 
@@ -29,15 +27,9 @@ import static org.assertj.core.api.Assertions.tuple;
 @Sql({"/testData/users.sql", "/testData/servers.sql", "/testData/admins.sql"})
 public class AdminServiceImplTests {
 	@Autowired
-	private IAdminoRepo m_adminRepo;
+	private IAdminoRepo adminRepo;
 
-	@Autowired
-	private IUserRepo m_userRepo;
-
-	@Autowired
-	private IServerRepo m_serverRepo;
-
-	private IAdminService m_adminService;
+	private IAdminService adminService;
 
 	@PostConstruct
 	public void setup() {
@@ -45,16 +37,16 @@ public class AdminServiceImplTests {
 
 		service = new AdminServiceImpl();
 
-		service.setAdminRepo(m_adminRepo);
+		service.setAdminRepo(adminRepo);
 
-		m_adminService = service;
+		adminService = service;
 	}
 
 	@Test
 	public void test_findAll() {
 		List<Admin> admins;
 
-		admins = m_adminService.findAll();
+		admins = adminService.findAll();
 
 		assertThat(admins).isNotNull()
 				.extracting("id", "server.id", "user.id")

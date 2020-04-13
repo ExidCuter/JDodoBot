@@ -1,13 +1,14 @@
-package xyz.the_dodo.bot.types;
+package xyz.the_dodo.config;
 
 import org.reflections.Reflections;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
+import xyz.the_dodo.bot.types.CommandCategoryEnum;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
-public class CommandHandler {
+public class CommandConfig {
     public static HashMap<String, IFunction> commands = new HashMap<>();
 
     public static void registerCommands() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
@@ -44,7 +45,7 @@ public class CommandHandler {
 
         builder.append("Commands from category `" + category + "`\n");
 
-        CommandHandler.commands.values().stream()
+        CommandConfig.commands.values().stream()
                 .filter(command -> command.getCommandCategoryEnum().toString().equalsIgnoreCase(category))
                 .forEach(command -> builder.append("\t" + command.getHelp() + "\n"));
 

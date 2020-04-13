@@ -15,7 +15,7 @@ public class OnAddedToServerListener extends ListenerAdapter {
 
             server.setDiscordId(event.getGuild().getId());
 
-            ServerUtils.m_serverService.save(server);
+            ServerUtils.serverService.save(server);
 
             try {
                 event.getGuild().getDefaultChannel().sendMessage("Thank you for adding DodoBot! For the list of commands type `!help`. The default prefix is `!`").queue();

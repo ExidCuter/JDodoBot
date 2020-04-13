@@ -9,19 +9,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DeletedMessageUtils {
-    public static DeletedMessageServiceImpl m_deletedMessageService = BeanUtils.getBean(DeletedMessageServiceImpl.class);
+    public static DeletedMessageServiceImpl deletedMessageService = BeanUtils.getBean(DeletedMessageServiceImpl.class);
 
     public static void addDeletedMessage(DeletedMessage deletedMessage) {
-        m_deletedMessageService.save(deletedMessage);
+        deletedMessageService.save(deletedMessage);
     }
 
     public static List<DeletedMessage> getDeletedInGuild(User user, Guild guild) {
         List<DeletedMessage> messages;
 
-        messages = m_deletedMessageService.findAllByServerDiscordId(guild.getId());
+        messages = deletedMessageService.findAllByServerDiscordId(guild.getId());
 
         return messages.stream()
-                .filter(p_message -> p_message.getUser().getDiscordId().equals(user.getId()))
+                .filter(deletedMessage -> deletedMessage.getUser().getDiscordId().equals(user.getId()))
                 .collect(Collectors.toList());
     }
 }

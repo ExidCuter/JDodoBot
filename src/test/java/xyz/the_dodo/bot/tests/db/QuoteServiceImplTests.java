@@ -28,9 +28,9 @@ import static org.assertj.core.api.Assertions.tuple;
 @Sql({"/testData/quotes.sql"})
 public class QuoteServiceImplTests {
     @Autowired
-    private IQuoteRepo m_quoteRepo;
+    private IQuoteRepo quoteRepo;
 
-    private IQuoteService m_quoteService;
+    private IQuoteService quoteService;
 
     @PostConstruct
     public void setup() {
@@ -38,16 +38,16 @@ public class QuoteServiceImplTests {
 
         service = new QuoteServiceImpl();
 
-        service.setQuoteRepo(m_quoteRepo);
+        service.setQuoteRepo(quoteRepo);
 
-        m_quoteService = service;
+        quoteService = service;
     }
 
     @Test
     public void test_findAll() {
         List<Quote> quotes;
 
-        quotes = m_quoteService.findAll();
+        quotes = quoteService.findAll();
 
         assertThat(quotes).isNotNull()
                 .extracting("id", "person", "quote")
@@ -61,7 +61,7 @@ public class QuoteServiceImplTests {
     public void test_findById() {
         Quote quote;
 
-        quote = m_quoteService.findById(2L);
+        quote = quoteService.findById(2L);
 
         assertThat(quote).isNotNull()
                 .extracting("id", "person", "quote")
@@ -78,9 +78,9 @@ public class QuoteServiceImplTests {
 
         quote.setPerson("dodo");
         quote.setQuote("insert");
-        quote.setWheno(LocalDate.now());
+        quote.setWhen(LocalDate.now());
 
-        quote = m_quoteService.save(quote);
+        quote = quoteService.save(quote);
 
         assertThat(quote).isNotNull()
                 .extracting("id", "person", "quote")
@@ -90,9 +90,9 @@ public class QuoteServiceImplTests {
 
         quote.setPerson("dodo");
         quote.setQuote("update");
-        quote.setWheno(LocalDate.now());
+        quote.setWhen(LocalDate.now());
 
-        quote = m_quoteService.save(quote);
+        quote = quoteService.save(quote);
 
         assertThat(quote).isNotNull()
                 .extracting("id", "person", "quote")
@@ -108,9 +108,9 @@ public class QuoteServiceImplTests {
 
         quote.setId(1L);
 
-        m_quoteService.delete(quote);
+        quoteService.delete(quote);
 
-        quotes = m_quoteService.findAll();
+        quotes = quoteService.findAll();
 
         assertThat(quotes).isNotNull()
                 .extracting("id", "person", "quote")

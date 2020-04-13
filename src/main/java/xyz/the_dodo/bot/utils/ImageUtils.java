@@ -19,7 +19,7 @@ public class ImageUtils {
 
     public static BufferedImage triggered, botAvatar, fortniteBG;
 
-    public static ByteArrayOutputStream generateShoot(String p_userImage) {
+    public static ByteArrayOutputStream generateShoot(String userImage) {
         try {
             ByteArrayOutputStream os;
             AnimatedGifEncoder e;
@@ -27,7 +27,7 @@ public class ImageUtils {
 
             e = new AnimatedGifEncoder();
             os = new ByteArrayOutputStream();
-            avatar = getBufferedImageFromUrl(p_userImage);
+            avatar = getBufferedImageFromUrl(userImage);
 
             e.start(os);
             e.repeat = 100;
@@ -49,7 +49,7 @@ public class ImageUtils {
         }
     }
 
-    public static ByteArrayOutputStream generateTriggered(String p_userImage) {
+    public static ByteArrayOutputStream generateTriggered(String userImage) {
         try {
             ByteArrayOutputStream os;
             AnimatedGifEncoder e;
@@ -57,7 +57,7 @@ public class ImageUtils {
 
             e = new AnimatedGifEncoder();
             os = new ByteArrayOutputStream();
-            avatar = getBufferedImageFromUrl(p_userImage);
+            avatar = getBufferedImageFromUrl(userImage);
             triggered = getBufferedImageFromFile("src/main/resources/img/triggered.jpg");
             canvas = new BufferedImage(avatar.getHeight() + 5, avatar.getHeight() + 5, BufferedImage.TYPE_INT_ARGB);
 
@@ -160,18 +160,18 @@ public class ImageUtils {
         return baos;
     }
 
-    public static BufferedImage getBufferedImageFromFile(String p_fileName) throws IOException {
+    public static BufferedImage getBufferedImageFromFile(String fileName) throws IOException {
         BufferedImage img;
 
-        img = ImageIO.read(new File(p_fileName));
+        img = ImageIO.read(new File(fileName));
 
         return img;
     }
 
-    public static BufferedImage getBufferedImageFromUrl(String p_url) throws IOException {
+    public static BufferedImage getBufferedImageFromUrl(String location) throws IOException {
         BufferedImage img;
 
-        URL url = new URL(p_url);
+        URL url = new URL(location);
         img = ImageIO.read(url);
 
         return img;

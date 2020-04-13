@@ -37,7 +37,7 @@ public class Bribe extends IFunction {
                 }
 
                 if (BankUtils.bankAccountExists(messageParams.getUser())) {
-                    bankAccount = BankUtils.m_bankService.findByUserDiscordId(messageParams.getUser().getId());
+                    bankAccount = BankUtils.bankService.findByUserDiscordId(messageParams.getUser().getId());
 
                     if (bankAccount.getBalance() >= amount) {
                         if ((RandomGen.rndNm(3) == 1 && amount > 1000) || amount > 20000) {
@@ -52,15 +52,15 @@ public class Bribe extends IFunction {
 
                             userStats.setNumOfMessages(userStats.getNumOfMessages() + max);
 
-                            BankUtils.m_bankService.save(bankAccount);
-                            StatsUtils.m_statsService.save(userStats);
+                            BankUtils.bankService.save(bankAccount);
+                            StatsUtils.statsService.save(userStats);
 
                             messageParams.getTextChannel().sendMessage("*" + messageParams.getUser().getAsMention() + "'s stats magically increased by " + max + "*").queue();
 
                         } else {
                             bankAccount.setBalance(bankAccount.getBalance() - amount);
 
-                            BankUtils.m_bankService.save(bankAccount);
+                            BankUtils.bankService.save(bankAccount);
 
                             messageParams.getTextChannel().sendMessage("*Takes the money* \nI ain't that cheap!!!").queue();
                         }

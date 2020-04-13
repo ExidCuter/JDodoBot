@@ -27,9 +27,9 @@ import static org.assertj.core.api.Assertions.tuple;
 @Sql({"/testData/servers.sql"})
 public class ServerServiceImplTests {
 	@Autowired
-	private IServerRepo m_serverRepo;
+	private IServerRepo serverRepo;
 
-	private IServerService m_serverService;
+	private IServerService serverService;
 
 	@PostConstruct
 	public void setup() {
@@ -37,16 +37,16 @@ public class ServerServiceImplTests {
 
 		service = new ServerServiceImpl();
 
-		service.setServerRepo(m_serverRepo);
+		service.setServerRepo(serverRepo);
 
-		m_serverService = service;
+		serverService = service;
 	}
 
 	@Test
 	public void test_findAll() {
 		List<Server> servers;
 
-		servers = m_serverService.findAll();
+		servers = serverService.findAll();
 
 		assertThat(servers).isNotNull()
 				.extracting("id", "discordId")
@@ -60,7 +60,7 @@ public class ServerServiceImplTests {
 	public void test_findById() {
 		Server server;
 
-		server = m_serverService.findById(1L);
+		server = serverService.findById(1L);
 
 		assertThat(server).isNotNull()
 				.extracting("id", "discordId")
@@ -71,7 +71,7 @@ public class ServerServiceImplTests {
 	public void test_findDiscordId() {
 		Server server;
 
-		server = m_serverService.findByDiscordId("00000000000001");
+		server = serverService.findByDiscordId("00000000000001");
 
 		assertThat(server).isNotNull()
 				.extracting("id", "discordId")
@@ -87,7 +87,7 @@ public class ServerServiceImplTests {
 
 		server.setDiscordId("00000000000002");
 
-		server = m_serverService.save(server);
+		server = serverService.save(server);
 
 		assertThat(server).isNotNull()
 				.extracting("id", "discordId")
@@ -97,7 +97,7 @@ public class ServerServiceImplTests {
 
 		server.setDiscordId("00000000000003");
 
-		server = m_serverService.save(server);
+		server = serverService.save(server);
 
 		assertThat(server).isNotNull()
 				.extracting("id", "discordId")
@@ -116,9 +116,9 @@ public class ServerServiceImplTests {
 		server = Server.builder().discordId("00000000000003").saveDeleted(false).build();
 		server.setId(4L);
 
-		m_serverService.save(server);
+		serverService.save(server);
 
-		servers = m_serverService.findAll();
+		servers = serverService.findAll();
 
 		assertThat(servers).isNotNull()
 				.extracting("id", "discordId")
@@ -129,9 +129,9 @@ public class ServerServiceImplTests {
 				);
 
 
-		m_serverService.delete(server);
+		serverService.delete(server);
 
-		servers = m_serverService.findAll();
+		servers = serverService.findAll();
 
 		assertThat(servers).isNotNull()
 				.extracting("id", "discordId")

@@ -26,7 +26,7 @@ public class OnServerJoinListener extends ListenerAdapter {
         member = event.getMember();
 
         if (ServerUtils.serverExist(guild)) {
-            server = ServerUtils.m_serverService.findByDiscordId(guild.getId());
+            server = ServerUtils.serverService.findByDiscordId(guild.getId());
 
             if (DefaultRoleUtils.defaultRoleExists(server)) {
                 defaultRole = DefaultRoleUtils.getDefaultRoleOfServer(server);
@@ -40,7 +40,7 @@ public class OnServerJoinListener extends ListenerAdapter {
         if (RulesUtils.rulesExist(guild)) {
             rules = RulesUtils.findByGuild(guild);
 
-            member.getUser().openPrivateChannel().queue(p_privateChannel -> p_privateChannel.sendMessage(rules.getRules()).queue());
+            member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(rules.getRules()).queue());
         }
     }
 }

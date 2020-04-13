@@ -30,7 +30,7 @@ public class SetRules extends IFunction {
                     if (!ServerUtils.serverExist(messageParams.getGuild()))
                         ServerUtils.createServer(messageParams.getGuild());
 
-                    server = ServerUtils.m_serverService.findByDiscordId(messageParams.getGuild().getId());
+                    server = ServerUtils.serverService.findByDiscordId(messageParams.getGuild().getId());
 
                     rules = new Rules();
 

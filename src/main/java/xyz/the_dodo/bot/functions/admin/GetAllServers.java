@@ -21,17 +21,17 @@ public class GetAllServers extends IFunction {
         stringBuilder = new StringBuilder();
 
         if (AdminUtils.isUserBotOwner(messageParams.getUser())) {
-            DodoBot.getGuilds().forEach(p_guild ->
-                    stringBuilder.append(p_guild.getName())
+            DodoBot.getGuilds().forEach(guild ->
+                    stringBuilder.append(guild.getName())
                             .append(" | ")
-                            .append(p_guild.getOwner().getUser())
+                            .append(guild.getOwner().getUser())
                             .append(" | ")
-                            .append(p_guild.getRegion())
+                            .append(guild.getRegion())
                             .append(" | `")
-                            .append(p_guild.getId())
+                            .append(guild.getId())
                             .append("`\n"));
 
-            StringUtils.splitIntoMessages(stringBuilder.toString(), '\n').forEach(p_message -> messageParams.getTextChannel().sendMessage(p_message).queue());
+            StringUtils.splitIntoMessages(stringBuilder.toString(), '\n').forEach(message -> messageParams.getTextChannel().sendMessage(message).queue());
         } else
             messageParams.getTextChannel().sendMessage("Only the bot owner can use this command!").queue();
     }

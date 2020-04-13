@@ -11,7 +11,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import xyz.the_dodo.REST.service.DefaultRoleServiceImpl;
 import xyz.the_dodo.database.interfaces.repos.IDefaultRoleRepo;
-import xyz.the_dodo.database.interfaces.repos.IServerRepo;
 import xyz.the_dodo.database.interfaces.services.IDefaultRoleService;
 import xyz.the_dodo.database.types.DefaultRole;
 import xyz.the_dodo.database.types.Server;
@@ -29,12 +28,9 @@ import static org.assertj.core.api.Assertions.tuple;
 @Sql({"/testData/servers.sql"})
 public class DefaultRoleImplTests {
     @Autowired
-    private IServerRepo m_serverRepo;
+    private IDefaultRoleRepo defaultRoleRepo;
 
-    @Autowired
-    private IDefaultRoleRepo m_defaultRoleRepo;
-
-    private IDefaultRoleService m_defaultRoleService;
+    private IDefaultRoleService defaultRoleService;
 
     @PostConstruct
     public void setup() {
@@ -42,17 +38,16 @@ public class DefaultRoleImplTests {
 
         service = new DefaultRoleServiceImpl();
 
-        //service.setServerRepo(m_serverRepo);
-        service.setDefaultRoleRepo(m_defaultRoleRepo);
+        service.setDefaultRoleRepo(defaultRoleRepo);
 
-        m_defaultRoleService = service;
+        defaultRoleService = service;
     }
 
     @Test
     public void Test_getAllDefaultRoles() {
         List<DefaultRole> roles;
 
-        roles = m_defaultRoleService.findAll();
+        roles = defaultRoleService.findAll();
 
         assertThat(roles).isNotNull()
                 .extracting("id", "server.id", "discordId")
@@ -66,7 +61,7 @@ public class DefaultRoleImplTests {
     public void Test_getByServerId() {
         DefaultRole role;
 
-        role = m_defaultRoleService.findByServerId(1L);
+        role = defaultRoleService.findByServerId(1L);
 
         assertThat(role).isNotNull()
                 .extracting("id", "server.id", "discordId")
@@ -89,9 +84,9 @@ public class DefaultRoleImplTests {
         defaultRole.setDiscordId("0000000000023");
         defaultRole.setServer(server);
 
-        m_defaultRoleService.save(defaultRole);
+        defaultRoleService.save(defaultRole);
 
-        defaultRole = m_defaultRoleService.findById(3L);
+        defaultRole = defaultRoleService.findById(3L);
 
         assertThat(defaultRole).isNotNull()
                 .extracting("id", "server.id", "discordId")

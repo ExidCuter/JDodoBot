@@ -3,7 +3,6 @@ package xyz.the_dodo.REST.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.the_dodo.database.interfaces.repos.IStatsRepo;
-import xyz.the_dodo.database.interfaces.repos.IUserRepo;
 import xyz.the_dodo.database.interfaces.services.IStatsService;
 import xyz.the_dodo.database.types.Stats;
 
@@ -12,21 +11,21 @@ import java.util.List;
 @Service
 public class StatsServiceImpl implements IStatsService {
     @Autowired
-    private IStatsRepo m_statsRepo;
+    private IStatsRepo statsRepo;
 
-    public void setStatsRepo(IStatsRepo p_statsRepo) {
-        m_statsRepo = p_statsRepo;
+    public void setStatsRepo(IStatsRepo statsRepo) {
+        this.statsRepo = statsRepo;
     }
 
     @Override
     public Stats getByUserDiscordId(String discordId) {
         List<Stats> stats;
-        
+
         stats = findAll();
 
-        for (Stats p_stats : stats) {
-            if (p_stats.getUser().getDiscordId().equals(discordId))
-                return p_stats;
+        for (Stats stat : stats) {
+            if (stat.getUser().getDiscordId().equals(discordId))
+                return stat;
         }
 
         return null;
@@ -34,28 +33,28 @@ public class StatsServiceImpl implements IStatsService {
 
     @Override
     public Stats findById(long id) {
-        return m_statsRepo.getOne(id);
+        return statsRepo.getOne(id);
     }
 
     @Override
     public List<Stats> findAll() {
-        return m_statsRepo.findAll();
+        return statsRepo.findAll();
     }
 
     @Override
-    public Stats save(Stats object) {
-        if(object != null) {
-            return m_statsRepo.save(object);
+    public Stats save(Stats stats) {
+        if (stats != null) {
+            return statsRepo.save(stats);
         }
 
         return null;
     }
 
     @Override
-    public boolean delete(Stats object) {
-        if(object != null) {
-             m_statsRepo.deleteById(object.getId());
-             return true;
+    public boolean delete(Stats stats) {
+        if (stats != null) {
+            statsRepo.deleteById(stats.getId());
+            return true;
         }
 
         return false;

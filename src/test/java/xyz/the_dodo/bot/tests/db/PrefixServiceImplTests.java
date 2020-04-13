@@ -29,12 +29,12 @@ import static org.assertj.core.api.Assertions.tuple;
 @Sql({"/testData/servers.sql"})
 public class PrefixServiceImplTests {
     @Autowired
-    private IPrefixRepo m_prefixRepo;
+    private IPrefixRepo prefixRepo;
 
     @Autowired
     private IServerRepo serverRepo;
 
-    private IPrefixService m_prefixService;
+    private IPrefixService prefixService;
 
 
     @PostConstruct
@@ -43,16 +43,16 @@ public class PrefixServiceImplTests {
 
         service = new PrefixServiceImpl();
 
-        service.setPrefixRepo(m_prefixRepo);
+        service.setPrefixRepo(prefixRepo);
 
-        m_prefixService = service;
+        prefixService = service;
     }
 
     @Test
     public void test_findAll() {
         List<Prefix> prefixes;
 
-        prefixes = m_prefixService.findAll();
+        prefixes = prefixService.findAll();
 
         assertThat(prefixes).isNotNull()
                 .extracting("id", "server.id", "prefix")
@@ -66,7 +66,7 @@ public class PrefixServiceImplTests {
     public void test_findByServerId() {
         Prefix prefix;
 
-        prefix = m_prefixService.getByServerDiscordId("00000000000000");
+        prefix = prefixService.getByServerDiscordId("00000000000000");
 
         assertThat(prefix).isNotNull()
                 .extracting("id", "server.id", "prefix")
@@ -84,9 +84,9 @@ public class PrefixServiceImplTests {
         prefix.setPrefix("%");
         prefix.setServer(server);
 
-        m_prefixService.save(prefix);
+        prefixService.save(prefix);
 
-        prefix = m_prefixService.findById(3L);
+        prefix = prefixService.findById(3L);
 
         assertThat(prefix).isNotNull()
                 .extracting("id", "server.id", "prefix")

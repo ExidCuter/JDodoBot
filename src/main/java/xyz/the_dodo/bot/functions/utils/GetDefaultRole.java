@@ -21,7 +21,7 @@ public class GetDefaultRole extends IFunction {
         DefaultRole defaultRole;
 
         if (ServerUtils.serverExist(messageParams.getGuild())) {
-            server = ServerUtils.m_serverService.findByDiscordId(messageParams.getGuild().getId());
+            server = ServerUtils.serverService.findByDiscordId(messageParams.getGuild().getId());
 
             defaultRole = DefaultRoleUtils.getDefaultRoleOfServer(server);
 

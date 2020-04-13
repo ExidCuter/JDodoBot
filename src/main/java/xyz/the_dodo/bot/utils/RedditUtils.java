@@ -21,16 +21,17 @@ public class RedditUtils {
         return submissions.ofSubreddit(subreddit, null, -1, count, null, null, true);
     }
 
-    public static String getRandomPost(List<Submission> p_submissions) {
+    public static String getRandomPost(List<Submission> submissions) {
         Random rand;
         Submission selected;
 
         rand = new Random();
 
-        selected = p_submissions.get(rand.nextInt(p_submissions.size()));
+        selected = submissions.get(rand.nextInt(submissions.size()));
 
-        if (selected != null)
+        if (selected != null) {
             return selected.getTitle() + "&" + selected.getURL() + "&" + selected.getPermalink();
+        }
 
         return "";
     }

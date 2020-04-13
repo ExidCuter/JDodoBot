@@ -24,7 +24,7 @@ public class TopStats extends IFunction {
 
         stringBuilder = new StringBuilder();
 
-        currentServerStats = StatsUtils.m_statsService.findAll()
+        currentServerStats = StatsUtils.statsService.findAll()
                 .stream()
                 .filter(stats -> messageParams.getGuild().getMemberById(stats.getUser().getDiscordId()) != null)
                 .sorted((s1, s2) -> s2.getNumOfMessages().compareTo(s1.getNumOfMessages()))

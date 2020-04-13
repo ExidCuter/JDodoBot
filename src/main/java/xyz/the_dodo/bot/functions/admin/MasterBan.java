@@ -24,22 +24,22 @@ public class MasterBan extends IFunction {
             mentionedUsers = messageParams.getMessage().getMentionedUsers();
 
             if (mentionedUsers.size() > 0) {
-                mentionedUsers.forEach(p_user -> {
+                mentionedUsers.forEach(mentionedUser -> {
                     xyz.the_dodo.database.types.User user;
 
-                    if (!UserUtils.userExists(p_user))
-                        UserUtils.createDodoUser(p_user);
+                    if (!UserUtils.userExists(mentionedUser))
+                        UserUtils.createDodoUser(mentionedUser);
 
-                    user = UserUtils.m_userService.findByDiscordId(p_user.getId());
+                    user = UserUtils.userService.findByDiscordId(mentionedUser.getId());
 
                     user.setBanned(!user.isBanned());
 
-                    UserUtils.m_userService.save(user);
+                    UserUtils.userService.save(user);
 
                     if (user.isBanned())
-                        messageParams.getTextChannel().sendMessage("Banned " + p_user.getAsMention() + " from using the bot!").queue();
+                        messageParams.getTextChannel().sendMessage("Banned " + mentionedUser.getAsMention() + " from using the bot!").queue();
                     else
-                        messageParams.getTextChannel().sendMessage("UnBanned " + p_user.getAsMention() + " from using the bot!").queue();
+                        messageParams.getTextChannel().sendMessage("UnBanned " + mentionedUser.getAsMention() + " from using the bot!").queue();
                 });
             } else
                 messageParams.getTextChannel().sendMessage("Please mention a user!").queue();

@@ -6,6 +6,7 @@ import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.requests.RestAction;
 import net.dv8tion.jda.core.requests.restaction.AuditableRestAction;
 import net.dv8tion.jda.core.requests.restaction.MessageAction;
+import org.jetbrains.annotations.NotNull;
 import xyz.the_dodo.DodoBot;
 
 import javax.annotation.Nullable;
@@ -258,16 +259,16 @@ public class DefaultMessage implements Message {
         return 0;
     }
 
-    public DefaultMessage(String[] parameters, Guild guild) {
+    public DefaultMessage(@NotNull String[] parameters, Guild guild) {
         User user;
         ArrayList<User> menionedUsers;
 
         menionedUsers = new ArrayList<>();
 
         for (String parameter : parameters) {
-            parameter = parameter.replace("<", "");
-            parameter = parameter.replace("@", "");
-            parameter = parameter.replace(">", "");
+            parameter = parameter.replace("<", "")
+                    .replace("@", "")
+                    .replace(">", "");
 
             try {
                 user = guild.getMemberById(parameter).getUser();

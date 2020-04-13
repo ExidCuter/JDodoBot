@@ -11,26 +11,25 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/api")
-public class ServerController
-{
-	@Autowired
-	private IServerService m_serverService;
+public class ServerController {
+    @Autowired
+    private IServerService serverService;
 
-	@RequestMapping(value = "/servers", method = RequestMethod.GET)
-	public ResponseEntity getAll() {
-		List<Server> servers;
+    @RequestMapping(value = "/servers", method = RequestMethod.GET)
+    public ResponseEntity getAll() {
+        List<Server> servers;
 
-		servers = m_serverService.findAll();
+        servers = serverService.findAll();
 
-		return ResponseEntity.ok(servers);
-	}
+        return ResponseEntity.ok(servers);
+    }
 
-	@RequestMapping(value = "/server/{discordId}", method = RequestMethod.GET)
-	public ResponseEntity getById(@PathVariable String discordId) {
-		Server server;
+    @RequestMapping(value = "/server/{discordId}", method = RequestMethod.GET)
+    public ResponseEntity getById(@PathVariable String discordId) {
+        Server server;
 
-		server = m_serverService.findByDiscordId(discordId);
+        server = serverService.findByDiscordId(discordId);
 
-		return ResponseEntity.ok(server);
-	}
+        return ResponseEntity.ok(server);
+    }
 }

@@ -57,12 +57,12 @@ public class GetDeletedMessages extends IFunction {
                                 .append(user.getAsMention())
                                 .append(" are:\n");
 
-                        deletedMessages.forEach(p_deletedMessage -> stringBuilder.append("\t`").append(p_deletedMessage.getMessage()).append("`\n"));
+                        deletedMessages.forEach(deletedMessage -> stringBuilder.append("\t`").append(deletedMessage.getMessage()).append("`\n"));
                     } else
                         stringBuilder.append("No deleted messages!");
                 }
             } else {
-                deletedMessages = DeletedMessageUtils.m_deletedMessageService.findAllByServerDiscordId(messageParams.getGuild().getId());
+                deletedMessages = DeletedMessageUtils.deletedMessageService.findAllByServerDiscordId(messageParams.getGuild().getId());
 
                 deletedMessages = deletedMessages.subList(Math.max(deletedMessages.size() - maxMessages, 0), deletedMessages.size());
 
@@ -73,10 +73,10 @@ public class GetDeletedMessages extends IFunction {
                             .append(messageParams.getGuild().getName())
                             .append(" are:\n");
 
-                    deletedMessages.forEach(p_deletedMessage ->
-                            stringBuilder.append("\t`").append(p_deletedMessage.getMessage())
+                    deletedMessages.forEach(deletedMessage ->
+                            stringBuilder.append("\t`").append(deletedMessage.getMessage())
                                     .append("` by ")
-                                    .append(messageParams.getGuild().getMemberById(p_deletedMessage.getUser().getDiscordId()).getAsMention())
+                                    .append(messageParams.getGuild().getMemberById(deletedMessage.getUser().getDiscordId()).getAsMention())
                                     .append("\n"));
                 } else
                     stringBuilder.append("No deleted messages!");

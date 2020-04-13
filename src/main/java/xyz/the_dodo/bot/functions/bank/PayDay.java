@@ -23,13 +23,13 @@ public class PayDay extends IFunction {
 
         user = messageParams.getUser();
         if (BankUtils.bankAccountExists(messageParams.getUser())) {
-            ba = BankUtils.m_bankService.findByUserDiscordId(user.getId());
+            ba = BankUtils.bankService.findByUserDiscordId(user.getId());
 
             if (ba.getLastPay().plusDays(1L).isBefore(LocalDateTime.now())) {
                 ba.setBalance(ba.getBalance() + 100);
                 ba.setLastPay(LocalDateTime.now());
 
-                BankUtils.m_bankService.save(ba);
+                BankUtils.bankService.save(ba);
 
                 messageParams.getTextChannel().sendMessage("You received 100 ₪.").queue();
             } else

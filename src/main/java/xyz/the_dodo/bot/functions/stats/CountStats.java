@@ -28,7 +28,7 @@ public class CountStats extends IFunction {
             if (!UserUtils.userExists(messageParams.getUser()))
                 UserUtils.createDodoUser(messageParams.getUser());
 
-            user = UserUtils.m_userService.findByDiscordId(messageParams.getUser().getId());
+            user = UserUtils.userService.findByDiscordId(messageParams.getUser().getId());
 
             stats.setUser(user);
             stats.setNumOfFiles(0L);

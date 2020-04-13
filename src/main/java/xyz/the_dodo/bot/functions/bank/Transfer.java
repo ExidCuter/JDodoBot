@@ -40,15 +40,15 @@ public class Transfer extends IFunction {
                         return;
                     }
 
-                    ba = BankUtils.m_bankService.findByUserDiscordId(user.getId());
-                    ba2 = BankUtils.m_bankService.findByUserDiscordId(user2.getId());
+                    ba = BankUtils.bankService.findByUserDiscordId(user.getId());
+                    ba2 = BankUtils.bankService.findByUserDiscordId(user2.getId());
 
                     if (ba.getBalance() >= amount && amount > 0) {
                         ba.setBalance(ba.getBalance() - amount);
                         ba2.setBalance(ba2.getBalance() + amount);
 
-                        BankUtils.m_bankService.save(ba);
-                        BankUtils.m_bankService.save(ba2);
+                        BankUtils.bankService.save(ba);
+                        BankUtils.bankService.save(ba2);
 
                         messageParams.getTextChannel().sendMessage("Transferred `" + amount + "` ₪ from `" + user.getId() + "` to `" + user2.getId() + "`.").queue();
                     } else

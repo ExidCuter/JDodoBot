@@ -7,34 +7,35 @@ import xyz.the_dodo.database.types.Prefix;
 import xyz.the_dodo.database.types.Server;
 
 public class PrefixUtils {
-    public static IPrefixService m_prefixService = BeanUtils.getBean(PrefixServiceImpl.class);
+    public static IPrefixService prefixService = BeanUtils.getBean(PrefixServiceImpl.class);
 
-    public static boolean guildHasCustomPrefix(Guild p_guild) {
+    public static boolean guildHasCustomPrefix(Guild guild) {
         Prefix prefix;
 
-        prefix = m_prefixService.getByServerDiscordId(p_guild.getId());
+        prefix = prefixService.getByServerDiscordId(guild.getId());
 
         return prefix != null;
     }
 
-    public static void setCustomPrefixForGuild(Guild p_guild, String p_prefix) {
+    public static void setCustomPrefixForGuild(Guild guild, String newPrefix) {
         Server server;
         Prefix prefix;
 
-        if (!ServerUtils.serverExist(p_guild))
-            ServerUtils.createServer(p_guild);
-
-        if (guildHasCustomPrefix(p_guild)) {
-            prefix = m_prefixService.getByServerDiscordId(p_guild.getId());
-            prefix.setPrefix(p_prefix);
-        } else {
-            prefix = new Prefix();
-            server = ServerUtils.m_serverService.findByDiscordId(p_guild.getId());
-
-            prefix.setServer(server);
-            prefix.setPrefix(p_prefix);
+        if (!ServerUtils.serverExist(guild)) {
+            ServerUtils.createServer(guild);
         }
 
-        m_prefixService.save(prefix);
+        if (guildHasCustomPrefix(guild)) {
+            prefix = prefixService.getByServerDiscordId(guild.getId());
+        } else {
+            prefix = new Prefix();
+            server = ServerUtils.serverService.findByDiscordId(guild.getId());
+
+            prefix.setServer(server);
+        }
+
+        prefix.setPrefix(newPrefix);
+
+        prefixService.save(prefix);
     }
 }

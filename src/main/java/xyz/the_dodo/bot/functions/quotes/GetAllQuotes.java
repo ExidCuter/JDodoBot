@@ -27,11 +27,11 @@ public class GetAllQuotes extends IFunction {
         if (quotes.size() > 0) {
             builder = new StringBuilder();
 
-            quotes.forEach(p_quote -> builder.append("\"" + p_quote.getQuote() + "\" ~ © " + p_quote.getPerson() + ", " + p_quote.getWheno().getYear() + "\n"));
+            quotes.forEach(quote -> builder.append("\"").append(quote.getQuote()).append("\" ~ © ").append(quote.getPerson()).append(", ").append(quote.getWhen().getYear()).append("\n"));
 
             messages = StringUtils.splitIntoMessages(builder.toString(), '\n');
 
-            messages.forEach(p_message -> messageParams.getTextChannel().sendMessage(p_message).queue());
+            messages.forEach(message -> messageParams.getTextChannel().sendMessage(message).queue());
         } else
             messageParams.getTextChannel().sendMessage("No quotes from " + messageParams.getParameters()[0]).queue();
     }

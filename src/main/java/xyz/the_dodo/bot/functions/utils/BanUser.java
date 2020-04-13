@@ -24,7 +24,7 @@ public class BanUser extends IFunction {
             mentionedUsers = messageParams.getMessage().getMentionedMembers();
 
             if (mentionedUsers.size() > 0)
-                mentionedUsers.forEach(p_member -> BannedUtils.banUserOnServer(p_member.getUser(), messageParams.getGuild()));
+                mentionedUsers.forEach(member -> BannedUtils.banUserOnServer(member.getUser(), messageParams.getGuild()));
             else
                 messageParams.getTextChannel().sendMessage("You need to mention users!").queue();
         } else

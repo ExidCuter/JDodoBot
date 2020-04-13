@@ -28,9 +28,9 @@ import static org.assertj.core.api.Assertions.tuple;
 public class StatsServiceImplTests {
 
     @Autowired
-    private IStatsRepo m_statsRepo;
+    private IStatsRepo statsRepo;
 
-    private IStatsService m_statsService;
+    private IStatsService statsService;
 
     @PostConstruct
     public void setup() {
@@ -38,16 +38,16 @@ public class StatsServiceImplTests {
 
         service = new StatsServiceImpl();
 
-        service.setStatsRepo(m_statsRepo);
+        service.setStatsRepo(statsRepo);
 
-        m_statsService = service;
+        statsService = service;
     }
 
     @Test
     public void Test_findAll() {
         List<Stats> stats;
 
-        stats = m_statsService.findAll();
+        stats = statsService.findAll();
 
         assertThat(stats).isNotNull()
                 .extracting("id", "numOfMessages", "numOfFiles", "user.id")

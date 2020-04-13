@@ -30,19 +30,19 @@ public class SetAdmin extends IFunction {
                     if (!UserUtils.userExists(member.getUser()))
                         UserUtils.createDodoUser(member.getUser());
 
-                    user = UserUtils.m_userService.findByDiscordId(member.getUser().getId());
+                    user = UserUtils.userService.findByDiscordId(member.getUser().getId());
 
                     if (!ServerUtils.serverExist(messageParams.getGuild()))
                         ServerUtils.createServer(messageParams.getGuild());
 
-                    server = ServerUtils.m_serverService.findByDiscordId(messageParams.getGuild().getId());
+                    server = ServerUtils.serverService.findByDiscordId(messageParams.getGuild().getId());
 
                     admin = new Admin();
 
                     admin.setServer(server);
                     admin.setUser(user);
 
-                    admin = AdminUtils.m_adminService.save(admin);
+                    admin = AdminUtils.adminService.save(admin);
 
                     if (admin != null)
                         messageParams.getTextChannel().sendMessage("User " + member.getAsMention() + " is now ADMIN").queue();

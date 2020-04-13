@@ -9,7 +9,7 @@ import xyz.the_dodo.bot.utils.BannedUtils;
 import xyz.the_dodo.bot.utils.PrefixUtils;
 
 import static xyz.the_dodo.bot.listeners.StatsListener.userInteractions;
-import static xyz.the_dodo.bot.types.CommandHandler.commands;
+import static xyz.the_dodo.config.CommandConfig.commands;
 
 public class CommandListener extends ListenerAdapter {
     @Override
@@ -28,7 +28,7 @@ public class CommandListener extends ListenerAdapter {
         messageParams = new MessageParams(event.getMessage());
 
         if (event.isFromType(ChannelType.TEXT) && PrefixUtils.guildHasCustomPrefix(event.getGuild())) {
-            prefix = PrefixUtils.m_prefixService.getByServerDiscordId(event.getGuild().getId()).getPrefix();
+            prefix = PrefixUtils.prefixService.getByServerDiscordId(event.getGuild().getId()).getPrefix();
         } else {
             prefix = "!";
         }

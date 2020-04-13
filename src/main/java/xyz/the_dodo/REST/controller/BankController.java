@@ -9,16 +9,15 @@ import xyz.the_dodo.database.types.BankAccount;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/bank")
-public class BankController
-{
+public class BankController {
 	@Autowired
-	private IBankService m_BankService;
+	private IBankService BankService;
 
 	@RequestMapping(value = "/account/{discordId}", method = RequestMethod.GET)
 	public ResponseEntity getById(@PathVariable String discordId) {
 		BankAccount bankAccount;
 
-		bankAccount = m_BankService.findByUserDiscordId(discordId);
+		bankAccount = BankService.findByUserDiscordId(discordId);
 
 		return ResponseEntity.ok(bankAccount);
 	}

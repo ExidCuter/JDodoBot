@@ -21,9 +21,9 @@ public class GetStatistics extends IFunction {
         if (AdminUtils.isUserBotOwner(messageParams.getUser())) {
             stringBuilder = new StringBuilder();
 
-            StatsListener.userInteractions.forEach((p_key, p_value) -> stringBuilder.append("`" + p_key + "`: " + p_value));
+            StatsListener.userInteractions.forEach((key, value) -> stringBuilder.append("`").append(key).append("`: ").append(value));
 
-            StringUtils.splitIntoMessages(stringBuilder.toString(), '\n').forEach(p_message -> messageParams.getTextChannel().sendMessage(p_message).queue());
+            StringUtils.splitIntoMessages(stringBuilder.toString(), '\n').forEach(message -> messageParams.getTextChannel().sendMessage(message).queue());
         }
     }
 }

@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface IDeletedMessageService extends ICRUD<DeletedMessage> {
     List<DeletedMessage> findAllByUserDiscordId(String userId);
+
     List<DeletedMessage> findAllByServerDiscordId(String serverId);
 }

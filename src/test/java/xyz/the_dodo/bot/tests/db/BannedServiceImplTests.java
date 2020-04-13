@@ -27,24 +27,24 @@ import static org.assertj.core.api.Assertions.tuple;
 @Sql({"/testData/users.sql", "/testData/servers.sql", "/testData/bannedUsers.sql"})
 public class BannedServiceImplTests {
     @Autowired
-    private IBannedUserRepo m_bannedUserRepo;
+    private IBannedUserRepo bannedUserRepo;
 
-    private IBannedService m_bannedService;
+    private IBannedService bannedService;
 
     @PostConstruct
     public void setup() {
         BannedServiceImpl service = new BannedServiceImpl();
 
-        service.setBannedUserRepo(m_bannedUserRepo);
+        service.setBannedUserRepo(bannedUserRepo);
 
-        m_bannedService = service;
+        bannedService = service;
     }
 
     @Test
     public void test_findAll() {
         List<BannedUser> bannedUsers;
 
-        bannedUsers = m_bannedService.findAll();
+        bannedUsers = bannedService.findAll();
 
         assertThat(bannedUsers).isNotNull().extracting("id", "server.id", "user.id").contains(
                 tuple(1L, 1L, 2L)
@@ -55,7 +55,7 @@ public class BannedServiceImplTests {
     public void test_findById() {
         BannedUser bannedUser;
 
-        bannedUser = m_bannedService.findById(1L);
+        bannedUser = bannedService.findById(1L);
 
         assertThat(bannedUser).isNotNull().extracting("id", "server.id", "user.id").contains(1L, 1L, 2L);
     }
@@ -64,7 +64,7 @@ public class BannedServiceImplTests {
     public void test_findByServer() {
         List<BannedUser> bannedUsers;
 
-        bannedUsers = m_bannedService.findByServerDiscordId("00000000000000");
+        bannedUsers = bannedService.findByServerDiscordId("00000000000000");
 
         assertThat(bannedUsers).isNotNull().extracting("id", "server.id", "user.id").contains(
                 tuple(1L, 1L, 2L)
@@ -75,7 +75,7 @@ public class BannedServiceImplTests {
     public void test_findByUser() {
         List<BannedUser> bannedUsers;
 
-        bannedUsers = m_bannedService.findByUserDiscordId("00000000000001");
+        bannedUsers = bannedService.findByUserDiscordId("00000000000001");
 
         assertThat(bannedUsers).isNotNull().extracting("id", "server.id", "user.id").contains(
                 tuple(1L, 1L, 2L)
@@ -86,7 +86,7 @@ public class BannedServiceImplTests {
     public void test_findByUserAndServer() {
         BannedUser bannedUser;
 
-        bannedUser = m_bannedService.findByUserAndServerDiscordId("00000000000001", "00000000000000");
+        bannedUser = bannedService.findByUserAndServerDiscordId("00000000000001", "00000000000000");
 
         assertThat(bannedUser).isNotNull().extracting("id", "server.id", "user.id").contains(1L, 1L, 2L);
     }

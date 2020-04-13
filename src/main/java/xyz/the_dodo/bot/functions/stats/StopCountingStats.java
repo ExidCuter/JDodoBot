@@ -21,7 +21,7 @@ public class StopCountingStats extends IFunction {
 
         if (stats != null) {
 
-            StatsUtils.m_statsService.delete(stats);
+            StatsUtils.statsService.delete(stats);
 
             messageParams.getMessage().addReaction("\u2705").queue();
             messageParams.getTextChannel().sendMessage("Your stats are not being tracked anymore!").queue();

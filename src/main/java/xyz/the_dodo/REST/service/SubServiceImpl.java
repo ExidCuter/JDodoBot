@@ -12,34 +12,34 @@ import java.util.stream.Collectors;
 @Service
 public class SubServiceImpl implements ISubService {
     @Autowired
-    private ISubRepo m_subRepo;
+    private ISubRepo subRepo;
 
-    public void setSubRepo(ISubRepo p_subRepo) {
-        m_subRepo = p_subRepo;
+    public void setSubRepo(ISubRepo subRepo) {
+        this.subRepo = subRepo;
     }
 
     @Override
     public Subscription findById(long id) {
-        return m_subRepo.getOne(id);
+        return subRepo.getOne(id);
     }
 
     @Override
     public List<Subscription> findAll() {
-        return m_subRepo.findAll();
+        return subRepo.findAll();
     }
 
     @Override
-    public Subscription save(Subscription object) {
-        if (object != null)
-            return m_subRepo.save(object);
+    public Subscription save(Subscription subscription) {
+        if (subscription != null)
+            return subRepo.save(subscription);
 
         return null;
     }
 
     @Override
-    public boolean delete(Subscription object) {
-        if (object != null) {
-            m_subRepo.delete(object);
+    public boolean delete(Subscription subscription) {
+        if (subscription != null) {
+            subRepo.delete(subscription);
             return true;
         }
 
@@ -48,17 +48,17 @@ public class SubServiceImpl implements ISubService {
 
     @Override
     public List<Subscription> getAllSubscriptionOfServerDiscordId(String discordId) {
-        return m_subRepo.findAll()
+        return subRepo.findAll()
                 .stream()
-                .filter(p_subscription -> p_subscription.getServer().getDiscordId().equals(discordId))
+                .filter(subscription -> subscription.getServer().getDiscordId().equals(discordId))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Subscription> getSubscriptionsToTrigger(int tick) {
-        return  m_subRepo.findAll()
+        return subRepo.findAll()
                 .stream()
-                .filter(p_subscription ->  tick % p_subscription.getTimer() == 0)
+                .filter(subscription -> tick % subscription.getTimer() == 0)
                 .collect(Collectors.toList());
     }
 }

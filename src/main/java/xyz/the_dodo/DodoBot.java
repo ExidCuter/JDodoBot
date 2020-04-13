@@ -11,10 +11,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import xyz.the_dodo.bot.listeners.*;
-import xyz.the_dodo.bot.types.Initiator;
 import xyz.the_dodo.bot.utils.ImageUtils;
 import xyz.the_dodo.bot.utils.SubsUtils;
 import xyz.the_dodo.bot.utils.VoiceUtils;
+import xyz.the_dodo.config.Initiator;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;

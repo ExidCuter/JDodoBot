@@ -24,7 +24,7 @@ public class TrackDeletedMessages extends IFunction {
                     ServerUtils.createServer(messageParams.getGuild());
                 }
 
-                server = ServerUtils.m_serverService.findByDiscordId(messageParams.getGuild().getId());
+                server = ServerUtils.serverService.findByDiscordId(messageParams.getGuild().getId());
 
                 if (messageParams.getParameters()[0].equalsIgnoreCase("true")) {
                     server.setSaveDeleted(true);
@@ -34,7 +34,7 @@ public class TrackDeletedMessages extends IFunction {
                     messageParams.getTextChannel().sendMessage("Bot will now stop tracking deleted posts!").queue();
                 }
 
-                ServerUtils.m_serverService.save(server);
+                ServerUtils.serverService.save(server);
             } else
                 messageParams.getTextChannel().sendMessage(getEmbededHelp().build()).queue();
         } else

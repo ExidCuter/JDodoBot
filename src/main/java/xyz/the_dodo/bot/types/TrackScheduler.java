@@ -4,6 +4,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -56,7 +57,7 @@ public class TrackScheduler extends AudioEventAdapter {
     }
 
     @Override
-    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
+    public void onTrackEnd(AudioPlayer player, AudioTrack track, @NotNull AudioTrackEndReason endReason) {
         this.lastTrack = track;
 
         if (endReason.mayStartNext) {

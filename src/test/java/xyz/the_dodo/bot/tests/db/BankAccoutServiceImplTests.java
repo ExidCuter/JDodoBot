@@ -30,12 +30,12 @@ import static org.assertj.core.api.Assertions.tuple;
 @Sql({"/testData/users.sql", "/testData/bankAccounts.sql"})
 public class BankAccoutServiceImplTests {
 	@Autowired
-	private IUserRepo m_userRepo;
+	private IUserRepo userRepo;
 
 	@Autowired
-	private IBankAccountRepo m_bankAccountRepo;
+	private IBankAccountRepo bankAccountRepo;
 
-	private IBankService m_bankService;
+	private IBankService bankService;
 
 	@PostConstruct
 	public void setup() {
@@ -43,16 +43,16 @@ public class BankAccoutServiceImplTests {
 
 		service = new BankServiceImpl();
 
-		service.setBankAccountRepo(m_bankAccountRepo);
+		service.setBankAccountRepo(bankAccountRepo);
 
-		m_bankService = service;
+		bankService = service;
 	}
 
 	@Test
 	public void test_findAll() {
 		List<BankAccount> accounts;
 
-		accounts = m_bankService.findAll();
+		accounts = bankService.findAll();
 
 		assertThat(accounts).isNotNull()
 				.extracting("id", "user.id")
@@ -66,7 +66,7 @@ public class BankAccoutServiceImplTests {
 	public void test_getById() {
 		BankAccount ba;
 
-		ba = m_bankService.findById(1L);
+		ba = bankService.findById(1L);
 
 		assertThat(ba).isNotNull()
 				.extracting("id", "user.id")
@@ -77,7 +77,7 @@ public class BankAccoutServiceImplTests {
 	public void test_getByUserDiscordId() {
 		BankAccount ba;
 
-		ba = m_bankService.findByUserDiscordId("00000000000001");
+		ba = bankService.findByUserDiscordId("00000000000001");
 
 		assertThat(ba).isNotNull()
 				.extracting("id", "user.id")
@@ -90,7 +90,7 @@ public class BankAccoutServiceImplTests {
 		User user;
 		BankAccount ba;
 
-		user = m_userRepo.findById(1L).get();
+		user = userRepo.findById(1L).get();
 
 		ba = new BankAccount();
 
@@ -98,9 +98,9 @@ public class BankAccoutServiceImplTests {
 		ba.setBalance(666);
 		ba.setUser(user);
 
-		ba = m_bankService.save(ba);
+		ba = bankService.save(ba);
 
-		List<BankAccount> bas = m_bankService.findAll();
+		List<BankAccount> bas = bankService.findAll();
 
 		assertThat(ba).isNotNull()
 				.extracting("id", "user.id", "balance")
@@ -113,7 +113,7 @@ public class BankAccoutServiceImplTests {
 		ba.setBalance(666.0);
 		ba.setLastPay(LocalDateTime.now());
 
-		ba = m_bankService.save(ba);
+		ba = bankService.save(ba);
 
 		assertThat(ba).isNotNull()
 				.extracting("id", "user.id", "balance")
@@ -126,7 +126,7 @@ public class BankAccoutServiceImplTests {
 		BankAccount ba;
 		List<BankAccount> bas;
 
-		user = m_userRepo.findById(2L).get();
+		user = userRepo.findById(2L).get();
 
 		ba = new BankAccount();
 
@@ -134,9 +134,9 @@ public class BankAccoutServiceImplTests {
 		ba.setBalance(666);
 		ba.setUser(user);
 
-		ba = m_bankService.save(ba);
+		ba = bankService.save(ba);
 
-		bas = m_bankService.findAll();
+		bas = bankService.findAll();
 
 		assertThat(bas).isNotNull()
 				.extracting("id", "user.id")
@@ -146,9 +146,9 @@ public class BankAccoutServiceImplTests {
 						tuple(4L, 2L)
 				);
 
-		m_bankService.delete(ba);
+		bankService.delete(ba);
 
-		bas = m_bankService.findAll();
+		bas = bankService.findAll();
 
 		assertThat(bas).isNotNull()
 				.extracting("id", "user.id")

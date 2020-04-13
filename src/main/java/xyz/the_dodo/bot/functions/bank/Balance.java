@@ -29,7 +29,7 @@ public class Balance extends IFunction {
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         if (BankUtils.bankAccountExists(author)) {
-            ba = BankUtils.m_bankService.findByUserDiscordId(author.getId());
+            ba = BankUtils.bankService.findByUserDiscordId(author.getId());
 
             embMsg = new EmbedBuilder();
             embMsg.setTitle(author.getName() + "'s bank balance");

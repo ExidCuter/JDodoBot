@@ -11,40 +11,42 @@ import java.util.List;
 
 public class StatsUtils {
     private static int numOfMessages = 0;
-    private static List<Stats> m_statsQueue = new ArrayList<>();
-    public static IStatsService m_statsService = BeanUtils.getBean(StatsServiceImpl.class);
+    private static List<Stats> statsQueue = new ArrayList<>();
+    public static IStatsService statsService = BeanUtils.getBean(StatsServiceImpl.class);
 
-    public static Stats statsExists(User p_user) {
+    public static Stats statsExists(User user) {
         //TODO: optimise more! (to many reads)
         Stats stats;
 
         stats = null;
 
-        for (Stats p_statsInQueue : m_statsQueue) {
-            if (p_statsInQueue.getUser().getDiscordId().equals(p_user.getId())) {
-                stats = p_statsInQueue;
+        for (Stats statsInQueue : statsQueue) {
+            if (statsInQueue.getUser().getDiscordId().equals(user.getId())) {
+                stats = statsInQueue;
             }
         }
-        if (stats == null)
-            stats = m_statsService.getByUserDiscordId(p_user.getId());
+
+        if (stats == null) {
+            stats = statsService.getByUserDiscordId(user.getId());
+        }
 
         return stats;
     }
 
-    public static void saveStats(Stats p_stats) {
+    public static void saveStats(Stats stats) {
         boolean found;
 
         found = false;
 
-        for (Stats p_statsInQueue : m_statsQueue) {
-            if (p_statsInQueue.getUser().getDiscordId().equals(p_stats.getUser().getDiscordId())) {
-                p_statsInQueue = p_stats;
+        for (Stats statsInQueue : statsQueue) {
+            if (statsInQueue.getUser().getDiscordId().equals(stats.getUser().getDiscordId())) {
                 found = true;
+                break;
             }
         }
 
         if (!found) {
-            m_statsQueue.add(p_stats);
+            statsQueue.add(stats);
         }
 
         numOfMessages++;
@@ -57,8 +59,8 @@ public class StatsUtils {
     }
 
     public static void flushStatsQueue() {
-        m_statsQueue.forEach(p_stats -> m_statsService.save(p_stats));
+        statsQueue.forEach(stats -> statsService.save(stats));
 
-        m_statsQueue.clear();
+        statsQueue.clear();
     }
 }

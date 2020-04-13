@@ -27,9 +27,9 @@ import static org.assertj.core.api.Assertions.tuple;
 @Sql({"/testData/users.sql"})
 public class UserServiceImplTests {
 	@Autowired
-	private IUserRepo m_userRepo;
+	private IUserRepo userRepo;
 
-	private IUserService m_userService;
+	private IUserService userService;
 
 	@PostConstruct
 	public void setup() {
@@ -37,16 +37,16 @@ public class UserServiceImplTests {
 
 		service = new UserServiceImpl();
 
-		service.setUserRepo(m_userRepo);
+		service.setUserRepo(userRepo);
 
-		m_userService = service;
+		userService = service;
 	}
 
 	@Test
 	public void test_findAll() {
 		List<User> users;
 
-		users = m_userService.findAll();
+		users = userService.findAll();
 
 		assertThat(users).isNotNull()
 				.extracting("id", "discordId")
@@ -60,7 +60,7 @@ public class UserServiceImplTests {
 	public void test_findById() {
 		User user;
 
-		user = m_userService.findById(1L);
+		user = userService.findById(1L);
 
 		assertThat(user).isNotNull()
 				.extracting("id", "discordId")
@@ -71,7 +71,7 @@ public class UserServiceImplTests {
 	public void test_findDiscordId() {
 		User user;
 
-		user = m_userService.findByDiscordId("00000000000001");
+		user = userService.findByDiscordId("00000000000001");
 
 		assertThat(user).isNotNull()
 				.extracting("id", "discordId")
@@ -87,7 +87,7 @@ public class UserServiceImplTests {
 
 		user.setDiscordId("00000000000002");
 
-		user = m_userService.save(user);
+		user = userService.save(user);
 
 		assertThat(user).isNotNull()
 				.extracting("id", "discordId")
@@ -97,7 +97,7 @@ public class UserServiceImplTests {
 
 		user.setDiscordId("00000000000003");
 
-		user = m_userService.save(user);
+		user = userService.save(user);
 
 		assertThat(user).isNotNull()
 				.extracting("id", "discordId")
@@ -114,9 +114,9 @@ public class UserServiceImplTests {
 				.banned(false)
 				.build();
 
-		user = m_userService.save(user);
+		user = userService.save(user);
 
-		users = m_userService.findAll();
+		users = userService.findAll();
 
 		assertThat(users).isNotNull()
 				.extracting("id", "discordId")
@@ -126,9 +126,9 @@ public class UserServiceImplTests {
 						tuple(user.getId(), user.getDiscordId())
 				);
 
-		m_userService.delete(user);
+		userService.delete(user);
 
-		users = m_userService.findAll();
+		users = userService.findAll();
 
 		assertThat(users).isNotNull()
 				.extracting("id", "discordId")

@@ -1,4 +1,4 @@
-package xyz.the_dodo.bot.types;
+package xyz.the_dodo.config;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,7 +46,7 @@ public class Initiator {
         FortniteRecords.setFortnite(fortnite);
         FortniteRecordsImage.setFortnite(fortnite);
 
-        CommandHandler.registerCommands();
+        CommandConfig.registerCommands();
 
         MentionListener.CLEVERBOT_API_KEY = cleverBotToken.equals("TOKEN") ? null : cleverBotToken;
 

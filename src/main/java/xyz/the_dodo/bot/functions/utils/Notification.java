@@ -21,9 +21,9 @@ public class Notification extends IFunction {
             if (messageParams.getParameters().length > 0) {
                 message = StringUtils.glueStringsBackTogether(messageParams.getParameters(), " ", 0);
 
-                DodoBot.getGuilds().forEach(p_guild -> {
+                DodoBot.getGuilds().forEach(guild -> {
                     try {
-                        p_guild.getDefaultChannel().sendMessage("@everyone " + message).queue();
+                        guild.getDefaultChannel().sendMessage("@everyone " + message).queue();
                     } catch (NullPointerException ignored) {
                     }
                 });

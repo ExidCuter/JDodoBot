@@ -13,13 +13,13 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class AdminController {
 	@Autowired
-	private IAdminService m_adminService;
+	private IAdminService adminService;
 
 	@RequestMapping(value = "/admins", method = RequestMethod.GET)
 	public ResponseEntity getAllAdmins() {
 		List<Admin> admins;
 
-		admins = m_adminService.findAll();
+		admins = adminService.findAll();
 
 		return ResponseEntity.ok(admins);
 	}
@@ -28,7 +28,7 @@ public class AdminController {
 	public ResponseEntity getAdminById(@PathVariable String discordId) {
 		List<Admin> admin;
 
-		admin = m_adminService.getAdminsByServerId(discordId);
+		admin = adminService.getAdminsByServerId(discordId);
 
 		return ResponseEntity.ok(admin);
 	}

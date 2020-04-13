@@ -3,6 +3,7 @@ package xyz.the_dodo.database.types;
 import lombok.*;
 import xyz.the_dodo.database.types.common.Identificator;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDate;
@@ -17,5 +18,6 @@ import java.time.LocalDate;
 public class Quote extends Identificator {
     private String person;
     private String quote;
-    private LocalDate wheno;
+    @Column(name = "wheno")
+    private LocalDate when;
 }

@@ -22,7 +22,7 @@ public class KickUserFromGuild extends IFunction {
             members = messageParams.getMessage().getMentionedMembers();
 
             if (members.size() > 0) {
-                members.forEach(p_member -> messageParams.getGuild().getController().kick(p_member).queue());
+                members.forEach(member -> messageParams.getGuild().getController().kick(member).queue());
                 messageParams.getMessage().addReaction("\u2705").queue();
             } else
                 messageParams.getTextChannel().sendMessage("Please mention users to kick").queue();

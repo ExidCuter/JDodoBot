@@ -13,19 +13,23 @@ public class StringUtils {
     public static String[] getParameters(String str) {
         String[] commandsNParameters = getCommandNParameters(str);
         String[] parameters = new String[commandsNParameters.length - 1];
-        for (int i = 1; i < commandsNParameters.length; i++) {
-            parameters[i - 1] = commandsNParameters[i];
-        }
+
+        System.arraycopy(commandsNParameters, 1, parameters, 0, commandsNParameters.length - 1);
+
         return parameters;
     }
 
     public static String glueStringsBackTogether(String tab[], String between, int startIndex) {
         StringBuilder gluedString = new StringBuilder();
+
         for (int i = startIndex; i < tab.length; i++) {
             gluedString.append(tab[i]);
-            if (i < tab.length - 1)
+
+            if (i < tab.length - 1) {
                 gluedString.append(between);
+            }
         }
+
         return gluedString.toString();
     }
 
@@ -43,15 +47,18 @@ public class StringUtils {
 
         brakePoint = 0;
         lastBrakePoint = str.length();
+
         for (int i = str.length() - 1; i > -1; i--) {
             if (i % 1900 == 0) {
                 out.add(str.substring(brakePoint, lastBrakePoint));
                 lastBrakePoint = brakePoint;
             }
+
             if (str.charAt(i) == splitOn) {
                 brakePoint = i;
             }
         }
+
         return out;
     }
 

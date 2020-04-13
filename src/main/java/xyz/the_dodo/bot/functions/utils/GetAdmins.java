@@ -20,27 +20,27 @@ public class GetAdmins extends IFunction {
     @Override
     public void trigger(MessageParams messageParams) {
         List<Admin> admins;
-        StringBuilder stringBuilder;
+        StringBuilder adminsOfGuild;
         List<Member> members, adminMembers;
 
         adminMembers = new ArrayList<>();
-        stringBuilder = new StringBuilder();
+        adminsOfGuild = new StringBuilder();
         members = messageParams.getGuild().getMembers();
-        admins = AdminUtils.m_adminService.getAdminsByServerId(messageParams.getGuild().getId());
+        admins = AdminUtils.adminService.getAdminsByServerId(messageParams.getGuild().getId());
 
-        admins.forEach(p_admin -> {
-            members.forEach(p_member -> {
-                if (p_member.getUser().getId().equals(p_admin.getUser().getDiscordId()))
-                    adminMembers.add(p_member);
+        admins.forEach(admin -> {
+            members.forEach(member -> {
+                if (member.getUser().getId().equals(admin.getUser().getDiscordId()))
+                    adminMembers.add(member);
             });
         });
 
         if (adminMembers.size() > 0) {
-            stringBuilder.append("Admins of " + messageParams.getGuild().getName() + " are:\n");
+            adminsOfGuild.append("Admins of ").append(messageParams.getGuild().getName()).append(" are:\n");
 
-            adminMembers.forEach(p_member -> stringBuilder.append(p_member.getAsMention() + "\n"));
+            adminMembers.forEach(member -> adminsOfGuild.append(member.getAsMention()).append("\n"));
 
-            messageParams.getTextChannel().sendMessage(stringBuilder.toString()).queue();
+            messageParams.getTextChannel().sendMessage(adminsOfGuild.toString()).queue();
         } else
             messageParams.getTextChannel().sendMessage("This guild has no admins. TOTAL ANARCHY!!!").queue();
     }

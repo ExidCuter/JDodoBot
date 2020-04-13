@@ -16,6 +16,7 @@ public class Register extends IFunction {
     public void trigger(MessageParams messageParams) {
         if (!BankUtils.bankAccountExists(messageParams.getUser())) {
             BankUtils.createBankAccount(messageParams.getUser());
+
             messageParams.getTextChannel().sendMessage("BankAccount created! Your account number is: " + messageParams.getUser().getId() + " with starting balance of 100 ₪.").queue();
         } else
             messageParams.getTextChannel().sendMessage("You already have a bank account!").queue();

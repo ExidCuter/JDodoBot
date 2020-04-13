@@ -12,16 +12,20 @@ import java.util.stream.Collectors;
 @Service
 public class BannedServiceImpl implements IBannedService {
     @Autowired
-    private IBannedUserRepo m_bannedUserRepo;
+    private IBannedUserRepo bannedUserRepo;
+
+    public void setBannedUserRepo(IBannedUserRepo bannedUserRepo) {
+        this.bannedUserRepo = bannedUserRepo;
+    }
 
     @Override
     public List<BannedUser> findByServerDiscordId(String discordId) {
         List<BannedUser> banned;
 
-        banned = m_bannedUserRepo.findAll();
+        banned = bannedUserRepo.findAll();
 
         return banned.stream()
-                .filter(p_bannedUser -> p_bannedUser.getServer().getDiscordId().equals(discordId))
+                .filter(bannedUser -> bannedUser.getServer().getDiscordId().equals(discordId))
                 .collect(Collectors.toList());
     }
 
@@ -29,10 +33,10 @@ public class BannedServiceImpl implements IBannedService {
     public List<BannedUser> findByUserDiscordId(String discordId) {
         List<BannedUser> banned;
 
-        banned = m_bannedUserRepo.findAll();
+        banned = bannedUserRepo.findAll();
 
         return banned.stream()
-                .filter(p_bannedUser -> p_bannedUser.getUser().getDiscordId().equals(discordId))
+                .filter(bannedUser -> bannedUser.getUser().getDiscordId().equals(discordId))
                 .collect(Collectors.toList());
     }
 
@@ -40,10 +44,10 @@ public class BannedServiceImpl implements IBannedService {
     public BannedUser findByUserAndServerDiscordId(String userDiscordId, String serverDiscordId) {
         List<BannedUser> banned;
 
-        banned = m_bannedUserRepo.findAll();
+        banned = bannedUserRepo.findAll();
 
         banned = banned.stream()
-                .filter(p_bannedUser -> p_bannedUser.getUser().getDiscordId().equals(userDiscordId) && p_bannedUser.getServer().getDiscordId().equals(serverDiscordId))
+                .filter(bannedUser -> bannedUser.getUser().getDiscordId().equals(userDiscordId) && bannedUser.getServer().getDiscordId().equals(serverDiscordId))
                 .collect(Collectors.toList());
 
         if (banned.size() > 0) {
@@ -53,32 +57,28 @@ public class BannedServiceImpl implements IBannedService {
         return null;
     }
 
-    public void setBannedUserRepo(IBannedUserRepo p_bannedUserRepo) {
-        m_bannedUserRepo = p_bannedUserRepo;
-    }
-
     @Override
     public BannedUser findById(long id) {
-        return m_bannedUserRepo.getOne(id);
+        return bannedUserRepo.getOne(id);
     }
 
     @Override
     public List<BannedUser> findAll() {
-        return m_bannedUserRepo.findAll();
+        return bannedUserRepo.findAll();
     }
 
     @Override
-    public BannedUser save(BannedUser object) {
-        if (object != null)
-            return m_bannedUserRepo.save(object);
+    public BannedUser save(BannedUser bannedUser) {
+        if (bannedUser != null)
+            return bannedUserRepo.save(bannedUser);
 
         return null;
     }
 
     @Override
-    public boolean delete(BannedUser object) {
-        if (object != null) {
-            m_bannedUserRepo.deleteById(object.getId());
+    public boolean delete(BannedUser bannedUser) {
+        if (bannedUser != null) {
+            bannedUserRepo.deleteById(bannedUser.getId());
             return true;
         }
 

@@ -29,12 +29,12 @@ import static org.assertj.core.api.Assertions.tuple;
 @Sql({"/testData/servers.sql"})
 public class SubServiceImplTests {
     @Autowired
-    private ISubRepo m_subRepo;
+    private ISubRepo subRepo;
 
     @Autowired
     private IServerRepo serverRepo;
 
-    private ISubService m_subService;
+    private ISubService subService;
 
     @PostConstruct
     public void setup() {
@@ -42,16 +42,16 @@ public class SubServiceImplTests {
 
         service = new SubServiceImpl();
 
-        service.setSubRepo(m_subRepo);
+        service.setSubRepo(subRepo);
 
-        m_subService = service;
+        subService = service;
     }
 
     @Test
     public void test_findAll() {
         List<Subscription> subscriptions;
 
-        subscriptions = m_subService.findAll();
+        subscriptions = subService.findAll();
 
         assertThat(subscriptions).isNotNull()
                 .extracting("id", "server.discordId", "command")
@@ -67,7 +67,7 @@ public class SubServiceImplTests {
     public void test_getSubsOfByGuildId() {
         List<Subscription> subscriptions;
 
-        subscriptions = m_subService.getAllSubscriptionOfServerDiscordId("00000000000000");
+        subscriptions = subService.getAllSubscriptionOfServerDiscordId("00000000000000");
 
         assertThat(subscriptions).isNotNull()
                 .extracting("id", "server.discordId", "command")
@@ -81,7 +81,7 @@ public class SubServiceImplTests {
     public void test_getSubsToTrigger() {
         List<Subscription> subscriptions;
 
-        subscriptions = m_subService.getSubscriptionsToTrigger(6);
+        subscriptions = subService.getSubscriptionsToTrigger(6);
 
         assertThat(subscriptions).isNotNull()
                 .extracting("id", "server.discordId", "command", "timer")
@@ -105,9 +105,9 @@ public class SubServiceImplTests {
         subscription.setChannelId("id");
         subscription.setCommand("new command");
 
-        m_subService.save(subscription);
+        subService.save(subscription);
 
-        subscription = m_subService.findById(4L);
+        subscription = subService.findById(4L);
 
         assertThat(subscription).isNotNull()
                 .extracting("id", "server.discordId", "command", "timer")
@@ -123,9 +123,9 @@ public class SubServiceImplTests {
 
         subscription.setId(3L);
 
-        m_subService.delete(subscription);
+        subService.delete(subscription);
 
-        subscriptions = m_subService.findAll();
+        subscriptions = subService.findAll();
 
         assertThat(subscriptions).isNotNull()
                 .extracting("id", "server.discordId", "command")

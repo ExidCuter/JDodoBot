@@ -5,6 +5,7 @@ import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
+import org.jetbrains.annotations.NotNull;
 import xyz.the_dodo.bot.utils.StringUtils;
 
 @Getter
@@ -22,13 +23,13 @@ public class MessageParams {
         this.user = user;
         this.guild = guild;
         this.textChannel = textChannel;
-        parameters = StringUtils.getParameters(command);
+        this.parameters = StringUtils.getParameters(command);
+        this.message = new DefaultMessage(parameters, guild);
         this.command = StringUtils.getCommandNParameters(command)[0];
-        content = StringUtils.glueStringsBackTogether(parameters, " ", 0);
-        message = new DefaultMessage(parameters, guild);
+        this.content = StringUtils.glueStringsBackTogether(parameters, " ", 0);
     }
 
-    public MessageParams(Message message) {
+    public MessageParams(@NotNull Message message) {
         String rawContent;
 
         rawContent = message.getContentRaw();

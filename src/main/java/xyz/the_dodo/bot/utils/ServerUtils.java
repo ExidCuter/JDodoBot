@@ -6,24 +6,24 @@ import xyz.the_dodo.database.interfaces.services.IServerService;
 import xyz.the_dodo.database.types.Server;
 
 public class ServerUtils {
-    public static IServerService m_serverService = BeanUtils.getBean(ServerServiceImpl.class);
+    public static IServerService serverService = BeanUtils.getBean(ServerServiceImpl.class);
 
-    public static boolean serverExist(Guild p_guild) {
+    public static boolean serverExist(Guild guild) {
         Server server;
 
-        server = m_serverService.findByDiscordId(p_guild.getId());
+        server = serverService.findByDiscordId(guild.getId());
 
         return server != null;
     }
 
-    public static void createServer(Guild p_guild) {
+    public static void createServer(Guild guild) {
         Server server;
 
         server = new Server();
 
-        server.setDiscordId(p_guild.getId());
+        server.setDiscordId(guild.getId());
         server.setSaveDeleted(false);
 
-        m_serverService.save(server);
+        serverService.save(server);
     }
 }

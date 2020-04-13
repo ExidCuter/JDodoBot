@@ -11,35 +11,34 @@ import java.util.List;
 @Service
 public class QuoteServiceImpl implements IQuoteService {
     @Autowired
-    private IQuoteRepo m_quoteRepo;
+    private IQuoteRepo quoteRepo;
 
-    public void setQuoteRepo(IQuoteRepo p_quoteRepo)
-    {
-        m_quoteRepo = p_quoteRepo;
+    public void setQuoteRepo(IQuoteRepo quoteRepo) {
+        this.quoteRepo = quoteRepo;
     }
 
     @Override
     public Quote findById(long id) {
-        return m_quoteRepo.getOne(id);
+        return quoteRepo.getOne(id);
     }
 
     @Override
     public List<Quote> findAll() {
-        return m_quoteRepo.findAll();
+        return quoteRepo.findAll();
     }
 
     @Override
     public Quote save(Quote quote) {
-        if(quote != null)
-            return m_quoteRepo.save(quote);
+        if (quote != null)
+            return quoteRepo.save(quote);
 
         return null;
     }
 
     @Override
     public boolean delete(Quote quote) {
-        if(quote != null){
-            m_quoteRepo.deleteById(quote.getId());
+        if (quote != null) {
+            quoteRepo.deleteById(quote.getId());
             return true;
         }
 

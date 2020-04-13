@@ -22,7 +22,7 @@ public class BanUserFromGuild extends IFunction {
             members = messageParams.getMessage().getMentionedMembers();
 
             if (members.size() > 0) {
-                members.forEach(p_member -> messageParams.getGuild().getController().ban(p_member, 10).queue());
+                members.forEach(member -> messageParams.getGuild().getController().ban(member, 10).queue());
                 messageParams.getMessage().addReaction("\u2705").queue();
             } else
                 messageParams.getTextChannel().sendMessage("Please mention users to ban").queue();

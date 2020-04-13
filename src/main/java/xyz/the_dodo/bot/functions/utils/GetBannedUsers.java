@@ -23,10 +23,9 @@ public class GetBannedUsers extends IFunction {
 
             builder.append("Banned users:");
 
-            BannedUtils.m_bannedService.findByServerDiscordId(messageParams.getGuild().getId()).forEach(p_bannedUser ->
-                    builder.append(messageParams.getGuild().getMemberById(p_bannedUser.getUser().getDiscordId()) + "\n"));
+            BannedUtils.bannedService.findByServerDiscordId(messageParams.getGuild().getId()).forEach(bannedUser -> builder.append(messageParams.getGuild().getMemberById(bannedUser.getUser().getDiscordId())).append("\n"));
 
-            StringUtils.splitIntoMessages(builder.toString(), '\n').forEach(p_s -> messageParams.getTextChannel().sendMessage(p_s).queue());
+            StringUtils.splitIntoMessages(builder.toString(), '\n').forEach(message -> messageParams.getTextChannel().sendMessage(message).queue());
         }
     }
 }

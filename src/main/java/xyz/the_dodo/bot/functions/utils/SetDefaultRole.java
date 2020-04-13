@@ -29,7 +29,7 @@ public class SetDefaultRole extends IFunction {
         if (AdminUtils.isAdminOfGuild(messageParams.getUser(), messageParams.getGuild())) {
             if (roles.size() == 1) {
                 defaultRole = new DefaultRole();
-                server = ServerUtils.m_serverService.findByDiscordId(messageParams.getGuild().getId());
+                server = ServerUtils.serverService.findByDiscordId(messageParams.getGuild().getId());
 
                 defaultRole.setDiscordId(roles.get(0).getId());
                 defaultRole.setServer(server);

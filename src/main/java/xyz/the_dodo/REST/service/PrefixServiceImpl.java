@@ -12,47 +12,47 @@ import java.util.stream.Collectors;
 @Service
 public class PrefixServiceImpl implements IPrefixService {
     @Autowired
-    private IPrefixRepo m_prefixRepo;
+    private IPrefixRepo prefixRepo;
 
-    public void setPrefixRepo(IPrefixRepo m_prefixRepo) {
-        this.m_prefixRepo = m_prefixRepo;
+    public void setPrefixRepo(IPrefixRepo prefixRepo) {
+        this.prefixRepo = prefixRepo;
     }
 
     @Override
-    public Prefix getByServerDiscordId(String p_discordId) {
-         List<Prefix> prefixes = m_prefixRepo.findAll()
-                 .stream()
-                 .filter(p_prefix -> p_prefix.getServer().getDiscordId().equals(p_discordId))
-                 .collect(Collectors.toList());
+    public Prefix getByServerDiscordId(String discordId) {
+        List<Prefix> prefixes = prefixRepo.findAll()
+                .stream()
+                .filter(prefix -> prefix.getServer().getDiscordId().equals(discordId))
+                .collect(Collectors.toList());
 
-         if (prefixes.size() > 0)
-             return prefixes.get(0);
-
-         return null;
-    }
-
-    @Override
-    public Prefix findById(long id) {
-        return m_prefixRepo.getOne(id);
-    }
-
-    @Override
-    public List<Prefix> findAll() {
-        return m_prefixRepo.findAll();
-    }
-
-    @Override
-    public Prefix save(Prefix object) {
-        if (object != null)
-            return m_prefixRepo.save(object);
+        if (prefixes.size() > 0)
+            return prefixes.get(0);
 
         return null;
     }
 
     @Override
-    public boolean delete(Prefix object) {
-        if (object != null) {
-            m_prefixRepo.delete(object);
+    public Prefix findById(long id) {
+        return prefixRepo.getOne(id);
+    }
+
+    @Override
+    public List<Prefix> findAll() {
+        return prefixRepo.findAll();
+    }
+
+    @Override
+    public Prefix save(Prefix prefix) {
+        if (prefix != null)
+            return prefixRepo.save(prefix);
+
+        return null;
+    }
+
+    @Override
+    public boolean delete(Prefix prefix) {
+        if (prefix != null) {
+            prefixRepo.delete(prefix);
             return true;
         }
 

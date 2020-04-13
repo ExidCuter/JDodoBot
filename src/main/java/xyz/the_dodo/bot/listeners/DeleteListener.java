@@ -32,12 +32,13 @@ public class DeleteListener extends ListenerAdapter {
         if (deletedMessages.containsKey(event.getMessageId())) {
             message = deletedMessages.get(event.getMessageId());
 
-            if (!UserUtils.userExists(message.getAuthor()))
+            if (!UserUtils.userExists(message.getAuthor())) {
                 UserUtils.createDodoUser(message.getAuthor());
+            }
 
-            user = UserUtils.m_userService.findByDiscordId(message.getAuthor().getId());
+            user = UserUtils.userService.findByDiscordId(message.getAuthor().getId());
 
-            server = ServerUtils.m_serverService.findByDiscordId(message.getGuild().getId());
+            server = ServerUtils.serverService.findByDiscordId(message.getGuild().getId());
 
             deletedMessage = new DeletedMessage();
 
