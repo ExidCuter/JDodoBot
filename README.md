@@ -1,6 +1,6 @@
-# JDodoBot-2.0
+# JDodoBot
 
-New version of JDodoBot. [Add it to your server](https://discordapp.com/oauth2/authorize?client_id=277458741052571648&scope=bot&permissions=2146958591)
+A fun Discord bot built with Java and JDA. [Add it to your server](https://discordapp.com/oauth2/authorize?client_id=277458741052571648&scope=bot&permissions=2146958591)
 
 ## Prerequisites
 
