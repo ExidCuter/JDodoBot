@@ -2,16 +2,15 @@ package xyz.the_dodo.bot.functions.voice;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.api.entities.Guild;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.GuildMusicManager;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.audio.GuildMusicManager;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.BeanUtils;
+import xyz.the_dodo.bot.utils.EmbedMessageUtils;
 import xyz.the_dodo.bot.utils.VoiceUtils;
-
-import static xyz.the_dodo.bot.utils.VoiceUtils.getTimestamp;
 
 @BotService(command = "nowPlaying", description = "Displays what is currently playing", usage = "nowPlaying", category = CommandCategoryEnum.VOICE)
 public class NowPlaying extends IFunction {
@@ -22,7 +21,7 @@ public class NowPlaying extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         Guild guild;
         AudioPlayer player;
         AudioTrack currentTrack;
@@ -34,15 +33,11 @@ public class NowPlaying extends IFunction {
         currentTrack = player.getPlayingTrack();
 
         if (currentTrack != null) {
-            String title = currentTrack.getInfo().title;
-            String position = getTimestamp(currentTrack.getPosition());
-            String duration = getTimestamp(currentTrack.getDuration());
+            messageParams.getTextChannel().sendMessage(EmbedMessageUtils.getNowPlayingMessage(currentTrack).build()).queue();
+        } else {
+            messageParams.getTextChannel().sendMessage("**The player is not currently playing anything!**").queue();
+        }
 
-            String nowplaying = String.format("**Playing:** %s\n**Time:** [%s / %s]",
-                    title, position, duration);
-
-            messageParams.getTextChannel().sendMessage(nowplaying).queue();
-        } else
-            messageParams.getTextChannel().sendMessage("The player is not currently playing anything!").queue();
+        return this;
     }
 }

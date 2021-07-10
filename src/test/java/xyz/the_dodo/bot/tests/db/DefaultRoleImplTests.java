@@ -1,48 +1,16 @@
 package xyz.the_dodo.bot.tests.db;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit4.SpringRunner;
-import xyz.the_dodo.REST.service.DefaultRoleServiceImpl;
-import xyz.the_dodo.database.interfaces.repos.IDefaultRoleRepo;
-import xyz.the_dodo.database.interfaces.services.IDefaultRoleService;
+import xyz.the_dodo.bot.tests.AbstractTest;
 import xyz.the_dodo.database.types.DefaultRole;
 import xyz.the_dodo.database.types.Server;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
-@TestPropertySource({"/h2-test.properties"})
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
-@Sql({"/testData/servers.sql"})
-public class DefaultRoleImplTests {
-    @Autowired
-    private IDefaultRoleRepo defaultRoleRepo;
-
-    private IDefaultRoleService defaultRoleService;
-
-    @PostConstruct
-    public void setup() {
-        DefaultRoleServiceImpl service;
-
-        service = new DefaultRoleServiceImpl();
-
-        service.setDefaultRoleRepo(defaultRoleRepo);
-
-        defaultRoleService = service;
-    }
-
+public class DefaultRoleImplTests extends AbstractTest {
     @Test
     public void Test_getAllDefaultRoles() {
         List<DefaultRole> roles;

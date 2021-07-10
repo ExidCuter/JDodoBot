@@ -3,8 +3,8 @@ package xyz.the_dodo.bot.functions.admin;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
 import xyz.the_dodo.bot.listeners.StatsListener;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.StringUtils;
 
@@ -15,7 +15,7 @@ public class GetStatistics extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         StringBuilder stringBuilder;
 
         if (AdminUtils.isUserBotOwner(messageParams.getUser())) {
@@ -25,5 +25,7 @@ public class GetStatistics extends IFunction {
 
             StringUtils.splitIntoMessages(stringBuilder.toString(), '\n').forEach(message -> messageParams.getTextChannel().sendMessage(message).queue());
         }
+
+        return this;
     }
 }

@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.utils;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.StringUtils;
 
 @BotService(command = "notifyAll", description = "Sends a notification to all servers! Only bot owner can use this commad!", usage = "notifyAll <MESSAGE>", category = CommandCategoryEnum.UTILS)
@@ -13,7 +13,7 @@ public class Notification extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         String message;
 
         if (messageParams.getUser().getId().equals(config.getBotOwner())) {
@@ -27,7 +27,10 @@ public class Notification extends IFunction {
                     }
                 });
             }
-        } else
+        } else {
             messageParams.getTextChannel().sendMessage("Only the bot owner can use this commad").queue();
+        }
+
+        return this;
     }
 }

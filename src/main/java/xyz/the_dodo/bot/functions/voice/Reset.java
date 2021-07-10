@@ -1,13 +1,13 @@
 package xyz.the_dodo.bot.functions.voice;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.api.entities.Guild;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.GuildMusicManager;
-import xyz.the_dodo.bot.types.MessageParams;
-import xyz.the_dodo.bot.types.TrackScheduler;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.audio.GuildMusicManager;
+import xyz.the_dodo.bot.types.message.MessageParams;
+import xyz.the_dodo.bot.types.audio.TrackScheduler;
 import xyz.the_dodo.bot.utils.BeanUtils;
 import xyz.the_dodo.bot.utils.VoiceUtils;
 
@@ -20,7 +20,7 @@ public class Reset extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         Guild guild;
         AudioPlayer player;
         TrackScheduler scheduler;
@@ -43,5 +43,7 @@ public class Reset extends IFunction {
         guild.getAudioManager().setSendingHandler(musicManager.sendHandler);
 
         messageParams.getTextChannel().sendMessage("The player has been completely reset!").queue();
+
+        return this;
     }
 }

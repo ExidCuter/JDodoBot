@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.utils;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.PrefixUtils;
 
@@ -14,15 +14,19 @@ public class SetCustomPrefix extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         if (AdminUtils.isAdminOfGuild(messageParams.getUser(), messageParams.getGuild())) {
             if (messageParams.getParameters().length > 0) {
                 PrefixUtils.setCustomPrefixForGuild(messageParams.getGuild(), messageParams.getParameters()[0]);
 
                 messageParams.getTextChannel().sendMessage("Prefix was set to `" + messageParams.getParameters()[0] + "`!").queue();
-            } else
+            } else {
                 messageParams.getTextChannel().sendMessage("No prefix specified!").queue();
-        } else
+            }
+        } else {
             messageParams.getTextChannel().sendMessage("Only admins can set the prefix!").queue();
+        }
+
+        return this;
     }
 }

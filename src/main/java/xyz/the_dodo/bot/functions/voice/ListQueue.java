@@ -1,19 +1,18 @@
 package xyz.the_dodo.bot.functions.voice;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.api.entities.Guild;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.GuildMusicManager;
-import xyz.the_dodo.bot.types.MessageParams;
-import xyz.the_dodo.bot.types.TrackScheduler;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.audio.GuildMusicManager;
+import xyz.the_dodo.bot.types.message.MessageParams;
+import xyz.the_dodo.bot.types.audio.TrackScheduler;
 import xyz.the_dodo.bot.utils.BeanUtils;
+import xyz.the_dodo.bot.utils.EmbedMessageUtils;
 import xyz.the_dodo.bot.utils.VoiceUtils;
 
 import java.util.Queue;
-
-import static xyz.the_dodo.bot.utils.VoiceUtils.getTimestamp;
 
 @BotService(command = "listPlaying", description = "Lists all the items in the play queue!", usage = "listPlaying", category = CommandCategoryEnum.VOICE)
 public class ListQueue extends IFunction {
@@ -24,12 +23,10 @@ public class ListQueue extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         Guild guild;
         TrackScheduler scheduler;
         GuildMusicManager musicManager;
-        int trackCount;
-        long queueLength;
 
         guild = messageParams.getGuild();
         musicManager = voiceUtils.getMusicManager(guild);
@@ -37,29 +34,13 @@ public class ListQueue extends IFunction {
 
         Queue<AudioTrack> queue = scheduler.getQueue();
         synchronized (queue) {
-            if (queue.isEmpty())
+            if (queue.isEmpty()) {
                 messageParams.getTextChannel().sendMessage("The queue is currently empty!").queue();
-            else {
-                trackCount = 0;
-                queueLength = 0;
-
-                StringBuilder sb = new StringBuilder();
-
-                sb.append("Current Queue: Entries: ").append(queue.size()).append("\n");
-
-                for (AudioTrack track : queue) {
-                    queueLength += track.getDuration();
-                    if (trackCount < 10) {
-                        sb.append("`[").append(getTimestamp(track.getDuration())).append("]` ");
-                        sb.append(track.getInfo().title).append("\n");
-                        trackCount++;
-                    }
-                }
-
-                sb.append("\n").append("Total Queue Time Length: ").append(getTimestamp(queueLength));
-
-                messageParams.getTextChannel().sendMessage(sb.toString()).queue();
+            } else {
+                messageParams.getTextChannel().sendMessage(EmbedMessageUtils.getMusicQueueMessage(queue).build()).queue();
             }
         }
+
+        return this;
     }
 }

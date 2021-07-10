@@ -5,8 +5,8 @@ import xyz.dodo.fortnite.entity.FortniteData;
 import xyz.dodo.fortnite.entity.League;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.ImageUtils;
 import xyz.the_dodo.bot.utils.StringUtils;
 
@@ -25,7 +25,7 @@ public class FortniteRecordsImage extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         byte[] file;
         String name;
         FortniteData data;
@@ -47,9 +47,13 @@ public class FortniteRecordsImage extends IFunction {
                     messageParams.getTextChannel().sendMessage("An error occurred when generating your picture!").queue();
                     e.printStackTrace();
                 }
-            } else
+            } else {
                 messageParams.getTextChannel().sendMessage("Can't get the data! `" + data.getResult() + "`").queue();
-        } else
+            }
+        } else {
             messageParams.getTextChannel().sendMessage(this.getEmbededHelp().build()).queue();
+        }
+
+        return this;
     }
 }

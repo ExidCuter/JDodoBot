@@ -1,11 +1,13 @@
 package xyz.the_dodo.bot.functions.bank;
 
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.User;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.response.BotResponse;
+import xyz.the_dodo.bot.types.response.BotResponseTypeEnum;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.BankUtils;
 import xyz.the_dodo.database.types.BankAccount;
 
@@ -18,7 +20,7 @@ public class Balance extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         User author;
         BankAccount ba;
         EmbedBuilder embMsg;
@@ -37,10 +39,13 @@ public class Balance extends IFunction {
             embMsg.setColor(messageParams.getMessage().getMember().getColor());
             embMsg.addField("Account Number", author.getId(), false);
             embMsg.addField("Balance", String.valueOf(ba.getBalance()) + " ₪", true);
-            embMsg.addField("Last Pay", formatter.format(ba.getLastPay()), true);
+            embMsg.addField("Last Pay", ba.getLastPay() != null ? formatter.format(ba.getLastPay()) : "/", true);
 
-            messageParams.getTextChannel().sendMessage(embMsg.build()).queue();
-        } else
-            messageParams.getTextChannel().sendMessage("You don't have an account!").queue();
+            this.responseQueue.add(new BotResponse(BotResponseTypeEnum.EMBED, embMsg.build(), messageParams.getTextChannel()));
+        } else {
+            this.responseQueue.add(new BotResponse(BotResponseTypeEnum.TEXT, "You don't have an account!", messageParams.getTextChannel()));
+        }
+
+        return this;
     }
 }

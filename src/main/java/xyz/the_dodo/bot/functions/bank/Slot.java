@@ -1,10 +1,10 @@
 package xyz.the_dodo.bot.functions.bank;
 
-import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.BankUtils;
 import xyz.the_dodo.database.types.BankAccount;
 
@@ -19,7 +19,7 @@ public class Slot extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         Double amount;
         BankAccount bankAccount;
         StringBuilder out = new StringBuilder();
@@ -86,5 +86,7 @@ public class Slot extends IFunction {
         } else {
             messageChannel.sendMessage(getEmbededHelp().build()).queue();
         }
+
+        return this;
     }
 }

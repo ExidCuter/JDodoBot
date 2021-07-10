@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.utils;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.StringUtils;
 import xyz.the_dodo.bot.utils.SubsUtils;
 import xyz.the_dodo.database.types.Subscription;
@@ -17,7 +17,7 @@ public class GetSubscriptions extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         StringBuilder stringBuilder;
         List<Subscription> subscriptions;
 
@@ -31,7 +31,10 @@ public class GetSubscriptions extends IFunction {
                     stringBuilder.append("\tid:`" + subscription.getId() + "` `" + subscription.getCommand() + "` on " + subscription.getTimer() * 10 + " minutes\n"));
 
             StringUtils.splitIntoMessages(stringBuilder.toString(), '\n').forEach(message -> messageParams.getTextChannel().sendMessage(message).queue());
-        } else
+        } else {
             messageParams.getTextChannel().sendMessage("Your guild has no subscriptions!").queue();
+        }
+
+        return this;
     }
 }

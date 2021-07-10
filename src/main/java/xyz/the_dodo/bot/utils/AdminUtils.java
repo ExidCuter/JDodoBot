@@ -1,7 +1,7 @@
 package xyz.the_dodo.bot.utils;
 
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.User;
 import xyz.the_dodo.REST.service.AdminServiceImpl;
 import xyz.the_dodo.config.BotConfig;
 import xyz.the_dodo.database.types.Admin;

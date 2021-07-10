@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.admin;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.StringUtils;
 
@@ -14,7 +14,7 @@ public class GetAllServers extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         StringBuilder stringBuilder;
 
         stringBuilder = new StringBuilder();
@@ -28,10 +28,15 @@ public class GetAllServers extends IFunction {
                             .append(guild.getRegion())
                             .append(" | `")
                             .append(guild.getId())
+                            .append(" | ")
+                            .append(guild.getMembers().size())
                             .append("`\n"));
 
             StringUtils.splitIntoMessages(stringBuilder.toString(), '\n').forEach(message -> messageParams.getTextChannel().sendMessage(message).queue());
-        } else
+        } else {
             messageParams.getTextChannel().sendMessage("Only the bot owner can use this command!").queue();
+        }
+
+        return this;
     }
 }

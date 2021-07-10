@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.misc;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.RandomGen;
 
 @BotService(command = "copypasta", description = "COPYPASTA", usage = "copypasta")
@@ -37,7 +37,9 @@ public class CopyPasta extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         messageParams.getTextChannel().sendMessage(copypastas[RandomGen.rndNm(copypastas.length)]).complete();
+
+        return this;
     }
 }

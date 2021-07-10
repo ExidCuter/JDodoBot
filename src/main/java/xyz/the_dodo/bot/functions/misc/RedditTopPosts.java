@@ -1,11 +1,11 @@
 package xyz.the_dodo.bot.functions.misc;
 
 import com.github.jreddit.entity.Submission;
-import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.api.EmbedBuilder;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.RedditUtils;
 
 import java.awt.*;
@@ -17,7 +17,7 @@ public class RedditTopPosts extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         EmbedBuilder embMsg;
 
         if (messageParams.getParameters().length > 0) {
@@ -32,5 +32,7 @@ public class RedditTopPosts extends IFunction {
             }
         } else
             messageParams.getTextChannel().sendMessage("Invalid parameters! Please specify a subreddit!").queue();
+
+        return this;
     }
 }

@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.stats;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.BankUtils;
 import xyz.the_dodo.bot.utils.RandomGen;
 import xyz.the_dodo.bot.utils.StatsUtils;
@@ -17,7 +17,7 @@ public class Bribe extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         int calculation, max;
         double amount;
         Stats userStats;
@@ -33,7 +33,7 @@ public class Bribe extends IFunction {
                         throw new Exception("Zero is not valid here!");
                 } catch (Exception e) {
                     messageParams.getTextChannel().sendMessage("What am I supposed to do with this? NO GO!").queue();
-                    return;
+                    return null;
                 }
 
                 if (BankUtils.bankAccountExists(messageParams.getUser())) {
@@ -71,5 +71,7 @@ public class Bribe extends IFunction {
             } else
                 messageParams.getTextChannel().sendMessage("You need to give me something! I won't do stuff for free you know!").queue();
         }
+
+        return this;
     }
 }

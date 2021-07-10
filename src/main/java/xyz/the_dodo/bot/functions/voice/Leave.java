@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.voice;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 
 @BotService(command = "leave", description = "Leaves voice channel", usage = "leave", category = CommandCategoryEnum.VOICE)
 public class Leave extends IFunction {
@@ -12,8 +12,10 @@ public class Leave extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         messageParams.getGuild().getAudioManager().setSendingHandler(null);
         messageParams.getGuild().getAudioManager().closeAudioConnection();
+
+        return this;
     }
 }

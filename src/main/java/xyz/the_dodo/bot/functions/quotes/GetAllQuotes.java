@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.quotes;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.QuoteUtils;
 import xyz.the_dodo.bot.utils.StringUtils;
 import xyz.the_dodo.database.types.Quote;
@@ -17,7 +17,7 @@ public class GetAllQuotes extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         List<Quote> quotes;
         List<String> messages;
         StringBuilder builder;
@@ -32,7 +32,10 @@ public class GetAllQuotes extends IFunction {
             messages = StringUtils.splitIntoMessages(builder.toString(), '\n');
 
             messages.forEach(message -> messageParams.getTextChannel().sendMessage(message).queue());
-        } else
+        } else {
             messageParams.getTextChannel().sendMessage("No quotes from " + messageParams.getParameters()[0]).queue();
+        }
+
+        return this;
     }
 }

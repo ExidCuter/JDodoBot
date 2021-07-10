@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.misc;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 
 @BotService(command = "say", description = "Repeats after you", usage = "say <WHAT>")
 public class Speak extends IFunction {
@@ -12,16 +12,19 @@ public class Speak extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         String message;
 
         if (messageParams.getParameters().length > 0) {
             message = messageParams.getContent().substring(0, 1).toUpperCase() + messageParams.getContent().substring(1);
 
-            if (!message.endsWith("."))
+            if (!message.endsWith(".")) {
                 message += ".";
+            }
 
             messageParams.getTextChannel().sendMessage(message).queue();
         }
+
+        return this;
     }
 }

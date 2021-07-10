@@ -1,10 +1,10 @@
 package xyz.the_dodo.bot.functions.utils;
 
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.User;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.DeletedMessageUtils;
 import xyz.the_dodo.bot.utils.StringUtils;
@@ -19,7 +19,7 @@ public class GetDeletedMessages extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         //TODO: deleted files
         int maxMessages;
         StringBuilder stringBuilder;
@@ -58,8 +58,9 @@ public class GetDeletedMessages extends IFunction {
                                 .append(" are:\n");
 
                         deletedMessages.forEach(deletedMessage -> stringBuilder.append("\t`").append(deletedMessage.getMessage()).append("`\n"));
-                    } else
+                    } else {
                         stringBuilder.append("No deleted messages!");
+                    }
                 }
             } else {
                 deletedMessages = DeletedMessageUtils.deletedMessageService.findAllByServerDiscordId(messageParams.getGuild().getId());
@@ -78,12 +79,16 @@ public class GetDeletedMessages extends IFunction {
                                     .append("` by ")
                                     .append(messageParams.getGuild().getMemberById(deletedMessage.getUser().getDiscordId()).getAsMention())
                                     .append("\n"));
-                } else
+                } else {
                     stringBuilder.append("No deleted messages!");
+                }
             }
             StringUtils.splitIntoMessages(stringBuilder.toString(), '\n')
                     .forEach(s -> messageParams.getTextChannel().sendMessage(s).queue());
-        } else
+        } else {
             messageParams.getTextChannel().sendMessage("Only admins can use this command!").queue();
+        }
+
+        return this;
     }
 }

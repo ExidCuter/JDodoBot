@@ -1,10 +1,11 @@
 package xyz.the_dodo.bot.functions.misc;
 
-import net.dv8tion.jda.core.entities.MessageChannel;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.response.BotResponse;
+import xyz.the_dodo.bot.types.response.BotResponseTypeEnum;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 
 @BotService(command = "hi", description = "Says helo", usage = "hi")
 public class Hi extends IFunction {
@@ -13,11 +14,9 @@ public class Hi extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
-        MessageChannel messageChannel;
+    public IFunction prepare(MessageParams messageParams) {
+        this.responseQueue.add(new BotResponse(BotResponseTypeEnum.TEXT, "Hi, " + messageParams.getUser().getAsMention(), messageParams.getTextChannel()));
 
-        messageChannel = messageParams.getTextChannel();
-
-        messageChannel.sendMessage("Hi, " + messageParams.getUser().getAsMention()).queue();
+        return this;
     }
 }

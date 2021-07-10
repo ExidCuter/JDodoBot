@@ -5,7 +5,7 @@ import xyz.the_dodo.database.types.DefaultRole;
 import xyz.the_dodo.database.types.Server;
 
 public class DefaultRoleUtils {
-    private static DefaultRoleServiceImpl defaultRoleService = BeanUtils.getBean(DefaultRoleServiceImpl.class);
+    public static DefaultRoleServiceImpl defaultRoleService = BeanUtils.getBean(DefaultRoleServiceImpl.class);
 
     public static boolean defaultRoleExists(Server server) {
         return getDefaultRoleOfServer(server) != null;

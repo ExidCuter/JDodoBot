@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.misc;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.RandomGen;
 
 @BotService(command = "8ball", description = "Magic8Ball will answer all of your yes/no questions", usage = "8ball")
@@ -36,7 +36,9 @@ public class Magic8Ball extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         messageParams.getTextChannel().sendMessage(answers[RandomGen.rndNm(answers.length)]).complete();
+
+        return this;
     }
 }

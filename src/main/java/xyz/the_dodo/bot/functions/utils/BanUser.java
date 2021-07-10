@@ -1,10 +1,10 @@
 package xyz.the_dodo.bot.functions.utils;
 
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Member;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.BannedUtils;
 
@@ -17,17 +17,21 @@ public class BanUser extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         List<Member> mentionedUsers;
 
         if (AdminUtils.isAdminOfGuild(messageParams.getUser(), messageParams.getGuild())) {
             mentionedUsers = messageParams.getMessage().getMentionedMembers();
 
-            if (mentionedUsers.size() > 0)
+            if (mentionedUsers.size() > 0) {
                 mentionedUsers.forEach(member -> BannedUtils.banUserOnServer(member.getUser(), messageParams.getGuild()));
-            else
+            } else {
                 messageParams.getTextChannel().sendMessage("You need to mention users!").queue();
-        } else
+            }
+        } else {
             messageParams.getTextChannel().sendMessage("Only admins can ban people!").queue();
+        }
+
+        return this;
     }
 }

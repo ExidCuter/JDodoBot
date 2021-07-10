@@ -1,14 +1,15 @@
 package xyz.the_dodo.bot.functions.voice;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.api.entities.Guild;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.GuildMusicManager;
-import xyz.the_dodo.bot.types.MessageParams;
-import xyz.the_dodo.bot.types.TrackScheduler;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.audio.GuildMusicManager;
+import xyz.the_dodo.bot.types.message.MessageParams;
+import xyz.the_dodo.bot.types.audio.TrackScheduler;
 import xyz.the_dodo.bot.utils.BeanUtils;
+import xyz.the_dodo.bot.utils.StringUtils;
 import xyz.the_dodo.bot.utils.VoiceUtils;
 
 @BotService(command = "play", description = "Plays a song or resumes playing", usage = "play || play <SONG LINK>", category = CommandCategoryEnum.VOICE)
@@ -20,7 +21,7 @@ public class Play extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         Guild guild;
         AudioPlayer player;
         TrackScheduler scheduler;
@@ -32,16 +33,19 @@ public class Play extends IFunction {
         scheduler = musicManager.scheduler;
 
         if (messageParams.getParameters().length > 0) {
-            voiceUtils.loadAndPlay(musicManager, messageParams.getMessage().getChannel(), messageParams.getParameters()[0], false);
+            voiceUtils.loadAndPlay(musicManager, messageParams.getMessage().getChannel(), StringUtils.glueStringsBackTogether(messageParams.getParameters(), " ", 0), false, messageParams.getMessage().getMember(), null);
         } else {
             if (player.isPaused()) {
                 player.setPaused(false);
 
                 messageParams.getTextChannel().sendMessage("Playback as been resumed.").queue();
-            } else if (player.getPlayingTrack() != null)
+            } else if (player.getPlayingTrack() != null) {
                 messageParams.getTextChannel().sendMessage("Player is already playing!").queue();
-            else if (scheduler.isEmpty())
+            } else if (scheduler.isEmpty()) {
                 messageParams.getTextChannel().sendMessage("The current audio queue is empty! Add something to the queue first!").queue();
+            }
         }
+
+        return this;
     }
 }

@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.utils;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.RulesUtils;
 import xyz.the_dodo.bot.utils.ServerUtils;
@@ -17,7 +17,7 @@ public class SetRules extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         Rules rules;
         Server server;
 
@@ -43,10 +43,13 @@ public class SetRules extends IFunction {
 
                 messageParams.getTextChannel().sendMessage("Rules updated!").queue();
 
-            } else
+            } else {
                 messageParams.getTextChannel().sendMessage("Please specify the rules").queue();
-
-        } else
+            }
+        } else {
             messageParams.getTextChannel().sendMessage("Only admins can change the Guild Rules!").queue();
+        }
+
+        return this;
     }
 }

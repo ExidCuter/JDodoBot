@@ -1,6 +1,6 @@
 package xyz.the_dodo.bot.utils;
 
-import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.api.entities.Guild;
 import xyz.the_dodo.REST.service.PrefixServiceImpl;
 import xyz.the_dodo.database.interfaces.services.IPrefixService;
 import xyz.the_dodo.database.types.Prefix;

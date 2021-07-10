@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.stats;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.StatsUtils;
 import xyz.the_dodo.database.types.Stats;
 
@@ -14,7 +14,7 @@ public class StopCountingStats extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         Stats stats;
 
         stats = StatsUtils.statsExists(messageParams.getUser());
@@ -25,7 +25,10 @@ public class StopCountingStats extends IFunction {
 
             messageParams.getMessage().addReaction("\u2705").queue();
             messageParams.getTextChannel().sendMessage("Your stats are not being tracked anymore!").queue();
-        } else
+        } else {
             messageParams.getTextChannel().sendMessage("Your stats are not being tracked!").queue();
+        }
+
+        return this;
     }
 }

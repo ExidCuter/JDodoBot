@@ -1,10 +1,15 @@
 package xyz.the_dodo.bot.listeners;
 
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.GenericEvent;
+import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.EventListener;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.jetbrains.annotations.NotNull;
 import xyz.the_dodo.bot.utils.DefaultRoleUtils;
 import xyz.the_dodo.bot.utils.RulesUtils;
 import xyz.the_dodo.bot.utils.ServerUtils;
@@ -33,7 +38,9 @@ public class OnServerJoinListener extends ListenerAdapter {
 
                 role = guild.getRoleById(defaultRole.getDiscordId());
 
-                guild.getController().addRolesToMember(member, role).queue();
+                if (role != null) {
+                    guild.addRoleToMember(member, role).queue();
+                }
             }
         }
 

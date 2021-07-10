@@ -3,7 +3,10 @@ package xyz.the_dodo.database.types;
 import lombok.*;
 import xyz.the_dodo.database.types.common.Identificator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Getter
@@ -16,11 +19,11 @@ public class DeletedMessage extends Identificator {
     private String message;
     private String fileLocation;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "server_id")
     private Server server;
 }

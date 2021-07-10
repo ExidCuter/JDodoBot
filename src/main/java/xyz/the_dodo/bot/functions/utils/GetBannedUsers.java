@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.utils;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.BannedUtils;
 import xyz.the_dodo.bot.utils.StringUtils;
@@ -15,7 +15,7 @@ public class GetBannedUsers extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         StringBuilder builder;
 
         if (AdminUtils.isAdminOfGuild(messageParams.getUser(), messageParams.getGuild())) {
@@ -27,5 +27,7 @@ public class GetBannedUsers extends IFunction {
 
             StringUtils.splitIntoMessages(builder.toString(), '\n').forEach(message -> messageParams.getTextChannel().sendMessage(message).queue());
         }
+
+        return this;
     }
 }

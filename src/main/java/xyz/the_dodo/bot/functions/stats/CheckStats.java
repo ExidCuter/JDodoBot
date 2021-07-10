@@ -1,11 +1,13 @@
 package xyz.the_dodo.bot.functions.stats;
 
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Member;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.response.BotResponse;
+import xyz.the_dodo.bot.types.response.BotResponseTypeEnum;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.StatsUtils;
 import xyz.the_dodo.database.types.Stats;
 
@@ -16,19 +18,19 @@ public class CheckStats extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         Stats stats;
-        Member user;
+        Member member;
         String level, img;
 
-        user = messageParams.getMessage().getMember();
+        member = messageParams.getMessage().getMember();
         stats = StatsUtils.statsExists(messageParams.getUser());
 
         if (stats != null) {
             EmbedBuilder embMsg = new EmbedBuilder();
-            embMsg.setColor(user.getColor());
-            embMsg.setTitle(user.getEffectiveName() + "'s stats");
-            embMsg.setThumbnail(user.getUser().getAvatarUrl());
+            embMsg.setColor(member.getColor());
+            embMsg.setTitle(member.getEffectiveName() + "'s stats");
+            embMsg.setThumbnail(member.getUser().getAvatarUrl());
 
             if (stats.getNumOfMessages() + stats.getNumOfFiles() < 500) {
                 level = "Cleaner Cat";
@@ -55,8 +57,11 @@ public class CheckStats extends IFunction {
             embMsg.addField("Number of files uploaded", String.valueOf(stats.getNumOfFiles()), true);
             embMsg.setImage(img);
 
-            messageParams.getTextChannel().sendMessage(embMsg.build()).queue();
-        } else
-            messageParams.getTextChannel().sendMessage("No stats to report!").queue();
+            this.responseQueue.add(new BotResponse(BotResponseTypeEnum.EMBED, embMsg.build(), messageParams.getTextChannel()));
+        } else {
+            this.responseQueue.add(new BotResponse(BotResponseTypeEnum.TEXT, "No stats to report!", messageParams.getTextChannel()));
+        }
+
+        return this;
     }
 }

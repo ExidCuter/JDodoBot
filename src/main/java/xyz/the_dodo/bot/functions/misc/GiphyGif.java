@@ -5,8 +5,8 @@ import com.kdotj.simplegiphy.data.Giphy;
 import com.kdotj.simplegiphy.data.GiphyListResponse;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.RandomGen;
 import xyz.the_dodo.bot.utils.StringUtils;
 
@@ -19,7 +19,7 @@ public class GiphyGif extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         String query;
         List<Giphy> data;
         GiphyListResponse trendingResponse;
@@ -30,11 +30,15 @@ public class GiphyGif extends IFunction {
             trendingResponse = SimpleGiphy.getInstance().search(query, "5", "0", "");
             data = trendingResponse.getData();
 
-            if (!data.isEmpty())
+            if (!data.isEmpty()) {
                 messageParams.getTextChannel().sendMessage(data.get(RandomGen.rndNm(data.size())).getUrl()).queue();
-            else
+            } else {
                 messageParams.getTextChannel().sendMessage("No GIFs found!").queue();
-        } else
+            }
+        } else {
             messageParams.getTextChannel().sendMessage(this.getEmbededHelp().build()).queue();
+        }
+
+        return this;
     }
 }

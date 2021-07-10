@@ -1,8 +1,8 @@
 package xyz.the_dodo.bot.listeners;
 
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageDeleteEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageDeleteEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import xyz.the_dodo.bot.utils.BeanUtils;
 import xyz.the_dodo.bot.utils.DeletedMessageUtils;
 import xyz.the_dodo.bot.utils.ServerUtils;

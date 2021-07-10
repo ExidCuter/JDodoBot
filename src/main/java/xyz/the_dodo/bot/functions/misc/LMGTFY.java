@@ -1,10 +1,10 @@
 package xyz.the_dodo.bot.functions.misc;
 
-import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 
 import java.net.URLEncoder;
 
@@ -15,7 +15,7 @@ public class LMGTFY extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         MessageChannel channel = messageParams.getTextChannel();
         try {
             if (messageParams.getParameters().length > 0)
@@ -25,5 +25,7 @@ public class LMGTFY extends IFunction {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        return this;
     }
 }

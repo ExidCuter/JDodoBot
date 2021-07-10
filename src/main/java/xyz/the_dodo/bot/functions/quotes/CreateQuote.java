@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.quotes;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.QuoteUtils;
 import xyz.the_dodo.bot.utils.StringUtils;
 import xyz.the_dodo.database.types.Quote;
@@ -15,7 +15,7 @@ public class CreateQuote extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         Quote quote;
         String who, what;
 
@@ -25,8 +25,9 @@ public class CreateQuote extends IFunction {
 
             what = what.replace("\"", "");
 
-            if (!what.endsWith("."))
+            if (!what.endsWith(".")) {
                 what += ".";
+            }
 
             what = StringUtils.capitaliseFirsLetter(what);
 
@@ -34,5 +35,7 @@ public class CreateQuote extends IFunction {
 
             messageParams.getTextChannel().sendMessage("\"" + quote.getQuote() + "\" ~ © " + quote.getPerson() + ", " + quote.getWhen().getYear()).queue();
         }
+
+        return this;
     }
 }

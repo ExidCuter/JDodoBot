@@ -1,14 +1,14 @@
 package xyz.the_dodo.bot.functions.misc;
 
-import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.api.EmbedBuilder;
 import xyz.dodo.fortnite.Fortnite;
 import xyz.dodo.fortnite.entity.FortniteData;
 import xyz.dodo.fortnite.entity.League;
 import xyz.dodo.fortnite.entity.Stat;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.StringUtils;
 
 @BotService(command = "fortnite", description = "Fortnite records!", usage = "fortnite <PLATFORM> <GAMEMODE> <USERNAME>")
@@ -24,7 +24,7 @@ public class FortniteRecords extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         String name;
         FortniteData data;
         League selectedLeague;
@@ -45,16 +45,21 @@ public class FortniteRecords extends IFunction {
                 embMsg.setColor(messageParams.getMessage().getMember().getColor());
 
                 for (Stat s : selectedLeague.getStats()) {
-                    if (!s.getValue().equals("0"))
+                    if (!s.getValue().equals("0")) {
                         embMsg.addField(s.getLabel(), s.getValue(), true);
+                    }
                 }
 
                 embMsg.setFooter("© DodoBot | STATS POWERED BY FORTNITETRACKER.COM", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/The_Dodo_Logo.jpg/250px-The_Dodo_Logo.jpg");
 
                 messageParams.getTextChannel().sendMessage(embMsg.build()).complete();
-            } else
+            } else {
                 messageParams.getTextChannel().sendMessage("Can't get the data! `" + data.getResult() + "`").queue();
-        } else
+            }
+        } else {
             messageParams.getTextChannel().sendMessage(this.getEmbededHelp().build()).queue();
+        }
+
+        return this;
     }
 }

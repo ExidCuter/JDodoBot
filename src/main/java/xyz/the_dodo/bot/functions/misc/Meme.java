@@ -1,10 +1,12 @@
 package xyz.the_dodo.bot.functions.misc;
 
-import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.api.EmbedBuilder;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.response.BotResponse;
+import xyz.the_dodo.bot.types.response.BotResponseTypeEnum;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.RedditUtils;
 
 import java.awt.*;
@@ -16,7 +18,7 @@ public class Meme extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         String meme;
         String[] memeParts;
         EmbedBuilder embMsg;
@@ -31,6 +33,8 @@ public class Meme extends IFunction {
         embMsg.setFooter("/r/dankmemes", "https://media.glassdoor.com/sqll/796358/reddit-squarelogo-1490630845152.png");
         embMsg.setColor(new Color(253, 130, 0));
 
-        messageParams.getTextChannel().sendMessage(embMsg.build()).queue();
+        this.responseQueue.add(new BotResponse(BotResponseTypeEnum.EMBED, embMsg.build(), messageParams.getTextChannel()));
+
+        return this;
     }
 }

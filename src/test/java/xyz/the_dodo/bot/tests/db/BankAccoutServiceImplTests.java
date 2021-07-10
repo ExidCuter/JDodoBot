@@ -1,52 +1,17 @@
 package xyz.the_dodo.bot.tests.db;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit4.SpringRunner;
-import xyz.the_dodo.REST.service.BankServiceImpl;
-import xyz.the_dodo.database.interfaces.repos.IBankAccountRepo;
-import xyz.the_dodo.database.interfaces.repos.IUserRepo;
-import xyz.the_dodo.database.interfaces.services.IBankService;
+import xyz.the_dodo.bot.tests.AbstractTest;
 import xyz.the_dodo.database.types.BankAccount;
 import xyz.the_dodo.database.types.User;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
-@TestPropertySource({"/h2-test.properties"})
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
-@Sql({"/testData/users.sql", "/testData/bankAccounts.sql"})
-public class BankAccoutServiceImplTests {
-	@Autowired
-	private IUserRepo userRepo;
-
-	@Autowired
-	private IBankAccountRepo bankAccountRepo;
-
-	private IBankService bankService;
-
-	@PostConstruct
-	public void setup() {
-		BankServiceImpl service;
-
-		service = new BankServiceImpl();
-
-		service.setBankAccountRepo(bankAccountRepo);
-
-		bankService = service;
-	}
+public class BankAccoutServiceImplTests extends AbstractTest {
 
 	@Test
 	public void test_findAll() {
@@ -103,8 +68,8 @@ public class BankAccoutServiceImplTests {
 		List<BankAccount> bas = bankService.findAll();
 
 		assertThat(ba).isNotNull()
-				.extracting("id", "user.id", "balance")
-				.containsExactly(3L, 1L, 666.0);
+                .extracting("id", "user.id", "balance")
+                .contains(5L, 1L, 666.0);
 
 		//update
 		ba = new BankAccount();
@@ -115,9 +80,9 @@ public class BankAccoutServiceImplTests {
 
 		ba = bankService.save(ba);
 
-		assertThat(ba).isNotNull()
-				.extracting("id", "user.id", "balance")
-				.containsExactly(1L, 1L, 666.0);
+        assertThat(ba).isNotNull()
+                .extracting("id", "user.id", "balance")
+                .contains(1L, 1L, 666.0);
 	}
 
 	@Test
@@ -138,23 +103,24 @@ public class BankAccoutServiceImplTests {
 
 		bas = bankService.findAll();
 
-		assertThat(bas).isNotNull()
-				.extracting("id", "user.id")
-				.containsOnly(
-						tuple(1L, 1L),
-						tuple(2L, 2L),
-						tuple(4L, 2L)
-				);
+        assertThat(bas).isNotNull()
+                .extracting("id", "user.id")
+                .contains(
+                        tuple(1L, 1L),
+                        tuple(2L, 2L),
+                        tuple(3L, 3L),
+                        tuple(6L, 2L)
+                );
 
 		bankService.delete(ba);
 
 		bas = bankService.findAll();
 
-		assertThat(bas).isNotNull()
-				.extracting("id", "user.id")
-				.containsOnly(
-						tuple(1L, 1L),
-						tuple(2L, 2L)
-				);
-	}
+        assertThat(bas).isNotNull()
+                .extracting("id", "user.id")
+                .doesNotContain(
+                        tuple(6L, 2L)
+                );
+
+    }
 }

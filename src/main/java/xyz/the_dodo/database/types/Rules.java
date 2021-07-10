@@ -3,7 +3,10 @@ package xyz.the_dodo.database.types;
 import lombok.*;
 import xyz.the_dodo.database.types.common.Identificator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Getter
@@ -15,7 +18,7 @@ import javax.persistence.*;
 public class Rules extends Identificator {
     private String rules;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "server_id")
     private Server server;
 }

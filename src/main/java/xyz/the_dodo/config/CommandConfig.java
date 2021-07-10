@@ -3,7 +3,7 @@ package xyz.the_dodo.config;
 import org.reflections.Reflections;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;

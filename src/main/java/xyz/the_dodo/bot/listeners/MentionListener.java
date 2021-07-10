@@ -4,9 +4,9 @@ import com.google.code.chatterbotapi.ChatterBot;
 import com.google.code.chatterbotapi.ChatterBotFactory;
 import com.google.code.chatterbotapi.ChatterBotSession;
 import com.google.code.chatterbotapi.ChatterBotType;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import xyz.the_dodo.bot.utils.BeanUtils;
 import xyz.the_dodo.bot.utils.StringUtils;
 import xyz.the_dodo.config.BotConfig;
@@ -27,7 +27,7 @@ public class MentionListener extends ListenerAdapter {
         }
 
         message = event.getMessage();
-        parameters = StringUtils.getCommandNParameters(message.getContentRaw());
+        parameters = StringUtils.getCommandAndParameters(message.getContentRaw());
 
         if (!message.getMentionedUsers().isEmpty() && message.getMentionedUsers().get(0).getName().equals(config.getName()) && parameters.length > 1) {
             String statement = StringUtils.glueStringsBackTogether(parameters, " ", 1);

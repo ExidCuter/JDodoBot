@@ -1,22 +1,22 @@
 package xyz.the_dodo.bot.functions.quotes;
 
-import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.api.EmbedBuilder;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.RedditUtils;
 
 import java.awt.*;
 
-@BotService(command = "quote", description = "Gets a quote from reddit", usage = "quote", category = CommandCategoryEnum.QUOTES)
+@BotService(command = "badQuote", description = "Gets a quote from reddit", usage = "quote", category = CommandCategoryEnum.QUOTES)
 public class GetBadQuote extends IFunction {
     public GetBadQuote(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
         super(command, description, usage, isService, commandCategoryEnum);
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         EmbedBuilder embMsg;
 
         if (messageParams.getParameters().length == 0) {
@@ -32,5 +32,7 @@ public class GetBadQuote extends IFunction {
 
             messageParams.getTextChannel().sendMessage(embMsg.build()).queue();
         }
+
+        return this;
     }
 }

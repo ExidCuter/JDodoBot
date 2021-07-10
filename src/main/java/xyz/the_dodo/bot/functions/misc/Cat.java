@@ -2,8 +2,10 @@ package xyz.the_dodo.bot.functions.misc;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.response.BotResponse;
+import xyz.the_dodo.bot.types.response.BotResponseTypeEnum;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -18,9 +20,8 @@ public class Cat extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         try {
-            //TODO: Make better
             String url = "https://api.thecatapi.com/api/images/get?type=png";
             URL obj = new URL(url);
 
@@ -41,9 +42,11 @@ public class Cat extends IFunction {
                 e.printStackTrace();
             }
 
-            messageParams.getTextChannel().sendFile(baos.toByteArray(), "cat.png").queue();
+            this.responseQueue.add(new BotResponse(BotResponseTypeEnum.FILE_PNG, baos, messageParams.getTextChannel()));
         } catch (Exception e) {
             //TODO: bugReporting
         }
+
+        return this;
     }
 }

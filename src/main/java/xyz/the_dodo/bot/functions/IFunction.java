@@ -2,13 +2,16 @@ package xyz.the_dodo.bot.functions;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.dv8tion.jda.core.EmbedBuilder;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import net.dv8tion.jda.api.EmbedBuilder;
+import xyz.the_dodo.bot.types.response.BotResponse;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.BeanUtils;
 import xyz.the_dodo.config.BotConfig;
 
 import java.awt.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 @Getter
 @Setter
@@ -21,10 +24,14 @@ public abstract class IFunction {
     private boolean isService;
     private CommandCategoryEnum commandCategoryEnum;
 
+    protected final Queue<BotResponse> responseQueue;
+
     public IFunction() {
+        this.responseQueue = new LinkedList<>();
     }
 
     public IFunction(String command, String description, String usage, boolean isService, CommandCategoryEnum commandCategoryEnum) {
+        this.responseQueue = new LinkedList<>();
         this.command = command;
         this.description = description;
         this.usage = usage;
@@ -32,7 +39,12 @@ public abstract class IFunction {
         this.commandCategoryEnum = commandCategoryEnum;
     }
 
-    public abstract void trigger(MessageParams messageParams);
+    public abstract IFunction prepare(MessageParams messageParams);
+
+    public void trigger() {
+        this.responseQueue.forEach(botResponse -> botResponse.generateMessage().queue());
+        this.responseQueue.clear();
+    }
 
     public String getHelp() {
         return "`" + this.command + "` - " + this.description;

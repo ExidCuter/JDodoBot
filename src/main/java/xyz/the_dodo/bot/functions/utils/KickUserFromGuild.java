@@ -1,10 +1,10 @@
 package xyz.the_dodo.bot.functions.utils;
 
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Member;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 
 import java.util.List;
@@ -16,17 +16,21 @@ public class KickUserFromGuild extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         List<Member> members;
         if (AdminUtils.isAdminOfGuild(messageParams.getUser(), messageParams.getGuild())) {
             members = messageParams.getMessage().getMentionedMembers();
 
             if (members.size() > 0) {
-                members.forEach(member -> messageParams.getGuild().getController().kick(member).queue());
+                members.forEach(member -> messageParams.getGuild().kick(member).queue());
                 messageParams.getMessage().addReaction("\u2705").queue();
-            } else
+            } else {
                 messageParams.getTextChannel().sendMessage("Please mention users to kick").queue();
-        } else
+            }
+        } else {
             messageParams.getTextChannel().sendMessage("You are not the admin of this guild!").queue();
+        }
+
+        return this;
     }
 }

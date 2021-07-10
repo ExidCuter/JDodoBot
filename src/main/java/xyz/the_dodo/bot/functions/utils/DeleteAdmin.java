@@ -1,10 +1,10 @@
 package xyz.the_dodo.bot.functions.utils;
 
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Member;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.ServerUtils;
 import xyz.the_dodo.bot.utils.UserUtils;
@@ -20,7 +20,7 @@ public class DeleteAdmin extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         Server server;
         List<Admin> admins;
 
@@ -37,18 +37,23 @@ public class DeleteAdmin extends IFunction {
                                 if (admin.getUser().getDiscordId().equals(member.getUser().getId())) {
                                     AdminUtils.adminService.delete(admin);
                                     messageParams.getTextChannel().sendMessage("User " + messageParams.getUser().getAsMention() + " is ADMIN no more").queue();
-                                } else
+                                } else {
                                     messageParams.getTextChannel().sendMessage("An error occurred!").queue();
+                                }
                             });
 
-                            return;
+                            return null;
                         }
                     }
                     messageParams.getTextChannel().sendMessage("An error occurred!").queue();
                 }
-            } else
+            } else {
                 messageParams.getTextChannel().sendMessage("Only admins or the owner of the Guild can remove admins!").queue();
-        } else
+            }
+        } else {
             messageParams.getTextChannel().sendMessage("You need to mention users that you want to remove from admins!").queue();
+        }
+
+        return this;
     }
 }

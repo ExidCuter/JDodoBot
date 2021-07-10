@@ -1,10 +1,12 @@
 package xyz.the_dodo.bot.functions.bank;
 
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.User;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.response.BotResponse;
+import xyz.the_dodo.bot.types.response.BotResponseTypeEnum;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.BankUtils;
 import xyz.the_dodo.database.types.BankAccount;
 
@@ -17,7 +19,7 @@ public class PayDay extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         User user;
         BankAccount ba;
 
@@ -25,16 +27,20 @@ public class PayDay extends IFunction {
         if (BankUtils.bankAccountExists(messageParams.getUser())) {
             ba = BankUtils.bankService.findByUserDiscordId(user.getId());
 
-            if (ba.getLastPay().plusDays(1L).isBefore(LocalDateTime.now())) {
+            if (ba.getLastPay() == null || ba.getLastPay().plusDays(1L).isBefore(LocalDateTime.now())) {
                 ba.setBalance(ba.getBalance() + 100);
                 ba.setLastPay(LocalDateTime.now());
 
                 BankUtils.bankService.save(ba);
 
-                messageParams.getTextChannel().sendMessage("You received 100 ₪.").queue();
-            } else
-                messageParams.getTextChannel().sendMessage("You already got your pay!").queue();
-        } else
-            messageParams.getTextChannel().sendMessage("You need to register an account!").queue();
+                this.responseQueue.add(new BotResponse(BotResponseTypeEnum.TEXT, "You received 100 ₪.", messageParams.getTextChannel()));
+            } else {
+                this.responseQueue.add(new BotResponse(BotResponseTypeEnum.TEXT, "You already got your pay!", messageParams.getTextChannel()));
+            }
+        } else {
+            this.responseQueue.add(new BotResponse(BotResponseTypeEnum.TEXT, "You need to register an account!", messageParams.getTextChannel()));
+        }
+
+        return this;
     }
 }

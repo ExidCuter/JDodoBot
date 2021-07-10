@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.utils;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.StringUtils;
 import xyz.the_dodo.config.CommandConfig;
 
@@ -14,7 +14,7 @@ public class Help extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         if (messageParams.getParameters().length > 0) {
             if (StringUtils.containsCategoryEnum(messageParams.getParameters()[0].toUpperCase())) {
                 messageParams.getUser()
@@ -32,5 +32,7 @@ public class Help extends IFunction {
         } else {
             messageParams.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(CommandConfig.generateHelp()).queue());
         }
+
+        return this;
     }
 }

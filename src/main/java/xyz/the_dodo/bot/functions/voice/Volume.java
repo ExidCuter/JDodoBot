@@ -1,12 +1,12 @@
 package xyz.the_dodo.bot.functions.voice;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.api.entities.Guild;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.GuildMusicManager;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.audio.GuildMusicManager;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.BeanUtils;
 import xyz.the_dodo.bot.utils.VoiceUtils;
 
@@ -19,7 +19,7 @@ public class Volume extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         Guild guild;
         AudioPlayer player;
         int newVolume, oldVolume;
@@ -40,7 +40,10 @@ public class Volume extends IFunction {
             } catch (NumberFormatException e) {
                 messageParams.getTextChannel().sendMessage("`" + messageParams.getParameters()[0] + "` is not a valid integer. (10 - 100)").queue();
             }
-        } else
+        } else {
             messageParams.getTextChannel().sendMessage("Current player volume: **" + player.getVolume() + "**").queue();
+        }
+
+        return this;
     }
 }

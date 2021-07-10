@@ -1,10 +1,10 @@
 package xyz.the_dodo.bot.utils;
 
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 import xyz.the_dodo.REST.service.SubServiceImpl;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.config.BotConfig;
 import xyz.the_dodo.database.types.Server;
 import xyz.the_dodo.database.types.Subscription;
@@ -70,7 +70,7 @@ public class SubsUtils {
 
                 commands.values().forEach(command -> {
                     if (subscription.getCommand().startsWith(command.getCommand())) {
-                        command.trigger(messageParams);
+                        command.prepare(messageParams);
                     }
                 });
             }

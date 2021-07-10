@@ -1,6 +1,6 @@
 package xyz.the_dodo.bot.anotations;
 
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

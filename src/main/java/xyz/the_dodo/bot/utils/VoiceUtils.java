@@ -15,11 +15,14 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
-import xyz.the_dodo.bot.types.GuildMusicManager;
+import org.td_fl.youtube.YoutubeSearch;
+import org.td_fl.youtube.models.Video;
+import xyz.the_dodo.bot.types.audio.GuildMusicManager;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
@@ -49,33 +52,39 @@ public class VoiceUtils {
         musicManagers = new HashMap<>();
     }
 
-    public void loadAndPlay(GuildMusicManager mng, final MessageChannel channel, @NotNull String url, final boolean addPlaylist) {
+    public void loadAndPlay(GuildMusicManager mng, final MessageChannel channel, @NotNull String query, final boolean addPlaylist, @NotNull final Member member, Video ytVid) {
+        final Video video;
         final String trackUrl;
 
-        //Strip <>'s that prevent discord from embedding link resources
-        if (url.startsWith("<") && url.endsWith(">"))
-            trackUrl = url.substring(1, url.length() - 1);
-        else
-            trackUrl = url;
+        if (query.contains("https://") || query.contains("http://")) {
+            video = ytVid;
+
+            if (query.startsWith("<") && query.endsWith(">")) {
+                trackUrl = query.substring(1, query.length() - 1);
+            } else {
+                trackUrl = query;
+            }
+        } else {
+            try {
+                video = YoutubeSearch.search(query).get(0);
+                trackUrl = video.getLink();
+            } catch (Exception e) {
+                channel.sendMessage("Nothing found by " + query).queue();
+                return;
+            }
+        }
 
         playerManager.loadItemOrdered(mng, trackUrl, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack track) {
-                String msg = "Adding to queue: " + track.getInfo().title;
-
-                if (mng.player.getPlayingTrack() == null) {
-                    msg += "\nand the Player has started playing;";
-                }
-
                 mng.scheduler.queue(track);
-                channel.sendMessage(msg).queue();
+                channel.sendMessage(EmbedMessageUtils.getPlayEmbedMessage(track, member, video).build()).queue();
             }
 
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
                 AudioTrack firstTrack = playlist.getSelectedTrack();
                 List<AudioTrack> tracks = playlist.getTracks();
-
 
                 if (firstTrack == null) {
                     firstTrack = playlist.getTracks().get(0);
@@ -102,12 +111,14 @@ public class VoiceUtils {
         });
     }
 
-    public GuildMusicManager getMusicManager(Guild guild) {
+    public GuildMusicManager getMusicManager(@NotNull Guild guild) {
         String guildId = guild.getId();
         GuildMusicManager mng = musicManagers.get(guildId);
+
         if (mng == null) {
             synchronized (musicManagers) {
                 mng = musicManagers.get(guildId);
+
                 if (mng == null) {
                     mng = new GuildMusicManager(playerManager);
                     mng.player.setVolume(DEFAULT_VOLUME);
@@ -115,6 +126,7 @@ public class VoiceUtils {
                 }
             }
         }
+
         return mng;
     }
 
@@ -123,10 +135,11 @@ public class VoiceUtils {
         int minutes = (int) ((milliseconds / (1000 * 60)) % 60);
         int hours = (int) ((milliseconds / (1000 * 60 * 60)) % 24);
 
-        if (hours > 0)
+        if (hours > 0) {
             return String.format("%02d:%02d:%02d", hours, minutes, seconds);
-        else
+        } else {
             return String.format("%02d:%02d", minutes, seconds);
+        }
     }
 
 }

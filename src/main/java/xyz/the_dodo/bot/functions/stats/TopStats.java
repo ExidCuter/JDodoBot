@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.stats;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.StatsUtils;
 import xyz.the_dodo.bot.utils.StringUtils;
 import xyz.the_dodo.database.types.Stats;
@@ -18,7 +18,7 @@ public class TopStats extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         StringBuilder stringBuilder;
         List<Stats> currentServerStats;
 
@@ -39,5 +39,6 @@ public class TopStats extends IFunction {
         StringUtils.splitIntoMessages(stringBuilder.toString(), '\n')
                 .forEach(message -> messageParams.getTextChannel().sendMessage(message).queue());
 
+        return this;
     }
 }

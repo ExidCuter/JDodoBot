@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.stats;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.StatsUtils;
 import xyz.the_dodo.bot.utils.UserUtils;
 import xyz.the_dodo.database.types.Stats;
@@ -16,7 +16,7 @@ public class CountStats extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         User user;
         Stats stats;
 
@@ -25,8 +25,9 @@ public class CountStats extends IFunction {
         if (stats == null) {
             stats = new Stats();
 
-            if (!UserUtils.userExists(messageParams.getUser()))
+            if (!UserUtils.userExists(messageParams.getUser())) {
                 UserUtils.createDodoUser(messageParams.getUser());
+            }
 
             user = UserUtils.userService.findByDiscordId(messageParams.getUser().getId());
 
@@ -38,7 +39,10 @@ public class CountStats extends IFunction {
 
             messageParams.getMessage().addReaction("\u2705").queue();
             messageParams.getTextChannel().sendMessage("Use `!stats` to check your stats").queue();
-        } else
+        } else {
             messageParams.getTextChannel().sendMessage("Your stats are already being tracked!").queue();
+        }
+
+        return this;
     }
 }

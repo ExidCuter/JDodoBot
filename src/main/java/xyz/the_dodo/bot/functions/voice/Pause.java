@@ -1,12 +1,12 @@
 package xyz.the_dodo.bot.functions.voice;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.api.entities.Guild;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.GuildMusicManager;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.audio.GuildMusicManager;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.BeanUtils;
 import xyz.the_dodo.bot.utils.VoiceUtils;
 
@@ -19,7 +19,7 @@ public class Pause extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         Guild guild;
         AudioPlayer player;
         GuildMusicManager musicManager;
@@ -30,11 +30,15 @@ public class Pause extends IFunction {
 
         if (player.getPlayingTrack() != null) {
             player.setPaused(!player.isPaused());
-            if (player.isPaused())
+            if (player.isPaused()) {
                 messageParams.getTextChannel().sendMessage("The player has been paused.").queue();
-            else
+            } else {
                 messageParams.getTextChannel().sendMessage("The player has resumed playing.").queue();
-        } else
+            }
+        } else {
             messageParams.getTextChannel().sendMessage("Cannot pause or resume player because no track is loaded for playing.").queue();
+        }
+
+        return this;
     }
 }

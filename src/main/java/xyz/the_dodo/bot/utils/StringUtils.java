@@ -1,17 +1,17 @@
 package xyz.the_dodo.bot.utils;
 
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StringUtils {
-    public static String[] getCommandNParameters(String str) {
+    public static String[] getCommandAndParameters(String str) {
         return str.split(" ");
     }
 
     public static String[] getParameters(String str) {
-        String[] commandsNParameters = getCommandNParameters(str);
+        String[] commandsNParameters = getCommandAndParameters(str);
         String[] parameters = new String[commandsNParameters.length - 1];
 
         System.arraycopy(commandsNParameters, 1, parameters, 0, commandsNParameters.length - 1);

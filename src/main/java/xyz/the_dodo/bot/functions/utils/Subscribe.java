@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.utils;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.StringUtils;
 import xyz.the_dodo.bot.utils.SubsUtils;
@@ -15,7 +15,7 @@ public class Subscribe extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         int timerMulti;
         String command;
 
@@ -35,7 +35,10 @@ public class Subscribe extends IFunction {
                 messageParams.getTextChannel().sendMessage("`" + messageParams.getParameters()[0] + "` is not a valid number").queue();
             }
 
-        } else
+        } else {
             messageParams.getTextChannel().sendMessage("Only admins can use this command!").queue();
+        }
+
+        return this;
     }
 }

@@ -15,6 +15,10 @@ public class BeanUtils implements ApplicationContextAware {
     }
 
     public static <T> T getBean(Class<T> beanClass) {
-        return context.getBean(beanClass);
+        try {
+            return context.getBean(beanClass);
+        } catch (Exception ignored) {
+            return null;
+        }
     }
 }

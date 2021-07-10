@@ -1,7 +1,7 @@
 package xyz.the_dodo.bot.utils;
 
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.User;
 import xyz.the_dodo.REST.service.BannedServiceImpl;
 import xyz.the_dodo.database.interfaces.services.IBannedService;
 import xyz.the_dodo.database.types.BannedUser;

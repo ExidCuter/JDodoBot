@@ -1,6 +1,6 @@
 package xyz.the_dodo.bot.utils;
 
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.User;
 import org.jetbrains.annotations.NotNull;
 import xyz.the_dodo.REST.service.BankServiceImpl;
 import xyz.the_dodo.database.interfaces.services.IBankService;

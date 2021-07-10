@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    image: mysql
+    container_name: bot_mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootroot
+      - MYSQL_DATABASE=dodo-bot
+      - MYSQL_USER=dodo-bot
+      - MYSQL_PASSWORD=thisisdodobot
+    networks:
+      - bot-network
+    ports:
+      - 3306:3306
+  bot:
+    build: .
+    container_name: dodobot
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      - MYSQL_URL=jdbc:mysql://db:3306/dodo-bot?serverTimezone=UTC
+      - BOT_TOKEN=token
+      - GIPHY_TOKEN=token
+    networks:
+      - bot-network
+networks:
+  bot-network:

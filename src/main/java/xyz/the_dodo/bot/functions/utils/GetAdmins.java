@@ -1,10 +1,10 @@
 package xyz.the_dodo.bot.functions.utils;
 
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Member;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.database.types.Admin;
 
@@ -18,7 +18,7 @@ public class GetAdmins extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         List<Admin> admins;
         StringBuilder adminsOfGuild;
         List<Member> members, adminMembers;
@@ -30,8 +30,9 @@ public class GetAdmins extends IFunction {
 
         admins.forEach(admin -> {
             members.forEach(member -> {
-                if (member.getUser().getId().equals(admin.getUser().getDiscordId()))
+                if (member.getUser().getId().equals(admin.getUser().getDiscordId())) {
                     adminMembers.add(member);
+                }
             });
         });
 
@@ -41,7 +42,10 @@ public class GetAdmins extends IFunction {
             adminMembers.forEach(member -> adminsOfGuild.append(member.getAsMention()).append("\n"));
 
             messageParams.getTextChannel().sendMessage(adminsOfGuild.toString()).queue();
-        } else
+        } else {
             messageParams.getTextChannel().sendMessage("This guild has no admins. TOTAL ANARCHY!!!").queue();
+        }
+
+        return this;
     }
 }

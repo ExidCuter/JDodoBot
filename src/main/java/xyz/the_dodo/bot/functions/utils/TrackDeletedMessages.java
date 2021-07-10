@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.utils;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.ServerUtils;
 import xyz.the_dodo.database.types.Server;
@@ -15,7 +15,7 @@ public class TrackDeletedMessages extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         Server server;
 
         if (AdminUtils.isAdminOfGuild(messageParams.getUser(), messageParams.getGuild())) {
@@ -35,9 +35,13 @@ public class TrackDeletedMessages extends IFunction {
                 }
 
                 ServerUtils.serverService.save(server);
-            } else
+            } else {
                 messageParams.getTextChannel().sendMessage(getEmbededHelp().build()).queue();
-        } else
+            }
+        } else {
             messageParams.getTextChannel().sendMessage("Only admins can use this command!").queue();
+        }
+
+        return this;
     }
 }

@@ -1,10 +1,10 @@
 package xyz.the_dodo.bot.functions.misc;
 
-import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.RandomGen;
 
 @BotService(command = "roll", description = "rolls a X sided dice", usage = "roll <MAX>")
@@ -14,7 +14,7 @@ public class Roll extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         int value, max;
         MessageChannel channel;
 
@@ -23,18 +23,22 @@ public class Roll extends IFunction {
         if (messageParams.getParameters() == null || messageParams.getParameters().length == 0) {
             value = RandomGen.rndNm(7);
 
-            while (value == 0)
+            while (value == 0) {
                 value = RandomGen.rndNm(7);
+            }
 
             channel.sendMessage(String.valueOf(value)).queue();
         } else if (messageParams.getParameters().length > 0) {
             max = Integer.parseInt(messageParams.getParameters()[0]) + 1;
             value = RandomGen.rndNm(max);
 
-            while (value == 0)
+            while (value == 0) {
                 value = RandomGen.rndNm(max);
+            }
 
             channel.sendMessage(String.valueOf(value)).queue();
         }
+
+        return this;
     }
 }

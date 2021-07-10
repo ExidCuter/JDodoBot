@@ -1,13 +1,13 @@
 package xyz.the_dodo.config;
 
+import com.sedmelluq.discord.lavaplayer.jdaudp.NativeAudioSendFactory;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -81,22 +81,25 @@ public class BotConfig {
 
         timer = new Timer();
 
-        jdaBuilder = new JDABuilder(AccountType.BOT)
-                .setToken(this.getToken())
-                .addEventListener(new StatsListener())
-                .addEventListener(new DeleteListener()) //High Memory usage if enabled
-                .addEventListener(new CommandListener())
-                .addEventListener(new OnServerJoinListener())
-                .addEventListener(new OnAddedToServerListener());
+        jdaBuilder = JDABuilder.createDefault(this.getToken())
+                .setAudioSendFactory(new NativeAudioSendFactory())
+                .addEventListeners(
+                        new StatsListener(),
+                        new StageListener(),
+                        new DeleteListener(), //High Memory usage if enabled
+                        new CommandListener(),
+                        new OnServerJoinListener(),
+                        new OnAddedToServerListener()
+                )
+                .setActivity(Activity.listening("!help for HELP"));
 
-        if (!cleverBotToken.equals("TOKEN"))
-            jdaBuilder.addEventListener(new MentionListener());
+        if (!cleverBotToken.equals("TOKEN")) {
+            jdaBuilder.addEventListeners(new MentionListener());
+        }
 
         this.bot = jdaBuilder.build();
 
         this.bot.awaitReady();
-
-        this.bot.getPresence().setGame(Game.streaming("!help for HELP", "https://github.com/ExidCuter/JDodoBot"));
 
         timer.schedule(new TimerTask() {
             @Override

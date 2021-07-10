@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.utils;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.AdminUtils;
 import xyz.the_dodo.bot.utils.RulesUtils;
 
@@ -14,15 +14,19 @@ public class DeleteRules extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         if (AdminUtils.isAdminOfGuild(messageParams.getUser(), messageParams.getGuild())) {
             if (RulesUtils.rulesExist(messageParams.getGuild())) {
                 RulesUtils.deleteRules(messageParams.getGuild());
 
                 messageParams.getTextChannel().sendMessage("Rules deleted!").queue();
-            } else
+            } else {
                 messageParams.getTextChannel().sendMessage("Your guild has no rules total anarchy!").queue();
-        } else
+            }
+        } else {
             messageParams.getTextChannel().sendMessage("Only admins can change the Guild Rules!").queue();
+        }
+
+        return this;
     }
 }

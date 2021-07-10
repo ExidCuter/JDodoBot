@@ -1,10 +1,10 @@
 package xyz.the_dodo.bot.functions.misc;
 
-import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.api.EmbedBuilder;
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.RedditUtils;
 
 import java.awt.*;
@@ -16,7 +16,7 @@ public class RedditRandomPost extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         String post;
         String[] postParts;
         EmbedBuilder embMsg;
@@ -38,5 +38,7 @@ public class RedditRandomPost extends IFunction {
                 messageParams.getTextChannel().sendMessage("No posts found!").queue();
         } else
             messageParams.getTextChannel().sendMessage("Wrong parameters! Please specify a subreddit!").queue();
+
+        return this;
     }
 }

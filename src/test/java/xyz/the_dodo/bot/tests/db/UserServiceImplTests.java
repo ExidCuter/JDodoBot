@@ -1,47 +1,15 @@
 package xyz.the_dodo.bot.tests.db;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit4.SpringRunner;
-import xyz.the_dodo.REST.service.UserServiceImpl;
-import xyz.the_dodo.database.interfaces.repos.IUserRepo;
-import xyz.the_dodo.database.interfaces.services.IUserService;
+import xyz.the_dodo.bot.tests.AbstractTest;
 import xyz.the_dodo.database.types.User;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
-@TestPropertySource({"/h2-test.properties"})
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
-@Sql({"/testData/users.sql"})
-public class UserServiceImplTests {
-	@Autowired
-	private IUserRepo userRepo;
-
-	private IUserService userService;
-
-	@PostConstruct
-	public void setup() {
-		UserServiceImpl service;
-
-		service = new UserServiceImpl();
-
-		service.setUserRepo(userRepo);
-
-		userService = service;
-	}
-
+public class UserServiceImplTests extends AbstractTest {
 	@Test
 	public void test_findAll() {
 		List<User> users;
@@ -91,7 +59,7 @@ public class UserServiceImplTests {
 
 		assertThat(user).isNotNull()
 				.extracting("id", "discordId")
-				.contains(3L, "00000000000002");
+				.contains(5L, "00000000000002");
 
 		//update
 
@@ -101,7 +69,7 @@ public class UserServiceImplTests {
 
 		assertThat(user).isNotNull()
 				.extracting("id", "discordId")
-				.contains(3L, "00000000000003");
+				.contains(5L, "00000000000003");
 	}
 
 	@Test
@@ -120,9 +88,10 @@ public class UserServiceImplTests {
 
 		assertThat(users).isNotNull()
 				.extracting("id", "discordId")
-				.containsExactly(
+				.contains(
 						tuple(1L, "00000000000000"),
 						tuple(2L, "00000000000001"),
+						tuple(3L, "666"),
 						tuple(user.getId(), user.getDiscordId())
 				);
 
@@ -132,9 +101,8 @@ public class UserServiceImplTests {
 
 		assertThat(users).isNotNull()
 				.extracting("id", "discordId")
-				.containsExactly(
-						tuple(1L, "00000000000000"),
-						tuple(2L, "00000000000001")
+				.doesNotContain(
+						tuple(user.getId(), user.getDiscordId())
 				);
 	}
 }

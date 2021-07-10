@@ -2,8 +2,8 @@ package xyz.the_dodo.bot.functions.utils;
 
 import xyz.the_dodo.bot.anotations.BotService;
 import xyz.the_dodo.bot.functions.IFunction;
-import xyz.the_dodo.bot.types.CommandCategoryEnum;
-import xyz.the_dodo.bot.types.MessageParams;
+import xyz.the_dodo.bot.types.message.CommandCategoryEnum;
+import xyz.the_dodo.bot.types.message.MessageParams;
 import xyz.the_dodo.bot.utils.DefaultRoleUtils;
 import xyz.the_dodo.bot.utils.ServerUtils;
 import xyz.the_dodo.database.types.DefaultRole;
@@ -16,7 +16,7 @@ public class GetDefaultRole extends IFunction {
     }
 
     @Override
-    public void trigger(MessageParams messageParams) {
+    public IFunction prepare(MessageParams messageParams) {
         Server server;
         DefaultRole defaultRole;
 
@@ -28,10 +28,13 @@ public class GetDefaultRole extends IFunction {
             if (defaultRole != null) {
                 messageParams.getTextChannel().sendMessage("Default role of this guild is " +
                         messageParams.getGuild().getRoleById(defaultRole.getDiscordId()).getAsMention()).queue();
-                return;
+
+                return this;
             }
         }
 
         messageParams.getTextChannel().sendMessage("Default role is not set!").queue();
+
+        return this;
     }
 }
